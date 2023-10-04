@@ -1,6 +1,6 @@
 import express from 'express';
 import cors from 'cors';
-import userRoutes from './routes/user.routes';
+import routes from './routes/routes';
 import connectToDatabase from './config/db';
 
 const app = express();
@@ -8,8 +8,8 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Usa las rutas de usuario
-app.use('/api/v1/users', userRoutes);
+// Usa la aplicación configurada que incluye todas las rutas
+app.use('/', routes);
 
 const port = process.env.PORT || 3000;
 
