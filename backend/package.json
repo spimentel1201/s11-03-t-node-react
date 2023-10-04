@@ -5,6 +5,7 @@
   "scripts": {
     "format": "prettier --write \"**/*.js\"",
     "dev": "nodemon --exec babel-node ./src/server.js",
+    "start": "babel-node ./src/server.js",
     "lint": "eslint .",
     "test": "jest"
   },
