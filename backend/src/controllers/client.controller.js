@@ -17,9 +17,14 @@ export const createClient = async (req, res) => {
       password,
     });
 
+    // Guarda el nuevo cliente en la base de datos
     await newClient.save();
 
-    res.status(201).json({ message: 'Cliente creado con éxito', client: newClient });
+    // Elimina la propiedad de la contraseña antes de enviar la respuesta
+    const clientResponse = { ...newClient._doc };
+    delete clientResponse.password;
+
+    res.status(201).json({ message: 'Cliente creado con éxito', client: clientResponse });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Error interno del servidor' });

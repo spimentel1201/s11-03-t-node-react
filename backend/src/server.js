@@ -8,7 +8,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Usa la aplicación configurada que incluye todas las rutas
+// Utiliza la aplicación configurada que incluye todas las rutas
 app.use('/', routes);
 
 const port = process.env.PORT || 3000;
@@ -17,11 +17,13 @@ const port = process.env.PORT || 3000;
 connectToDatabase()
   .then(() => {
     console.log('Conexión exitosa a la base de datos');
-
-    app.listen(port, () => {
-      console.log(`App corriendo en el puerto ${port}`);
-    });
+    console.log(`Servidor escuchando en el puerto ${port}`);
   })
   .catch((error) => {
-    console.error(`Error de conexión a la base de datos: ${error}`);
+    console.error('Error al conectar con la base de datos:', error);
   });
+
+// Manejo de errores en el puerto
+app.listen(port, () => {
+  console.log(`Aplicación Express corriendo en el puerto ${port}`);
+});
