@@ -6,15 +6,15 @@ import {
   updateClient,
   deleteClient,
 } from '../controllers/client.controller';
-import { ClientValidation } from '../middlewares/validation.middleware';
+import { registerValidation, updateValidation } from '../middlewares/validation.middleware';
 
 const router = express.Router();
 
 // Rutas CRUD para clientes
-router.post('/', createClient);
+router.post('/', registerValidation, createClient);
 router.get('/', getAllClients);
 router.get('/:clientId', getClientById);
-router.put('/:clientId', ClientValidation, updateClient);
+router.put('/:clientId', updateValidation, updateClient);
 router.delete('/:clientId', deleteClient);
 
 export default router;

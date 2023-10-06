@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import routes from './routes/routes';
 import connectToDatabase from './config/db';
+import configureSwagger from './config/swagger';
 
 const app = express();
 
@@ -10,6 +11,9 @@ app.use(express.json());
 
 // Utiliza la aplicación configurada que incluye todas las rutas
 app.use('/', routes);
+
+// Configurar Swagger UI
+configureSwagger(app);
 
 const port = process.env.PORT || 3000;
 
@@ -20,6 +24,7 @@ app.use(express.static('public'));
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/public/index.html');
 });
+
 
 // Llama a la función de conexión a la base de datos
 connectToDatabase()
