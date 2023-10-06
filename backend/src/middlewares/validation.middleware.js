@@ -15,7 +15,7 @@ export const validFields = (req, res, next) => {
   next();
 };
 
-export const ClientValidation = [
+export const updateValidation = [
   body('first_name')
     .notEmpty()
     .withMessage('El campo first_name no puede estar vacío')
@@ -43,3 +43,19 @@ export const ClientValidation = [
     .withMessage('El campo photo_url debe ser una URL válida con http o https'),
   validFields,
 ];
+
+export const registerValidation = [
+  body('email')
+    .notEmpty()
+    .withMessage('El campo email no puede estar vacío')
+    .isEmail()
+    .withMessage('El campo email debe ser una dirección de correo válida'),
+
+  body('password')
+    .notEmpty()
+    .withMessage('El campo password no puede estar vacío')
+    .isLength({ min: 8 })
+    .withMessage('El campo password debe tener al menos 8 caracteres'),
+
+  validFields,
+]
