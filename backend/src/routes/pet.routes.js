@@ -1,10 +1,5 @@
 import express from 'express';
-import {
-    createPet,
-    getAllPets,
-    getPetById,
-    updatePet
-} from '../controllers/pet.controller';
+import { createPet, getAllPets, getPetById, updatePet } from '../controllers/pet.controller';
 const router = express.Router();
 
 // Rutas para mascotas

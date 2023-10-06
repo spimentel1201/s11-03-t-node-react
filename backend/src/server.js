@@ -25,7 +25,6 @@ app.get('/', (req, res) => {
   res.sendFile(__dirname + '/public/index.html');
 });
 
-
 // Llama a la función de conexión a la base de datos
 connectToDatabase()
   .then(() => {

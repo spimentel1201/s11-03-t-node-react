@@ -58,4 +58,4 @@ export const registerValidation = [
     .withMessage('El campo password debe tener al menos 8 caracteres'),
 
   validFields,
-]
+];
