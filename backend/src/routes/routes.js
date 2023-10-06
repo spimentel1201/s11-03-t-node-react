@@ -11,6 +11,6 @@ router.use('/api/v1/clients', clientRoutes);
 router.use('/api/v1/images', imageRoutes);
 // Rutas de mascotas
 router.use('/api/v1/pets', petRoutes);
-// Otras rutas 
+// Otras rutas
 
 export default router;

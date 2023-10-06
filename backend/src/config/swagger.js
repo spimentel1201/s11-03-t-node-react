@@ -4,5 +4,5 @@ import swaggerUi from 'swagger-ui-express';
 import swaggerDefinition from '../../docs/swaggerDefinition.json';
 
 export default function configureSwagger(app) {
-    app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDefinition));
+  app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDefinition));
 }
