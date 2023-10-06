@@ -1,29 +1,7 @@
-import express from 'express';
-import cors from 'cors';
-import routes from './routes/routes';
+import app from './app';
 import connectToDatabase from './config/db';
-import configureSwagger from './config/swagger';
-
-const app = express();
-
-app.use(cors());
-app.use(express.json());
-
-// Utiliza la aplicación configurada que incluye todas las rutas
-app.use('/', routes);
-
-// Configurar Swagger UI
-configureSwagger(app);
 
 const port = process.env.PORT || 3000;
-
-// Configura Express para servir archivos estáticos desde la carpeta "public"
-app.use(express.static('public'));
-
-// Ruta de inicio que muestra el archivo "index.html"
-app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/public/index.html');
-});
 
 // Llama a la función de conexión a la base de datos
 connectToDatabase()
@@ -36,6 +14,8 @@ connectToDatabase()
   });
 
 // Manejo de errores en el puerto
-app.listen(port, () => {
-  console.log(`Aplicación Express corriendo en http://localhost:${port}`);
-});
+if (process.env.NODE_ENV !== 'test') {
+  app.listen(port, () => {
+    console.log(`Aplicación Express corriendo en http://localhost:${port}`);
+  });
+}

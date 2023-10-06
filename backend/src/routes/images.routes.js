@@ -1,6 +1,7 @@
 import express from 'express';
 import multer from 'multer';
 import { uploadImage } from '../controllers/image.controller';
+import { uploadImageValidation } from '../middlewares/validation.middleware';
 
 const router = express.Router();
 
@@ -9,6 +10,7 @@ const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
 // Ruta para cargar imágenes, utiliza el controlador
-router.post('/upload', upload.single('image'), uploadImage);
+router.post('/upload', upload.single('image'), uploadImageValidation, uploadImage);
+//Aquí iran otras rutas
 
 export default router;

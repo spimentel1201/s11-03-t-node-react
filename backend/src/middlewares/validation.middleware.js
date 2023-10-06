@@ -1,4 +1,5 @@
 import { body, validationResult } from 'express-validator';
+import path from 'path';
 
 export const validFields = (req, res, next) => {
   const errors = validationResult(req);
@@ -56,6 +57,32 @@ export const registerValidation = [
     .withMessage('El campo password no puede estar vacío')
     .isLength({ min: 8 })
     .withMessage('El campo password debe tener al menos 8 caracteres'),
+
+  validFields,
+];
+
+export const uploadImageValidation = [
+  // Validación para asegurarse de que se proporciona un archivo
+  body('image').custom((value, { req }) => {
+    if (!req.file) {
+      throw new Error('No se proporcionó ningún archivo');
+    }
+    return true;
+  }),
+
+  // Validación para verificar que el archivo es una imagen según la extensión
+  body('image').custom((value, { req }) => {
+    const allowedExtensions = ['.jpg', '.jpeg', '.png']; // extensiones permitidas
+    if (req.file) {
+      const fileExtension = path.extname(req.file.originalname).toLowerCase();
+      if (!allowedExtensions.includes(fileExtension)) {
+        throw new Error(
+          `El archivo debe ser una imagen con una de las siguientes extensiones: ${allowedExtensions.join(', ')}`,
+        );
+      }
+    }
+    return true;
+  }),
 
   validFields,
 ];
