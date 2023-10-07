@@ -63,14 +63,43 @@ export const getAppointmentById = async (req, res) => {
       return res.status(400).json({ error: 'Id inválido' });
     }
 
-    const appointment = await Appointment.findById(appointmentId);
+    const appointment = await Appointment.findById(appointmentId)
+      .populate('clientId', '-password')
+      .populate('petId');
+
     if (!appointment) {
       return res.status(404).json({ error: 'Cita no encontrada' });
     }
+
     res.status(200).json(appointment);
+
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Error al obtener la cita' });
+  }
+};
+
+// Actualizar una cita por ID
+export const updateAppointment = async (req, res) => {
+  const { appointmentId } = req.params;
+  const { ...updateFields } = req.body;
+
+  try {
+    const appointment = await Appointment.findById(appointmentId);
+
+    if (!appointment) {
+      return res.status(404).json({ error: 'Cita no encontrada' });
+    }
+    const updatedAppointment = await Appointment.findByIdAndUpdate(
+      appointmentId,
+      { $set: updateFields },
+      { new: true },
+    );
+
+    res.status(200).json({ message: 'Datos de la cita actualizados con éxito', appointment: updatedAppointment });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Error al actualizar la información sobre la cita' });
   }
 };
 
