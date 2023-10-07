@@ -38,3 +38,9 @@ export const registerClientValidation = generateValidationRules('registerClient'
     isLength: { min: 8, max: 30 },
   },
 });
+
+export const deleteImageValidation = generateValidationRules('deleteImage', {
+  publicId: {
+    notEmpty: {},
+  },
+});

@@ -25,3 +25,33 @@ export const uploadImage = async (req, res) => {
     res.status(500).json({ error: 'Error al cargar la imagen' });
   }
 };
+export const deleteImage = async (req, res) => {
+  const { publicId } = req.body;
+
+  try {
+    // Verificar si la imagen existe en Cloudinary
+    const imageExists = await imageExistsInCloudinary(publicId);
+
+    if (!imageExists) {
+      return res.status(404).json({ error: 'La imagen no existe en Cloudinary.' });
+    }
+
+    // La imagen existe, procede a eliminarla
+    await cloudinary.uploader.destroy(publicId);
+    res.json({ message: 'Imagen eliminada con éxito.' });
+  } catch (error) {
+    console.error(`Error al eliminar la imagen con public_id ${publicId}: ${error}`);
+    res.status(500).json({ error: 'Error al eliminar la imagen de perfil' });
+  }
+};
+
+// Función para verificar si una imagen existe en Cloudinary
+const imageExistsInCloudinary = async (publicId) => {
+  try {
+    const result = await cloudinary.api.resource(publicId);
+    return 'public_id' in result;
+  } catch (error) {
+    console.error(`Error al verificar la existencia de la imagen: ${error.message}`);
+    return false;
+  }
+};
