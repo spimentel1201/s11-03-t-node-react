@@ -17,5 +17,7 @@ router.get('/', getAllAppointments);
 router.get('/:appointmentId', getAppointmentById);
 //Actualizar la información de una cita
 router.put('/:appointmentId', updateAppointment);
+//Eliminar una cita
+router.delete('/:appointmentId', deleteAppointment);
 
 export default router;

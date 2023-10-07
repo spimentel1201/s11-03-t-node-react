@@ -44,13 +44,13 @@ export const createAppointment = async (req, res) => {
 export const getAllAppointments = async (req, res) => {
   try {
     const appointments = await Appointment.find().populate([
-      { path: 'clientId', select: '-password' }, // Poblar la referencia a Client
-      { path: 'petId' }, // Poblar la referencia a Doctor
+      { path: 'clientId', select: '-password' }, 
+      { path: 'petId' }, 
     ]);
     res.status(200).json(appointments);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Error al obtener la información de la cita' });
+    res.status(500).json({ error: 'Error al obtener la información de las citas' });
   }
 };
 
@@ -85,6 +85,11 @@ export const updateAppointment = async (req, res) => {
   const { ...updateFields } = req.body;
 
   try {
+    //Verificar que appointmentId sea de tipo ObjectId
+    if (!mongoose.Types.ObjectId.isValid(appointmentId)) {
+      return res.status(400).json({ error: 'Id inválido' });
+    }
+
     const appointment = await Appointment.findById(appointmentId);
 
     if (!appointment) {
@@ -103,4 +108,25 @@ export const updateAppointment = async (req, res) => {
   }
 };
 
+// Eliminar una cita por ID
+export const deleteAppointment = async (req, res) => {
+  const { appointmentId } = req.params;
 
+  try {
+    //Verificar que appointmentId sea de tipo ObjectId
+    if (!mongoose.Types.ObjectId.isValid(appointmentId)) {
+      return res.status(400).json({ error: 'Id inválido' });
+    }
+
+    const deletedAppointment = await Appointment.findByIdAndDelete(appointmentId);
+
+    if (!deletedAppointment) {
+      return res.status(404).json({ error: 'Cita no encontrada' });
+    }
+
+    res.status(200).json({ message: 'La cita fue eliminada con éxito' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Error al eliminar cita' });
+  }
+};
