@@ -8,7 +8,7 @@ export const validFields = (req, res, next) => {
       message: error.msg,
     }));
     return res.status(400).json({
-      status: 'error',
+      status: 'fail',
       errors: errorMessages,
     });
   }

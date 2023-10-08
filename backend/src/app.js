@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import routes from './routes/routes';
 import configureSwagger from './config/swagger';
+import { globalError } from './middlewares/globalError.middleware';
 
 const app = express();
 
@@ -21,5 +22,8 @@ app.use(express.static('public'));
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/public/index.html');
 });
+
+// Monta el middleware global de manejo de errores
+app.use(globalError);
 
 export default app;
