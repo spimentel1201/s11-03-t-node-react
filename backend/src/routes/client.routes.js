@@ -12,8 +12,7 @@ import { validMongoId } from '../middlewares/validMongoId.middleware';
 const router = express.Router();
 
 // Middleware para todas las rutas de cliente que requieren un cliente por ID
-router.param('clientId', validMongoId);
-
+router.param('clientId', validMongoId('clientId'));
 // Rutas CRUD para clientes
 router.post('/', registerClientValidation, createClient);
 router.get('/', getAllClients);
