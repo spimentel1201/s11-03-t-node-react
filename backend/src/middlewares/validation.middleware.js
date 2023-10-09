@@ -1,4 +1,4 @@
-import { body, validationResult } from 'express-validator';
+import { body, param, validationResult } from 'express-validator';
 
 export const validFields = (req, res, next) => {
   const errors = validationResult(req);
@@ -41,5 +41,78 @@ export const ClientValidation = [
     .withMessage('El campo photo_url no puede estar vacío')
     .isURL({ protocols: ['http', 'https'], require_tld: true, require_protocol: true })
     .withMessage('El campo photo_url debe ser una URL válida con http o https'),
+  validFields,
+];
+
+export const createAppointmentsValidation = [
+  body('date')
+    .isISO8601()
+    .toDate()
+    .withMessage('El campo date debe ser una fecha ISO 8601'),
+  body('reason')
+    .notEmpty()
+    .withMessage('El campo reason no puede estar vacío')
+    .isString()
+    .withMessage('El campo reason debe ser un string')
+    .isLength({ max: 255 })
+    .withMessage('El campo reason no puede exceder los 255 caracteres'),
+  body('cost')
+    .notEmpty()
+    .withMessage('El campo cost no puede estar vacío')
+    .isFloat({ min: 0 })
+    .withMessage('El campo cost debe ser un número igual/mayor a 0'),
+  body('notes')
+    .notEmpty()
+    .withMessage('El campo notes no puede estar vacío')
+    .isString()
+    .withMessage('El campo notes debe ser un string')
+    .isLength({ max: 255 })
+    .withMessage('El campo notes no puede exceder los 255 caracteres'),
+  body('clientId')
+    .isMongoId()
+    .withMessage(
+      `El campo clientId debe ser un ID válido de MongoDB en formato hexadecimal de 24 caracteres`,
+    ),
+  body('petId')
+    .isMongoId()
+    .withMessage(
+      `El campo petId debe ser un ID válido de MongoDB en formato hexadecimal de 24 caracteres`,
+    ),
+  validFields,
+];
+
+export const appointmentIdParamValidation = [
+  param("appointmentId")
+    .isMongoId()
+    .withMessage(
+      `El parametro appointmentId debe ser un ID válido de MongoDB en formato hexadecimal de 24 caracteres`,
+    ),
+  validFields,
+];
+
+export const updateAppointmentsValidation = [
+  body('date')
+    .isISO8601()
+    .toDate()
+    .withMessage('El campo date debe ser una fecha ISO 8601'),
+  body('reason')
+    .notEmpty()
+    .withMessage('El campo reason no puede estar vacío')
+    .isString()
+    .withMessage('El campo reason debe ser un string')
+    .isLength({ max: 255 })
+    .withMessage('El campo reason no puede exceder los 255 caracteres'),
+  body('cost')
+    .notEmpty()
+    .withMessage('El campo cost no puede estar vacío')
+    .isFloat({ min: 0 })
+    .withMessage('El campo cost debe ser un número igual/mayor a 0'),
+  body('notes')
+    .notEmpty()
+    .withMessage('El campo notes no puede estar vacío')
+    .isString()
+    .withMessage('El campo notes debe ser un string')
+    .isLength({ max: 255 })
+    .withMessage('El campo notes no puede exceder los 255 caracteres'),
   validFields,
 ];

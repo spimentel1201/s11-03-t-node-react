@@ -8,11 +8,6 @@ export const createAppointment = async (req, res) => {
   try {
     const { date, reason, cost, notes, petId, clientId } = req.body;
 
-    //Verificar que los id de pets y client sean de tipo ObjectId
-    if (!mongoose.Types.ObjectId.isValid(clientId) || !mongoose.Types.ObjectId.isValid(petId)) {
-      return res.status(400).json({ error: 'Id de cliente/mascota inválido' });
-    }
-
     // Verificar si el cliente que se asociara a la cita existe en DB.
     const existingPet = await Pet.findById(petId);
     const existingClient = await Client.findById(clientId);
@@ -58,11 +53,6 @@ export const getAllAppointments = async (req, res) => {
 export const getAppointmentById = async (req, res) => {
   const { appointmentId } = req.params;
   try {
-    //Verificar que appointmentId sea de tipo ObjectId
-    if (!mongoose.Types.ObjectId.isValid(appointmentId)) {
-      return res.status(400).json({ error: 'Id inválido' });
-    }
-
     const appointment = await Appointment.findById(appointmentId)
       .populate('clientId', '-password')
       .populate('petId');
@@ -85,11 +75,6 @@ export const updateAppointment = async (req, res) => {
   const { ...updateFields } = req.body;
 
   try {
-    //Verificar que appointmentId sea de tipo ObjectId
-    if (!mongoose.Types.ObjectId.isValid(appointmentId)) {
-      return res.status(400).json({ error: 'Id inválido' });
-    }
-
     const appointment = await Appointment.findById(appointmentId);
 
     if (!appointment) {
@@ -113,11 +98,6 @@ export const deleteAppointment = async (req, res) => {
   const { appointmentId } = req.params;
 
   try {
-    //Verificar que appointmentId sea de tipo ObjectId
-    if (!mongoose.Types.ObjectId.isValid(appointmentId)) {
-      return res.status(400).json({ error: 'Id inválido' });
-    }
-
     const deletedAppointment = await Appointment.findByIdAndDelete(appointmentId);
 
     if (!deletedAppointment) {
