@@ -1,7 +1,9 @@
-import Client from '../schemas/client.schema';
-import ErrorApp from '../utils/ErrorApp';
-import disableEntity from '../utils/disableEntity';
+import { paginate } from '../utils/pagination';
+import { sendResponse } from '../responses/responseUtils';
 import { tryCatch } from '../utils/tryCatch';
+import Client from '../schemas/client.schema';
+import disableEntity from '../utils/disableEntity';
+import ErrorApp from '../utils/ErrorApp';
 
 // Crear un nuevo cliente
 export const createClient = tryCatch(async (req, res) => {
@@ -23,31 +25,35 @@ export const createClient = tryCatch(async (req, res) => {
   // Guarda el nuevo cliente en la base de datos
   await newClient.save();
 
-  // Elimina la propiedad de la contraseña antes de enviar la respuesta
-  const clientResponse = { ...newClient._doc };
-  delete clientResponse.password;
-
-  res.status(201).json({ message: 'Cliente creado con éxito', client: clientResponse });
+  // Devuelve una respuesta RESTful desde utils
+  sendResponse(res, 201, 'Cliente creado con éxito', newClient);
 });
 
 // Obtener todos los clientes
 export const getAllClients = tryCatch(async (req, res) => {
-  const clients = await Client.find({ isActive: true }, { password: 0 });
-  res.status(200).json(clients);
+  const page = parseInt(req.query.page) || 1;
+  const limit = parseInt(req.query.limit) || 10; // Límite 10 por defecto
+  const baseUrl = `${req.protocol}://${req.get('host')}${req.originalUrl.split('?')[0]}`;
+
+  const response = await paginate(Client, page, limit, baseUrl);
+
+  // Devuelve una respuesta RESTful desde utils
+  sendResponse(res, 200, 'Clientes encontrados con éxito', response);
 });
 
 // Obtener un cliente por ID
 export const getClientById = tryCatch(async (req, res) => {
   const { clientId } = req.params;
 
-  const client = await Client.findById(clientId, { password: 0 });
+  const client = await Client.findById(clientId);
 
   if (!client) {
     const error = ErrorApp(`Cliente no encontrado`, 404);
     throw error;
   }
 
-  res.status(200).json(client);
+  // Devuelve una respuesta RESTful desde utils
+  sendResponse(res, 200, 'Cliente encontrado con éxito', client);
 });
 
 // Actualizar un cliente por ID
@@ -73,18 +79,16 @@ export const updateClient = tryCatch(async (req, res) => {
   // Actualiza los campos si el cliente está activo
   const updatedClient = await Client.findByIdAndUpdate(clientId, { $set: updateFields }, { new: true });
 
-  // Si el cliente se actualiza con éxito, elimina la contraseña y envía la respuesta
-  delete updatedClient.password;
-  res.status(200).json({ message: 'Cliente actualizado con éxito', client: updatedClient });
+  // Devuelve una respuesta RESTful desde utils
+  sendResponse(res, 200, 'Cliente actualizado con éxito', updatedClient);
 });
 
 // Desactivar un cliente por ID
-export const deleteClient = tryCatch(async (req, res, next) => {
+export const deleteClient = tryCatch(async (req, res) => {
   const { clientId } = req.params;
 
   // Llama a la función útil disableEntity con los tres parametros
   await disableEntity(Client, clientId, 'Cliente');
 
-  res.status(200).json({ message: 'Cliente desactivado con éxito' });
-  next();
+  sendResponse(res, 200, 'Cliente desactivado con éxito');
 });

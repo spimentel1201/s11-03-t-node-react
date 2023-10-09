@@ -14,6 +14,13 @@ const clientSchemaDefinition = new mongoose.Schema({
   isActive: { type: Boolean, default: true },
 });
 
+// Función toJSON personalizada para excluir campos sensibles
+clientSchemaDefinition.methods.toJSON = function () {
+  const obj = this.toObject();
+  delete obj.password;
+  return obj;
+};
+
 const Client = mongoose.model('Client', clientSchemaDefinition);
 
 export default Client;
