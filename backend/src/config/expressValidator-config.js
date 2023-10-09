@@ -75,7 +75,7 @@ export const validationConfig = {
     errorMessage: (fieldName) => `El campo ${fieldName} debe ser un valor booleano (true o false)`,
   },
   isDate: {
-    validator: (fieldName) => body(fieldName).isDate(),
+    validator: (fieldName) => body(fieldName).toDate().isISO8601(),
     errorMessage: (fieldName) => `El campo ${fieldName} debe ser una fecha válida`,
   },
   isAfter: {
@@ -85,6 +85,10 @@ export const validationConfig = {
   isBefore: {
     validator: (fieldName, date) => body(fieldName).isBefore(date),
     errorMessage: (fieldName) => `El campo ${fieldName} debe ser una fecha anterior a la fecha proporcionada`,
+  },
+  isMongoId: {
+    validator: (fieldName) => body(fieldName).isMongoId(),
+    errorMessage: (fieldName) => `ID ${fieldName} proporcionado no es un ObjectId válido de MongoDB.`,
   },
 
   // Agrega más reglas de validación nativas aquí...
