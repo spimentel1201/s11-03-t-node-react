@@ -14,6 +14,6 @@ router.use('/api/v1/images', imageRoutes);
 router.use('/api/v1/pets', petRoutes);
 // Rutas de citas
 router.use('/api/v1/appointments', appointmentsRoutes);
-// Otras rutas 
+// Otras rutas
 
 export default router;
