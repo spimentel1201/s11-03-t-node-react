@@ -2,8 +2,8 @@ import Image from 'next/image'
 
 const Register = () => (
   <div class="flex justify-center items-start h-screen">
-    <div className="hero-content flex-col lg:flex-row-reverse justify-start lg:justify-start">
-      <div className="text-center lg:text-left">        
+  <div className="hero-content flex-col lg:flex-row-reverse justify-start lg:justify-start">
+    <div className="text-center lg:text-left">
         <Image
           src="/auth-image.png"
           alt="Imagen de perritos"
@@ -16,12 +16,12 @@ const Register = () => (
           id nisi.
         </p> */}
       </div>
-      <div className="card flex-shrink-1 w-full max-w-sm shadow-2xl bg-base-300">
-        <div className="card-body">
-        <h1 className="text-3xl font-bold">Registro</h1>
+      <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl">
+        <div className="card-body bg-secondary text-secondary-content">
+          <h1 className="text-3xl font-bold">Registro</h1>
           <div className="form-control">
             <label className="label">
-              <span className="label-text">Nombre y Apellido</span>
+              <span className="">Nombre y Apellido</span>
             </label>
             <input
               type="text"
@@ -31,7 +31,7 @@ const Register = () => (
           </div>
           <div className="form-control">
             <label className="label">
-              <span className="label-text">E-mail</span>
+              <span className="">E-mail</span>
             </label>
             <input
               type="text"
@@ -41,7 +41,7 @@ const Register = () => (
           </div>
           <div className="form-control">
             <label className="label">
-              <span className="label-text">Contraseña</span>
+              <span className="">Contraseña</span>
             </label>
             <input
               type="text"
@@ -51,7 +51,7 @@ const Register = () => (
           </div>
           <div className="form-control">
             <label className="label">
-              <span className="label-text">Confirmar contraseña</span>
+              <span className="">Confirmar contraseña</span>
             </label>
             <input
               type="text"
@@ -60,11 +60,9 @@ const Register = () => (
             />
           </div>
           <div className="form-control mt-6">
-            <button className="btn btn-neutral">Registrarse</button>
+            <button className="btn btn-accent text-accent-content">Registrarse</button>
           </div>
-          <div class="divider">
-            O registrarse con
-          </div>
+          <div class="divider">O registrarse con</div>
           <div className="avatar justify-center gap-8">
             <div className="rounded">
               <Image src="/logo.png" width="24" height="24" alt="icono" />
@@ -77,7 +75,7 @@ const Register = () => (
             </div>
           </div>
         </div>
-      </div>      
+      </div>
     </div>
   </div>
 )
