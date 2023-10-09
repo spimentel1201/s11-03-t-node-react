@@ -1,7 +1,7 @@
 import Image from 'next/image'
 
 const Register = () => (
-  <div class="flex justify-center items-center h-screen">
+  <div class="flex justify-center items-start h-screen">
     <div className="hero-content flex-col lg:flex-row-reverse justify-start lg:justify-start">
       <div className="text-center lg:text-left">        
         <Image
