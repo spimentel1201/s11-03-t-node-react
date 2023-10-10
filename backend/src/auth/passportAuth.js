@@ -20,8 +20,8 @@ passport.use(
           if (existingClient.fullname !== profile.displayName) {
             existingClient.fullname = profile.displayName;
           }
-          if (!existingClient.profilePicture && profile.photos && profile.photos.length > 0) {
-            existingClient.profilePicture = profile.photos[0].value;
+          if (!existingClient.photo_url && profile.photos && profile.photos.length > 0) {
+            existingClient.photo_url = profile.photos[0].value;
           }
 
           await existingClient.save();
