@@ -5,7 +5,7 @@ import Link from 'next/link'
 export default function Home() {
   return (
     <div className="h-screen flex flex-col text-center items-center justify-center">
-      <div className="card lg:card-side bg-secondary shadow-xl">
+      <div className="card lg:card-side bg-secondary">
         <figure className="p-4">
           <Image className="rounded-xl"src="/logo.png" alt="Album" width={200} height={200} />
         </figure>

@@ -7,7 +7,7 @@ const Login = () => (
         <Image
           src="/auth-image.png"
           alt="Imagen de perritos"
-          width="450"
+          width="350"
           height="500"
         />
         {/* <p className="py-6">
@@ -16,27 +16,27 @@ const Login = () => (
           id nisi.
         </p> */}
       </div>
-      <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-300">
-        <div className="card-body bg-secondary text-secondary-content">
+      <div className="card flex-shrink-0 w-full max-w-sm bg-base-300">
+        <div className="card-body bg-primary text-primary-content">
           <h1 className="text-3xl font-bold">Iniciar Sesión</h1>
           <div className="form-control">
             <label className="label">
-              <span className="">E-mail</span>
+              <span className="font-bold">E-mail</span>
             </label>
             <input
               type="text"
               placeholder="vetcare@gmail"
-              className="input input-bordered"
+              className="input input-bordered bg-slate-100 border-none"
             />
           </div>
           <div className="form-control">
             <label className="label">
-              <span className="">Contraseña</span>
+              <span className="font-bold">Contraseña</span>
             </label>
             <input
               type="text"
               placeholder="Ingrese tu contraseña"
-              className="input input-bordered"
+              className="input input-bordered bg-slate-100 border-none"
             />
           </div>
           <div class="flex justify-end">¿Olviste la contraseña?</div>

@@ -7,7 +7,25 @@ module.exports = {
     './src/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   daisyui: {
-    themes: ['light', 'dark', "cupcake"],
+    themes: [
+      {
+        veterinaria: {
+          primary: '#FFFFFF',
+          secondary: '#FFFAF5',
+          accent: '#FF5B2E',
+          'accent-content': '#FFFFFF',
+          neutral: '#2b3440',
+          'base-100': '#ffffff',
+          info: '#3abff8',
+          success: '#36d399',
+          warning: '#fbbd23',
+          error: '#f87272',
+        },
+      },
+      'light',
+      'dark',
+      'cupcake',
+    ],
   },
   theme: {
     extend: {},

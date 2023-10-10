@@ -9,54 +9,50 @@ const Register = () => (
           alt="Imagen de perritos"
           width="450"
           height="500"
-        />
-        {/* <p className="py-6">
-          Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
-          excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a
-          id nisi.
-        </p> */}
+          className="w-[8rem] lg:w-[24rem] object-cover"
+        />        
       </div>
-      <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl">
-        <div className="card-body bg-secondary text-secondary-content">
-          <h1 className="text-3xl font-bold">Registro</h1>
+      <div className="card flex-shrink-0 w-full max-w-sm">
+        <div className="card-body bg-primary text-primary-content">
+          <h1 className="text-3xl font-bold text-center lg:text-start">Registro</h1>
           <div className="form-control">
             <label className="label">
-              <span className="">Nombre y Apellido</span>
+              <span className="font-bold">Nombre y Apellido</span>
             </label>
             <input
               type="text"
               placeholder="Ingrese su nombre y apellido"
-              className="input input-bordered"
+              className="input input-bordered bg-slate-100 border-none"
             />
           </div>
           <div className="form-control">
             <label className="label">
-              <span className="">E-mail</span>
+              <span className="font-bold">E-mail</span>
             </label>
             <input
               type="text"
               placeholder="vetcare@gmail"
-              className="input input-bordered"
+              className="input input-bordered bg-slate-100 border-none"
             />
           </div>
           <div className="form-control">
             <label className="label">
-              <span className="">Contraseña</span>
+              <span className="font-bold">Contraseña</span>
             </label>
             <input
               type="text"
               placeholder="Ingrese tu contraseña"
-              className="input input-bordered"
+              className="input input-bordered bg-slate-100 border-none"
             />
           </div>
           <div className="form-control">
             <label className="label">
-              <span className="">Confirmar contraseña</span>
+              <span className="font-bold">Confirmar contraseña</span>
             </label>
             <input
               type="text"
               placeholder="repita su contraseña"
-              className="input input-bordered"
+              className="input input-bordered bg-slate-100 border-none"
             />
           </div>
           <div className="form-control mt-6">
