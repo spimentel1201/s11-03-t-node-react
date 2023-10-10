@@ -10,9 +10,8 @@ const TOKEN_EXPIRATION = process.env.TOKEN_EXPIRATION || '1h';
 
 // Registrar un nuevo cliente
 export const registerClient = tryCatch(async (req, res) => {
-  const { email, password } = req.body;
+  const { fullname, email, password } = req.body;
 
-  console.log(TOKEN_EXPIRATION);
   // Verifica si el correo electrónico ya existe en la base de datos
   const existingClient = await Client.findOne({ email });
 
@@ -26,7 +25,8 @@ export const registerClient = tryCatch(async (req, res) => {
   const hashedPassword = await bcrypt.hash(password, saltRounds);
 
   const newClient = new Client({
-    email,
+    fullname,
+    email: email.toLowerCase(),
     password: hashedPassword,
   });
 
@@ -37,7 +37,6 @@ export const registerClient = tryCatch(async (req, res) => {
   // Crea un token JWT con la información del cliente
   const token = jwt.sign({ clientId: newClient._id }, secretKey, { expiresIn: TOKEN_EXPIRATION });
 
-  // Simplificar la respuesta
   sendResponse(res, 201, 'Cliente creado con éxito', { token });
 });
 

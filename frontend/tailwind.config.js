@@ -6,8 +6,29 @@ module.exports = {
     './components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/**/*.{js,ts,jsx,tsx,mdx}',
   ],
+  daisyui: {
+    themes: [
+      {
+        veterinaria: {
+          primary: '#FFFFFF',
+          secondary: '#FFFAF5',
+          accent: '#FF5B2E',
+          'accent-content': '#FFFFFF',
+          neutral: '#2b3440',
+          'base-100': '#ffffff',
+          info: '#3abff8',
+          success: '#36d399',
+          warning: '#fbbd23',
+          error: '#f87272',
+        },
+      },
+      'light',
+      'dark',
+      'cupcake',
+    ],
+  },
   theme: {
     extend: {},
   },
-  plugins: [],
+  plugins: [require('daisyui')],
 }

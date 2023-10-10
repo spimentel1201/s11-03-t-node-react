@@ -2,14 +2,14 @@ import express from 'express';
 import passport from 'passport';
 import jwt from 'jsonwebtoken';
 
-import { registerClientValidation } from '../middlewares/validation.middleware';
+import { loginClientValidation, registerClientValidation } from '../middlewares/validation.middleware';
 import { loginClient, registerClient } from '../controllers/auth.controller';
 import { sendResponse } from '../responses/responseUtils';
 
 const router = express.Router();
 
 // Ruta de Inicio de sesion
-router.post('/login', registerClientValidation, loginClient);
+router.post('/login', loginClientValidation, loginClient);
 
 //Ruta de Registro
 router.post('/register', registerClientValidation, registerClient);

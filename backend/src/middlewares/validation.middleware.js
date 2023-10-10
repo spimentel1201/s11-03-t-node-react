@@ -9,11 +9,10 @@ export const uploadImageValidation = generateValidationRules('UploadImage', {
 });
 
 export const updateClientValidation = generateValidationRules('updateClient', {
-  first_name: {
+  fullname: {
     notEmpty: {},
-  },
-  last_name: {
-    notEmpty: {},
+    isLength: { min: 5, max: 40 },
+    OnlyLetters: {},
   },
   phone: {
     notEmpty: {},
@@ -29,13 +28,29 @@ export const updateClientValidation = generateValidationRules('updateClient', {
 });
 
 export const registerClientValidation = generateValidationRules('registerClient', {
+  fullname: {
+    notEmpty: {},
+    isLength: { min: 5, max: 40 },
+    OnlyLetters: {},
+  },
   email: {
     notEmpty: {},
     isEmail: {},
   },
   password: {
     notEmpty: {},
-    isLength: { min: 8, max: 30 },
+    isLength: { min: 8, max: 12 },
+    password: {},
+  },
+});
+
+export const loginClientValidation = generateValidationRules('loginClient', {
+  email: {
+    notEmpty: {},
+    isEmail: {},
+  },
+  password: {
+    notEmpty: {},
   },
 });
 
@@ -84,5 +99,5 @@ export const updateAppointmentValidation = generateValidationRules('updateAppoin
   notes: {
     notEmpty: {},
     isLength: { min: 0, max: 255 },
-  }
+  },
 });
