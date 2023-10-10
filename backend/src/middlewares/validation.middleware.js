@@ -44,3 +44,45 @@ export const deleteImageValidation = generateValidationRules('deleteImage', {
     notEmpty: {},
   },
 });
+
+export const createAppointmentValidation = generateValidationRules('createAppointment', {
+  date: {
+    isDate: {},
+  },
+  reason: {
+    notEmpty: {},
+    isLength: { min: 0, max: 255 },
+  },
+  cost: {
+    notEmpty: {},
+    isFloat: {},
+  },
+  notes: {
+    notEmpty: {},
+    isLength: { min: 0, max: 255 },
+  },
+  clientId: {
+    isMongoId: {},
+  },
+  petId: {
+    isMongoId: {},
+  },
+});
+
+export const updateAppointmentValidation = generateValidationRules('updateAppointment', {
+  date: {
+    isDate: {},
+  },
+  reason: {
+    notEmpty: {},
+    isLength: { min: 0, max: 255 },
+  },
+  cost: {
+    notEmpty: {},
+    isFloat: {},
+  },
+  notes: {
+    notEmpty: {},
+    isLength: { min: 0, max: 255 },
+  }
+});
