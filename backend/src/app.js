@@ -3,11 +3,15 @@ import cors from 'cors';
 import routes from './routes/routes';
 import configureSwagger from './config/swagger';
 import { globalError } from './middlewares/globalError.middleware';
+import { configurePassport } from './auth/passportAuth';
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
+
+// Configura Passport y las sesiones
+configurePassport(app);
 
 // Utiliza la aplicación configurada que incluye todas las rutas
 app.use('/', routes);

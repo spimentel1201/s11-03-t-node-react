@@ -5,30 +5,6 @@ import Client from '../schemas/client.schema';
 import disableEntity from '../utils/disableEntity';
 import ErrorApp from '../utils/ErrorApp';
 
-// Crear un nuevo cliente
-export const createClient = tryCatch(async (req, res) => {
-  const { email, password } = req.body;
-
-  // Verifica si el correo electrónico ya existe en la base de datos
-  const existingClient = await Client.findOne({ email });
-
-  if (existingClient) {
-    const error = ErrorApp('El correo electrónico ya está en uso', 400);
-    throw error;
-  }
-
-  const newClient = new Client({
-    email,
-    password,
-  });
-
-  // Guarda el nuevo cliente en la base de datos
-  await newClient.save();
-
-  // Devuelve una respuesta RESTful desde utils
-  sendResponse(res, 201, 'Cliente creado con éxito', newClient);
-});
-
 // Obtener todos los clientes
 export const getAllClients = tryCatch(async (req, res) => {
   const page = parseInt(req.query.page) || 1;

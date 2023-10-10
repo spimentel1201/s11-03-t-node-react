@@ -1,3 +1,7 @@
-export const tryCatch = (fn) => (req, res, next) => {
-  fn(req, res, next).catch(next);
+export const tryCatch = (handler) => async (req, res, next) => {
+  try {
+    await handler(req, res, next);
+  } catch (error) {
+    next(error);
+  }
 };
