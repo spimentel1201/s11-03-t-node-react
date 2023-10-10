@@ -6,7 +6,7 @@ import { useState } from "react";
 export default function NavBar() {
   const [open, setOpen] = useState(false)
   return (
-    <nav className="p-5 bg-white shadow md:flex md:items-center md:justify-between">
+    <nav className="p-5 bg-primary shadow md:flex md:items-center md:justify-between">
       <div className="flex justify-between items-center ">
         <span className="text-2xl font-[Poppins] cursor-pointer">
           <VetcareIcon />

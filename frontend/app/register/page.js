@@ -1,7 +1,7 @@
 import Image from 'next/image'
 
 const Register = () => (
-  <div class="flex justify-center items-start h-screen">
+  <div className="flex justify-center items-start h-screen">
   <div className="hero-content flex-col lg:flex-row-reverse justify-start lg:justify-start">
     <div className="text-center lg:text-left">
         <Image
@@ -58,7 +58,7 @@ const Register = () => (
           <div className="form-control mt-6">
             <button className="btn btn-accent text-accent-content">Registrarse</button>
           </div>
-          <div class="divider">O registrarse con</div>
+          <div className="divider">O registrarse con</div>
           <div className="avatar justify-center gap-8">
             <div className="rounded">
               <Image src="/logo.png" width="24" height="24" alt="icono" />
