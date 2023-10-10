@@ -3,8 +3,7 @@ import mongoose from 'mongoose';
 const clientSchemaDefinition = new mongoose.Schema({
   email: { type: String, unique: true },
   password: String,
-  first_name: String,
-  last_name: String,
+  fullname: String,
   phone: String,
   address: String,
   photo_url: {

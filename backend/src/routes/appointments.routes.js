@@ -6,10 +6,7 @@ import {
   updateAppointment,
   deleteAppointment,
 } from '../controllers/appointment.controller';
-import {
-  createAppointmentValidation,
-  updateAppointmentValidation,
-} from '../middlewares/validation.middleware';
+import { createAppointmentValidation, updateAppointmentValidation } from '../middlewares/validation.middleware';
 import { validMongoId } from '../middlewares/validMongoId.middleware';
 
 const router = express.Router();
