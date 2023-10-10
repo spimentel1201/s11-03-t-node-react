@@ -1184,6 +1184,436 @@
           }
         }
       }
+    },
+    "/appointments": {
+      "post": {
+        "summary": "Crea una nueva cita",
+        "description": "Crea una nueva cita con la información proporcionada",
+        "tags": [
+          "Appointments (Citas)"
+        ],
+        "requestBody": {
+          "description": "Datos de la cita a crear",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "date": {
+                    "type": "Date",
+                    "example": "2023-11-05T16:30"
+                  },
+                  "reason": {
+                    "type": "string",
+                    "example": "Fiebre y letargo"
+                  },
+                  "cost": {
+                    "type": "float",
+                    "example": 500
+                  },
+                  "notes": {
+                    "type": "string",
+                    "example": "Se recomienda realizar pruebas adicionales para determinar la causa subyacente de la fiebre. Se prescribió medicación para aliviar los síntomas y se programó una cita de seguimiento en una semana."
+                  },
+                  "petId": {
+                    "type": "string",
+                    "example": "651ec92f0c8acb3868bc85f8"
+                  },
+                  "clientId": {
+                    "type": "string",
+                    "example": "6524c4bd1a564480a1d55789"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Cita creada con éxito",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "appointment": {
+                      "type": "object"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "No se encontro cliente-mascota en DB",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error interno del servidor",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      
+      "get": {
+        "summary": "Obtener todas las citas",
+        "description": "Obtiene una lista de todos las citas en el sistema",
+        "tags": [
+          "Appointments (Citas)"
+        ],
+        "responses": {
+          "200": {
+            "description": "Citas obtenidas con éxito",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "_id": {
+                        "type": "string"
+                      },
+                      "date": {
+                        "type": "string"
+                      },
+                      "reason": {
+                        "type": "string"
+                      },
+                      "cost": {
+                        "type": "number"
+                      },
+                      "notes": {
+                        "type": "string"
+                      },
+                      "petId": {
+                        "type": "object"
+                      },
+                      "clientId": {
+                        "type": "object"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error interno del servidor",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/appointments/{appointmentId}": {
+      "get": {
+        "summary": "Obtener una cita por ID",
+        "description": "Obtiene una cita específica por su ID",
+        "tags": [
+          "Appointments (Citas)"
+        ],
+        "parameters": [
+          {
+            "name": "appointmentId",
+            "in": "path",
+            "required": true,
+            "description": "ID de la cita a obtener",
+            "schema": {
+              "type": "string",
+              "example": "651de63b2ce377c711b08f7d"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Cita obtenida con éxito",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "_id": {
+                      "type": "string"
+                    },
+                    "date": {
+                      "type": "string"
+                    },
+                    "reason": {
+                      "type": "string"
+                    },
+                    "cost": {
+                      "type": "number"
+                    },
+                    "notes": {
+                      "type": "string"
+                    },
+                    "petId": {
+                      "type": "object"
+                    },
+                    "clientId": {
+                      "type": "object"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Cita no encontrada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error interno del servidor",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Actualizar una cita por ID",
+        "description": "Actualiza una cita específica por su ID",
+        "tags": [
+          "Appointments (Citas)"
+        ],
+        "parameters": [
+          {
+            "name": "appointmentId",
+            "in": "path",
+            "required": true,
+            "description": "ID de la cita a actualizar",
+            "schema": {
+              "type": "string",
+              "example": "651de63b2ce377c711b08f7d"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Datos de la cita a actualizar",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "date": {
+                    "type": "Date",
+                    "example": "2023-12-02T16:00"
+                  },
+                  "reason": {
+                    "type": "string",
+                    "example": "Seguimiento postoperatorio de cirugía de esterilización"
+                  },
+                  "cost": {
+                    "type": "float",
+                    "example": 770.50
+                  },
+                  "notes": {
+                    "type": "string",
+                    "example": "No se observan signos de infección o complicaciones. Se recomienda reposo y evitar actividades vigorosas durante los próximos 7 días. Seguir el régimen de medicación según lo prescrito."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Cita actualizada con éxito",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "appointment": {
+                      "type": "object",
+                      "properties": {
+                        "_id": {
+                          "type": "string"
+                        },
+                        "date": {
+                          "type": "string"
+                        },
+                        "reason": {
+                          "type": "string"
+                        },
+                        "cost": {
+                          "type": "number"
+                        },
+                        "notes": {
+                          "type": "string"
+                        },
+                        "petId": {
+                          "type": "string"
+                        },
+                        "clientId": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Cita no encontrada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error interno del servidor",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Eliminar una cita por ID",
+        "description": "Eliminar una cita específica por su ID",
+        "tags": [
+          "Appointments (Citas)"
+        ],
+        "parameters": [
+          {
+            "name": "appointmentId",
+            "in": "path",
+            "required": true,
+            "description": "ID de la cita a actualizar",
+            "schema": {
+              "type": "string",
+              "example": "651de63b2ce377c711b08f7d"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Cita eliminada con éxito",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Cita no encontrada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error interno del servidor",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   }
 }

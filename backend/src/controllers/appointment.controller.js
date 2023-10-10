@@ -1,4 +1,3 @@
-import mongoose from 'mongoose';
 import Client from '../schemas/client.schema';
 import Pet from '../schemas/pet.schema';
 import Appointment from '../schemas/appointment.schema';
@@ -12,8 +11,11 @@ export const createAppointment = async (req, res) => {
     const existingPet = await Pet.findById(petId);
     const existingClient = await Client.findById(clientId);
 
-    if (!existingPet || !existingClient) {
-      return res.status(400).json({ error: 'No se encontro cliente-mascota en DB' });
+    if (!existingClient) {
+      return res.status(400).json({ error: 'No se encontro cliente en DB' });
+    }
+    if (!existingPet) {
+      return res.status(400).json({ error: 'No se encontro mascota en DB' });
     }
 
     const newAppointment = new Appointment({
@@ -28,7 +30,7 @@ export const createAppointment = async (req, res) => {
     // Guarda una nueva cita en la base de datos
     await newAppointment.save();
 
-    res.status(201).json({ message: 'Cita registrada con éxito', appointment: newAppointment });
+    res.status(201).json({ message: 'Cita creada con éxito', appointment: newAppointment });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Error interno del servidor' });
@@ -45,7 +47,7 @@ export const getAllAppointments = async (req, res) => {
     res.status(200).json(appointments);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Error al obtener la información de las citas' });
+    res.status(500).json({ error: 'Error interno del servidor' });
   }
 };
 
@@ -62,7 +64,7 @@ export const getAppointmentById = async (req, res) => {
     res.status(200).json(appointment);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Error al obtener la cita' });
+    res.status(500).json({ error: 'Error interno del servidor' });
   }
 };
 
@@ -86,7 +88,7 @@ export const updateAppointment = async (req, res) => {
     res.status(200).json({ message: 'Datos de la cita actualizados con éxito', appointment: updatedAppointment });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Error al actualizar la información sobre la cita' });
+    res.status(500).json({ error: 'Error interno del servidor' });
   }
 };
 
@@ -104,6 +106,6 @@ export const deleteAppointment = async (req, res) => {
     res.status(200).json({ message: 'La cita fue eliminada con éxito' });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Error al eliminar cita' });
+    res.status(500).json({ error: 'Error interno del servidor' });
   }
 };
