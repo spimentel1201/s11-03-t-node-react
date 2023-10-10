@@ -43,7 +43,7 @@ export const validationConfig = {
   //Reglas Nativas de Express
   notEmpty: {
     validator: (fieldName) => body(fieldName).notEmpty(),
-    errorMessage: (fieldName) => `El campo ${fieldName} no puede estar vacío`,
+    errorMessage: (fieldName) => `El campo ${fieldName} es obligatorio`,
   },
   isLength: {
     validator: (fieldName, options) => body(fieldName).isLength(options),
@@ -117,6 +117,45 @@ export const validationConfig = {
         return true;
       }),
     errorMessage: (fieldName) => `El archivo en el campo ${fieldName} debe ser una imagen (JPEG o PNG).`,
+  },
+
+  password: {
+    validator: (fieldName) =>
+      body(fieldName).custom((value) => {
+        // Define los caracteres especiales permitidos
+        const specialChars = '!#$%&()*+/-?@[]^_{|}';
+
+        // Define las reglas de validación personalizadas aquí
+        const hasUppercase = /[A-Z]/.test(value);
+        const hasLowercase = /[a-z]/.test(value);
+        const hasNumber = /[0-9]/.test(value);
+        const hasSpecialChar = [...specialChars].some((char) => value.includes(char));
+
+        if (!(hasUppercase && hasLowercase && hasNumber && hasSpecialChar)) {
+          throw new Error(
+            `El campo ${fieldName} debe contener al menos 1 mayúscula, 1 minúscula, 1 número y 1 caracter especial`,
+          );
+        }
+
+        return true;
+      }),
+    errorMessage: (fieldName) =>
+      `El campo ${fieldName} debe contener al menos 1 mayúscula, 1 minúscula, 1 número y 1 caracter especial`,
+  },
+
+  OnlyLetters: {
+    validator: (fieldName) =>
+      body(fieldName).custom((value) => {
+        // Define la expresión regular para validar nombres que solo contienen letras y espacios
+        const regex = /^[A-Za-z\s]+$/;
+
+        if (!regex.test(value)) {
+          throw new Error(`El campo ${fieldName} debe contener solo letras y espacios.`);
+        }
+
+        return true;
+      }),
+    errorMessage: (fieldName) => `El campo ${fieldName} debe contener solo letras y espacios.`,
   },
 
   // Agrega más reglas de validación personalizadas aquí...

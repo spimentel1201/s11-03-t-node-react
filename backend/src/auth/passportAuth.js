@@ -16,12 +16,23 @@ passport.use(
         const existingClient = await Client.findOne({ email: profile.emails[0].value });
 
         if (existingClient) {
+          // Actualizar el nombre y la foto del perfil si han cambiado
+          if (existingClient.fullname !== profile.displayName) {
+            existingClient.fullname = profile.displayName;
+          }
+          if (!existingClient.photo_url && profile.photos && profile.photos.length > 0) {
+            existingClient.photo_url = profile.photos[0].value;
+          }
+
+          await existingClient.save();
+
           return cb(null, existingClient);
         }
 
         const newClient = new Client({
           email: profile.emails[0].value,
-          // Puedes agregar otros campos del perfil de Google que desees almacenar en tu base de datos
+          fullname: profile.displayName,
+          photo_url: profile.photos && profile.photos.length > 0 ? profile.photos[0].value : null,
         });
 
         await newClient.save();

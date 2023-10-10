@@ -39,8 +39,8 @@ export const createAppointment = async (req, res) => {
 export const getAllAppointments = async (req, res) => {
   try {
     const appointments = await Appointment.find().populate([
-      { path: 'clientId', select: '-password' }, 
-      { path: 'petId' }, 
+      { path: 'clientId', select: '-password' },
+      { path: 'petId' },
     ]);
     res.status(200).json(appointments);
   } catch (error) {
@@ -53,16 +53,13 @@ export const getAllAppointments = async (req, res) => {
 export const getAppointmentById = async (req, res) => {
   const { appointmentId } = req.params;
   try {
-    const appointment = await Appointment.findById(appointmentId)
-      .populate('clientId', '-password')
-      .populate('petId');
+    const appointment = await Appointment.findById(appointmentId).populate('clientId', '-password').populate('petId');
 
     if (!appointment) {
       return res.status(404).json({ error: 'Cita no encontrada' });
     }
 
     res.status(200).json(appointment);
-
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Error al obtener la cita' });
