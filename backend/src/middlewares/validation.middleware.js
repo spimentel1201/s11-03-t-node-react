@@ -102,7 +102,7 @@ export const updateAppointmentValidation = generateValidationRules('updateAppoin
     },
 });
 
-export const createVeterinarianValidation = generateValidationRules('createVeterinarian', {,
+export const createVeterinarianValidation = generateValidationRules('createVeterinarian', {
 
     first_name: {
         notEmpty: {},
