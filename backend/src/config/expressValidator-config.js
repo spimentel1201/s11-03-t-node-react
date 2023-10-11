@@ -2,41 +2,55 @@ import { body, validationResult } from 'express-validator';
 
 export const validFields = (req, res, next) => {
   const errors = validationResult(req);
+
   if (!errors.isEmpty()) {
-    const errorMessages = errors.array().map((error) => ({
-      field: error.param,
-      message: error.msg,
-    }));
+    const errorMessages = {};
+
+    errors.array().forEach((error) => {
+      const fieldName = error.path;
+      let errorMessage = error.msg;
+
+      if (!errorMessages[fieldName]) {
+        errorMessages[fieldName] = [];
+      }
+
+      errorMessages[fieldName].push(errorMessage);
+    });
+
+    const groupedErrors = Object.keys(errorMessages).reduce((acc, key) => {
+      acc[key] = errorMessages[key];
+      return acc;
+    }, {});
+
     return res.status(400).json({
       status: 'fail',
-      errors: errorMessages,
+      errors: groupedErrors,
     });
   }
+
   next();
 };
 
 // Función para generar reglas de validación dinámica.
 export const generateValidationRules = (entityName, fields) => {
-  const validationArray = [];
+  const validationRules = [];
 
   for (const fieldName in fields) {
     if (Object.hasOwnProperty.call(fields, fieldName)) {
       const fieldConfig = fields[fieldName];
 
-      for (const ruleName in fieldConfig) {
-        if (Object.hasOwnProperty.call(fieldConfig, ruleName)) {
-          const ruleOptions = fieldConfig[ruleName];
-          const validatorFn = validationConfig[ruleName].validator(fieldName, ruleOptions);
-          const errorMessageFn = validationConfig[ruleName].errorMessage(fieldName, ruleOptions);
-          validationArray.push(validatorFn.withMessage(errorMessageFn));
-        }
-      }
+      const fieldValidationRules = Object.entries(fieldConfig).map(([ruleName, ruleOptions]) => {
+        const { validator, errorMessage } = validationConfig[ruleName];
+        return validator(fieldName, ruleOptions).withMessage(errorMessage(fieldName, ruleOptions));
+      });
+
+      validationRules.push(...fieldValidationRules);
     }
   }
 
-  validationArray.push(validFields);
+  validationRules.push(validFields);
 
-  return validationArray;
+  return validationRules;
 };
 
 export const validationConfig = {

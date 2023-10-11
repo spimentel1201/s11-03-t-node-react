@@ -1,3 +1,4 @@
+import dotenv from 'dotenv';
 import express from 'express';
 import cors from 'cors';
 import routes from './routes/routes';
@@ -5,6 +6,7 @@ import configureSwagger from './config/swagger';
 import { globalError } from './middlewares/globalError.middleware';
 import { configurePassport } from './auth/passportAuth';
 
+dotenv.config();
 const app = express();
 
 app.use(cors());
