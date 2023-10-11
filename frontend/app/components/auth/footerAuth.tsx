@@ -4,18 +4,36 @@ interface Props {
   text: string
 }
 
+const ancho = 15
+const alto = 15
+
 const FooterAuth = ({ text }: Props) => (
   <>
-    <div className="divider">{text}</div>
-    <div className="avatar justify-center gap-8">
-      <div className="rounded">
-        <Image src="/logo.png" width="24" height="24" alt="icono" />
+    <div className="divider mt-8">{text}</div>
+    <div className="avatar justify-center gap-4 mt-4">
+      <div className="bg-base-200 rounded-full p-3">
+        <Image
+          src="/google.png"
+          width={ancho}
+          height={alto}
+          alt="icono de google"
+        />
       </div>
-      <div className="rounded">
-        <Image src="/logo.png" width="24" height="24" alt="icono" />
+      <div className="bg-base-200 rounded-full p-3">
+        <Image
+          src="/facebook.png"
+          width={ancho}
+          height={alto}
+          alt="icono de facebook"
+        />
       </div>
-      <div className="rounded">
-        <Image src="/logo.png" width="24" height="24" alt="icono" />
+      <div className="bg-base-200 rounded-full p-3">
+        <Image
+          src="/apple.png"
+          width={ancho}
+          height={alto}
+          alt="icono de apple"
+        />
       </div>
     </div>
   </>

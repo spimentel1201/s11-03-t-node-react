@@ -27,12 +27,12 @@ const Register = () => {
           localStorage.setItem('token', response.data.data.token)
         } else {
           notifyError(JSON.stringify(response.response.data.errors))
-          if (verificar(response.response.data.errors, "fullname"))
-          console.log("error en fullname")
-          if (verificar(response.response.data.errors, "email"))
-          console.log("error en email")
-          if (verificar(response.response.data.errors, "password"))
-          console.log("error en password")
+          if (verificar(response.response.data.errors, 'fullname'))
+            console.log('error en fullname')
+          if (verificar(response.response.data.errors, 'email'))
+            console.log('error en email')
+          if (verificar(response.response.data.errors, 'password'))
+            console.log('error en password')
         }
       } catch (error) {
         notifyError('Register fallido, intente nuevamente')
@@ -45,7 +45,7 @@ const Register = () => {
 
   return (
     <Container>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="min-w-[414px]">
         <div className="card flex-shrink-0 w-full max-w-sm">
           <div className="card-body bg-primary text-primary-content">
             <h1 className="text-3xl font-bold text-center lg:text-start">

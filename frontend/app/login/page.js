@@ -25,10 +25,10 @@ const Login = () => {
   }
   return (
     <Container>
-      <form onSubmit={handleSubmit}>
-        <div className="card flex-shrink-0 w-full max-w-sm bg-base-300">
+      <form onSubmit={handleSubmit} className="min-w-[414px]">
+        <div className="card flex-shrink-0 w-full min-w-sm bg-base-300">
           <div className="card-body bg-primary text-primary-content">
-            <h1 className="text-3xl font-bold">Iniciar Sesión</h1>
+            <h1 className="text-3xl font-bold mb-8">Iniciar Sesión</h1>
             <InputAuth
               title="E-mail"
               type="text"

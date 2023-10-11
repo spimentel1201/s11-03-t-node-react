@@ -8,13 +8,13 @@ interface Props {
 const Container = ({ children }: Props) => (
   <div className="flex justify-center items-start h-screen">
     <Toaster />
-    <div className="hero-content flex-col lg:flex-row-reverse justify-start lg:justify-start">
+    <div className="hero-content gap-4 flex-col lg:flex-row-reverse justify-start lg:justify-start">
       <div className="text-center lg:text-left">
         <Image
           src="/auth-image.png"
           alt="Imagen de perritos"
-          width="350"
-          height="500"
+          width="591"
+          height="761"
         />
       </div>
       {children}
