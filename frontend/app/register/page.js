@@ -6,6 +6,7 @@ import InputAuth from '../components/auth/inputAuth'
 import { registerService } from '../_api/auth'
 import toast from 'react-hot-toast'
 import { verificar } from './verificar'
+import Link from 'next/link'
 
 const notifyOk = (msg) => toast.success(msg)
 const notifyError = (msg) => toast.error(msg)
@@ -83,6 +84,12 @@ const Register = () => {
               <button className="btn btn-accent text-accent-content">
                 Registrarse
               </button>
+              <Link
+                href="/login"
+                className="btn btn-outline mt-2 border-accent text-accent hover:bg-primary hover:border-[#FF7E5B] hover:text-[#FF7E5B]"
+              >
+                Iniciar Sesión
+              </Link>
             </div>
             <FooterAuth text="O registrarse con" />
           </div>

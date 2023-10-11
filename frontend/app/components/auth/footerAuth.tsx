@@ -10,7 +10,7 @@ const alto = 15
 const FooterAuth = ({ text }: Props) => (
   <>
     <div className="divider mt-8">{text}</div>
-    <div className="avatar justify-center gap-4 mt-4">
+    <div className="avatar justify-center gap-4 mt-2">
       <div className="bg-base-200 rounded-full p-3">
         <Image
           src="/google.png"

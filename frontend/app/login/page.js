@@ -5,6 +5,7 @@ import toast from 'react-hot-toast'
 import Container from '../components/auth/container'
 import FooterAuth from '../components/auth/footerAuth'
 import InputAuth from '../components/auth/inputAuth'
+import Link from 'next/link'
 
 const notifyOk = (msg) => toast.success(msg)
 const notifyError = (msg) => toast.error(msg)
@@ -45,9 +46,15 @@ const Login = () => {
             />
             <div className="flex justify-end">¿Olviste la contraseña?</div>
             <div className="form-control mt-6">
-              <button className="btn btn-accent text-accent-content">
+              <button className="btn btn-accent text-accent-content hover:bg-[#FF7E5B]">
                 Iniciar Sesión
               </button>
+              <Link
+                href="/register"
+                className="btn btn-outline mt-2 border-accent text-accent hover:bg-primary hover:border-[#FF7E5B] hover:text-[#FF7E5B]"
+              >
+                Registrarse
+              </Link>
             </div>
             <FooterAuth text="O iniciar sesión con" />
           </div>
