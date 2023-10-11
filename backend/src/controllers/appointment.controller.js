@@ -1,111 +1,94 @@
+import { sendResponse } from '../responses/responseUtils';
+import { tryCatch } from '../utils/tryCatch';
 import Client from '../schemas/client.schema';
 import Pet from '../schemas/pet.schema';
 import Appointment from '../schemas/appointment.schema';
+import ErrorApp from '../utils/ErrorApp';
+import disableEntity from '../utils/disableEntity';
 
 // Crear una nueva cita
-export const createAppointment = async (req, res) => {
-  try {
-    const { date, reason, cost, notes, petId, clientId } = req.body;
+export const createAppointment = tryCatch(async (req, res) => {
+  const { date, reason, cost, notes, petId, clientId } = req.body;
 
-    // Verificar si el cliente que se asociara a la cita existe en DB.
-    const existingPet = await Pet.findById(petId);
-    const existingClient = await Client.findById(clientId);
+  // Verificar si el cliente que se asociara a la cita existe en DB.
+  const existingPet = await Pet.findById(petId);
+  const existingClient = await Client.findById(clientId);
 
-    if (!existingClient) {
-      return res.status(400).json({ error: 'No se encontro cliente en DB' });
-    }
-    if (!existingPet) {
-      return res.status(400).json({ error: 'No se encontro mascota en DB' });
-    }
-
-    const newAppointment = new Appointment({
-      date,
-      reason,
-      cost,
-      notes,
-      petId,
-      clientId,
-    });
-
-    // Guarda una nueva cita en la base de datos
-    await newAppointment.save();
-
-    res.status(201).json({ message: 'Cita creada con éxito', appointment: newAppointment });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Error interno del servidor' });
+  if (!existingClient) {
+    const error = ErrorApp(`Cliente no encontrado`, 404);
+    throw error;
   }
-};
+  if (!existingPet) {
+    const error = ErrorApp(`Mascota no encontrado`, 404);
+    throw error;
+  }
+
+  const newAppointment = new Appointment({
+    date,
+    reason,
+    cost,
+    notes,
+    petId,
+    clientId,
+  });
+
+  // Guarda una nueva cita en la base de datos
+  await newAppointment.save();
+
+  sendResponse(res, 201, 'Cita creada con éxito', newAppointment);
+});
 
 // Obtener todas las citas
-export const getAllAppointments = async (req, res) => {
-  try {
-    const appointments = await Appointment.find().populate([
-      { path: 'clientId', select: '-password' },
-      { path: 'petId' },
-    ]);
-    res.status(200).json(appointments);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Error interno del servidor' });
-  }
-};
+export const getAllAppointments = tryCatch(async (req, res) => {
+  const appointments = await Appointment.find().populate([
+    { path: 'clientId', select: '-password' },
+    { path: 'petId' },
+  ]);
+
+  sendResponse(res, 200, 'Citas encontradas con éxito', appointments);
+});
 
 // Obtener una cita por ID
-export const getAppointmentById = async (req, res) => {
+export const getAppointmentById = tryCatch(async (req, res) => {
   const { appointmentId } = req.params;
-  try {
-    const appointment = await Appointment.findById(appointmentId).populate('clientId', '-password').populate('petId');
+  const appointment = await Appointment.findById(appointmentId).populate('clientId', '-password').populate('petId');
 
-    if (!appointment) {
-      return res.status(404).json({ error: 'Cita no encontrada' });
-    }
-
-    res.status(200).json(appointment);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Error interno del servidor' });
+  if (!appointment) {
+    const error = ErrorApp(`Cita no encontrado`, 404);
+    throw error;
   }
-};
+
+  sendResponse(res, 200, 'Cita encontrada con éxito', appointment);
+});
 
 // Actualizar una cita por ID
-export const updateAppointment = async (req, res) => {
+export const updateAppointment = tryCatch(async (req, res) => {
   const { appointmentId } = req.params;
   const { ...updateFields } = req.body;
 
-  try {
-    const appointment = await Appointment.findById(appointmentId);
+  const appointment = await Appointment.findById(appointmentId);
 
-    if (!appointment) {
-      return res.status(404).json({ error: 'Cita no encontrada' });
-    }
-    const updatedAppointment = await Appointment.findByIdAndUpdate(
-      appointmentId,
-      { $set: updateFields },
-      { new: true },
-    );
-
-    res.status(200).json({ message: 'Datos de la cita actualizados con éxito', appointment: updatedAppointment });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Error interno del servidor' });
+  if (!appointment) {
+    const error = ErrorApp(`Cita no encontrada`, 404);
+    throw error;
   }
-};
+  const updatedAppointment = await Appointment.findByIdAndUpdate(appointmentId, { $set: updateFields }, { new: true });
+
+  sendResponse(res, 200, 'Datos Cita actualizados con éxito', updatedAppointment);
+});
 
 // Eliminar una cita por ID
-export const deleteAppointment = async (req, res) => {
+export const deleteAppointment = tryCatch(async (req, res) => {
   const { appointmentId } = req.params;
 
-  try {
-    const deletedAppointment = await Appointment.findByIdAndDelete(appointmentId);
+  /* const deletedAppointment = await Appointment.findByIdAndDelete(appointmentId);
 
-    if (!deletedAppointment) {
-      return res.status(404).json({ error: 'Cita no encontrada' });
-    }
+  if (!deletedAppointment) {
+    const error = ErrorApp(`Cita no encontrada`, 404);
+    throw error;
+  } */
+  await disableEntity(Appointment, appointmentId, 'Cita');
 
-    res.status(200).json({ message: 'La cita fue eliminada con éxito' });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Error interno del servidor' });
-  }
-};
+  sendResponse(res, 200, 'Cita desactivada con éxito');
+  /* res.status(200).json({ message: 'La cita fue eliminada con éxito' }); */
+});
