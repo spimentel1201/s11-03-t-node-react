@@ -99,13 +99,52 @@
                       "example": "fail"
                     },
                     "errors": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "message": {
+                      "type": "object",
+                      "properties": {
+                        "fullname": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "email": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "password": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflicto: El correo ya está registrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "fail"
+                    },
+                    "errors": {
+                      "type": "object",
+                      "properties": {
+                        "email": {
+                          "type": "array",
+                          "items": {
                             "type": "string",
-                            "example": "El campo password es obligatorio"
+                            "example": "El correo electrónico ya está en uso"
                           }
                         }
                       }
@@ -127,14 +166,11 @@
                       "example": "error"
                     },
                     "errors": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "message": {
-                            "type": "string",
-                            "example": "Error interno del servidor"
-                          }
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "Error interno del servidor"
                         }
                       }
                     }
@@ -163,11 +199,11 @@
                 "properties": {
                   "email": {
                     "type": "string",
-                    "example": "jhondoe@gmail.com"
+                    "example": "vetcare@gmail.com"
                   },
                   "password": {
                     "type": "string",
-                    "example": "Password123$"
+                    "example": "Admin123$"
                   }
                 }
               }
@@ -216,13 +252,18 @@
                       "example": "fail"
                     },
                     "errors": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "message": {
-                            "type": "string",
-                            "example": "El campo password es obligatorio"
+                      "type": "object",
+                      "properties": {
+                        "email": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "password": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
                           }
                         }
                       }
@@ -244,14 +285,11 @@
                       "example": "fail"
                     },
                     "errors": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "message": {
-                            "type": "string",
-                            "example": "Credenciales incorrectas"
-                          }
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "Credenciales incorrectas"
                         }
                       }
                     }
@@ -272,14 +310,11 @@
                       "example": "error"
                     },
                     "errors": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "message": {
-                            "type": "string",
-                            "example": "Error interno del servidor"
-                          }
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "Error interno del servidor"
                         }
                       }
                     }
@@ -340,14 +375,11 @@
                       "example": "error"
                     },
                     "errors": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "message": {
-                            "type": "string",
-                            "example": "Error interno del servidor"
-                          }
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "Error interno del servidor"
                         }
                       }
                     }
@@ -364,7 +396,7 @@
         "summary": "Obtener todos los clientes activos",
         "description": "Obtiene una lista de todos los clientes activos en el sistema",
         "tags": [
-          "Clients (Clientes)"
+          "Clients"
         ],
         "security": [
           {
@@ -485,7 +517,7 @@
                       "example": "fail"
                     },
                     "errors": {
-                      "type": "array",
+                      "type": "object",
                       "items": {
                         "type": "object",
                         "properties": {
@@ -513,14 +545,11 @@
                       "example": "error"
                     },
                     "errors": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "message": {
-                            "type": "string",
-                            "example": "Error interno del servidor"
-                          }
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "Error interno del servidor"
                         }
                       }
                     }
@@ -537,7 +566,7 @@
         "summary": "Obtener un cliente por ID",
         "description": "Obtiene un cliente específico por su ID",
         "tags": [
-          "Clients (Clientes)"
+          "Clients"
         ],
         "security": [
           {
@@ -626,7 +655,7 @@
                       "example": "fail"
                     },
                     "errors": {
-                      "type": "array",
+                      "type": "object",
                       "items": {
                         "type": "object",
                         "properties": {
@@ -654,7 +683,7 @@
                       "example": "fail"
                     },
                     "errors": {
-                      "type": "array",
+                      "type": "object",
                       "items": {
                         "type": "object",
                         "properties": {
@@ -682,14 +711,11 @@
                       "example": "error"
                     },
                     "errors": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "message": {
-                            "type": "string",
-                            "example": "Error interno del servidor"
-                          }
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "Error interno del servidor"
                         }
                       }
                     }
@@ -704,7 +730,7 @@
         "summary": "Actualizar un cliente por ID",
         "description": "Actualiza un cliente específico por su ID",
         "tags": [
-          "Clients (Clientes)"
+          "Clients"
         ],
         "security": [
           {
@@ -733,7 +759,7 @@
                 "properties": {
                   "fullname": {
                     "type": "string",
-                    "example": "Max Cereceda"
+                    "example": "Bob Johnson"
                   },
                   "phone": {
                     "type": "string",
@@ -822,7 +848,7 @@
                       "example": "fail"
                     },
                     "errors": {
-                      "type": "array",
+                      "type": "object",
                       "items": {
                         "type": "object",
                         "properties": {
@@ -850,7 +876,7 @@
                       "example": "fail"
                     },
                     "errors": {
-                      "type": "array",
+                      "type": "object",
                       "items": {
                         "type": "object",
                         "properties": {
@@ -878,14 +904,11 @@
                       "example": "error"
                     },
                     "errors": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "message": {
-                            "type": "string",
-                            "example": "Error interno del servidor"
-                          }
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "Error interno del servidor"
                         }
                       }
                     }
@@ -900,7 +923,7 @@
         "summary": "Desactivar un cliente por ID",
         "description": "Desactiva un cliente específico por su ID",
         "tags": [
-          "Clients (Clientes)"
+          "Clients"
         ],
         "security": [
           {
@@ -952,7 +975,7 @@
                       "example": "fail"
                     },
                     "errors": {
-                      "type": "array",
+                      "type": "object",
                       "items": {
                         "type": "object",
                         "properties": {
@@ -980,7 +1003,7 @@
                       "example": "fail"
                     },
                     "errors": {
-                      "type": "array",
+                      "type": "object",
                       "items": {
                         "type": "object",
                         "properties": {
@@ -1008,14 +1031,11 @@
                       "example": "error"
                     },
                     "errors": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "message": {
-                            "type": "string",
-                            "example": "Error interno del servidor"
-                          }
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "Error interno del servidor"
                         }
                       }
                     }
@@ -1032,7 +1052,7 @@
         "summary": "Cargar una imagen",
         "description": "Carga una imagen y devuelve un URL",
         "tags": [
-          "Images (Imagenes)"
+          "Images"
         ],
         "requestBody": {
           "description": "Imagen a cargar",
@@ -1080,14 +1100,11 @@
                       "example": "error"
                     },
                     "errors": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "message": {
-                            "type": "string",
-                            "example": "Error interno del servidor"
-                          }
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "Error interno del servidor"
                         }
                       }
                     }
@@ -1104,7 +1121,7 @@
         "summary": "Eliminar una imagen",
         "description": "Elimina una imagen en Cloudinary por su public_id. El `publicId` debe corresponder a la ubicación de la imagen en Cloudinary, que sigue el formato: `https://res.cloudinary.com/dxq0pypxu/image/upload/v1696653300/{publicId}.png`",
         "tags": [
-          "Images (Imagenes)"
+          "Images"
         ],
         "requestBody": {
           "description": "Datos de la imagen a eliminar",
@@ -1166,14 +1183,11 @@
                       "example": "error"
                     },
                     "errors": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "message": {
-                            "type": "string",
-                            "example": "Error interno del servidor"
-                          }
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "Error interno del servidor"
                         }
                       }
                     }
@@ -1222,7 +1236,7 @@
                   },
                   "clientId": {
                     "type": "string",
-                    "example": "6524c4bd1a564480a1d55789"
+                    "example": "6524e02ef3d141c6a4325c94"
                   }
                 }
               }
@@ -1280,7 +1294,6 @@
           }
         }
       },
-      
       "get": {
         "summary": "Obtener todas las citas",
         "description": "Obtiene una lista de todos las citas en el sistema",
