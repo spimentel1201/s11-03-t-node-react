@@ -1,79 +1,95 @@
-import Image from 'next/image'
+'use client'
+import { useState } from 'react'
+import Container from '../components/auth/container'
+import FooterAuth from '../components/auth/footerAuth'
+import InputAuth from '../components/auth/inputAuth'
+import { registerService } from '../_api/auth'
+import toast from 'react-hot-toast'
+import { verificar } from './verificar'
 
-const Register = () => (
-  <div className="flex justify-center items-start h-screen">
-  <div className="hero-content flex-col lg:flex-row-reverse justify-start lg:justify-start">
-    <div className="text-center lg:text-left">
-        <Image
-          src="/auth-image.png"
-          alt="Imagen de perritos"
-          width="450"
-          height="500"
-          className="w-[8rem] lg:w-[24rem] object-cover"
-        />        
-      </div>
-      <div className="card flex-shrink-0 w-full max-w-sm">
-        <div className="card-body bg-primary text-primary-content">
-          <h1 className="text-3xl font-bold text-center lg:text-start">Registro</h1>
-          <div className="form-control">
-            <label className="label">
-              <span className="font-bold">Nombre y Apellido</span>
-            </label>
-            <input
+const notifyOk = (msg) => toast.success(msg)
+const notifyError = (msg) => toast.error(msg)
+
+const Register = () => {
+  const [fullname, setFullname] = useState('John Doe Jr 2')
+  const [email, setEmail] = useState('jhondoeJr@gmail.com')
+  const [password, setPassword] = useState('Password123$')
+  const [repeatPassword, setRepeatPassword] = useState('Password123$')
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    if (password === repeatPassword) {
+      try {
+        const response = await registerService(fullname, email, password)
+        if (response?.status === 201) {
+          notifyOk('Register Exitoso')
+          console.log(response.data.data.token)
+          localStorage.setItem('token', response.data.data.token)
+        } else {
+          notifyError(JSON.stringify(response.response.data.errors))
+          if (verificar(response.response.data.errors, "fullname"))
+          console.log("error en fullname")
+          if (verificar(response.response.data.errors, "email"))
+          console.log("error en email")
+          if (verificar(response.response.data.errors, "password"))
+          console.log("error en password")
+        }
+      } catch (error) {
+        notifyError('Register fallido, intente nuevamente')
+        console.log(error)
+      }
+    } else {
+      notifyError('Las contraseñas no coinciden')
+    }
+  }
+
+  return (
+    <Container>
+      <form onSubmit={handleSubmit}>
+        <div className="card flex-shrink-0 w-full max-w-sm">
+          <div className="card-body bg-primary text-primary-content">
+            <h1 className="text-3xl font-bold text-center lg:text-start">
+              Registro
+            </h1>
+            <InputAuth
+              title="Nombre y Apellido"
               type="text"
               placeholder="Ingrese su nombre y apellido"
-              className="input input-bordered bg-slate-100 border-none"
+              value={fullname}
+              changeValue={setFullname}
             />
-          </div>
-          <div className="form-control">
-            <label className="label">
-              <span className="font-bold">E-mail</span>
-            </label>
-            <input
+            <InputAuth
+              title="E-mail"
               type="text"
               placeholder="vetcare@gmail"
-              className="input input-bordered bg-slate-100 border-none"
+              value={email}
+              changeValue={setEmail}
             />
-          </div>
-          <div className="form-control">
-            <label className="label">
-              <span className="font-bold">Contraseña</span>
-            </label>
-            <input
-              type="text"
-              placeholder="Ingrese tu contraseña"
-              className="input input-bordered bg-slate-100 border-none"
+            <InputAuth
+              title="Contraseña"
+              type="password"
+              placeholder="Ingresa tu contraseña"
+              value={password}
+              changeValue={setPassword}
             />
-          </div>
-          <div className="form-control">
-            <label className="label">
-              <span className="font-bold">Confirmar contraseña</span>
-            </label>
-            <input
-              type="text"
-              placeholder="repita su contraseña"
-              className="input input-bordered bg-slate-100 border-none"
+            <InputAuth
+              title="Confirmar contraseña"
+              type="password"
+              placeholder="repite tu contraseña"
+              value={repeatPassword}
+              changeValue={setRepeatPassword}
             />
-          </div>
-          <div className="form-control mt-6">
-            <button className="btn btn-accent text-accent-content">Registrarse</button>
-          </div>
-          <div className="divider">O registrarse con</div>
-          <div className="avatar justify-center gap-8">
-            <div className="rounded">
-              <Image src="/logo.png" width="24" height="24" alt="icono" />
+            <div className="form-control mt-6">
+              <button className="btn btn-accent text-accent-content">
+                Registrarse
+              </button>
             </div>
-            <div className="rounded">
-              <Image src="/logo.png" width="24" height="24" alt="icono" />
-            </div>
-            <div className="rounded">
-              <Image src="/logo.png" width="24" height="24" alt="icono" />
-            </div>
+            <FooterAuth text="O registrarse con" />
           </div>
         </div>
-      </div>
-    </div>
-  </div>
-)
+      </form>
+    </Container>
+  )
+}
 
 export default Register

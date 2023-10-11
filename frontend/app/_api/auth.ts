@@ -6,7 +6,7 @@ const api = axios.create({
   baseURL: BASE_URL,
 })
 
-export const login = async (email: string, password: string) => {
+export const loginService = async (email: string, password: string) => {
   try {
     const res = await api.post('/auth/login', {
       email: email,
@@ -15,6 +15,23 @@ export const login = async (email: string, password: string) => {
     return res
   } catch (error) {
     console.log(error)
-    return null
+    return error
+  }
+}
+
+export const registerService = async (
+  fullname: string,
+  email: string,
+  password: string,
+) => {
+  try {
+    const res = await api.post('/auth/register', {
+      fullname: fullname,
+      email: email,
+      password: password,
+    })
+    return res
+  } catch (error) {
+    return error
   }
 }
