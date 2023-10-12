@@ -127,40 +127,30 @@ export const createVeterinarianValidation = generateValidationRules('createVeter
         notEmpty: {},
         isLength: { min: 5, max: 40 },
         OnlyLetters: {},
-    },
-    photo_url: {
-        notEmpty: {},
-        isURL: {},
-    },
+    }
 });
 
 export const updateVeterinarianValidation = generateValidationRules('updateVeterinarian', {
     first_name: {
-        notEmpty: {},
         isLength: { min: 5, max: 40 },
         OnlyLetters: {},
     },
     last_name: {
-        notEmpty: {},
         isLength: { min: 5, max: 40 },
         OnlyLetters: {},
     },
     speciality: {
-        notEmpty: {},
         isLength: { min: 5, max: 40 },
         OnlyLetters: {},
     },
     phone: {
-        notEmpty: {},
         isLength: { min: 1, max: 15 },
     },
     license: {
-        notEmpty: {},
         isLength: { min: 5, max: 40 },
         OnlyLetters: {},
     },
     photo_url: {
-        notEmpty: {},
         isURL: {},
     },
 });
