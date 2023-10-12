@@ -29,7 +29,9 @@
       "post": {
         "summary": "Registra un nuevo cliente",
         "description": "Registra un nuevo cliente con la información proporcionada",
-        "tags": ["Auth"],
+        "tags": [
+          "Auth"
+        ],
         "requestBody": {
           "description": "Datos del cliente a crear",
           "required": true,
@@ -184,7 +186,9 @@
       "post": {
         "summary": "Iniciar sesión de cliente",
         "description": "Inicia sesión de un cliente utilizando su correo electrónico y contraseña.",
-        "tags": ["Auth"],
+        "tags": [
+          "Auth"
+        ],
         "requestBody": {
           "description": "Datos de inicio de sesión del cliente",
           "required": true,
@@ -326,7 +330,9 @@
       "get": {
         "summary": "Iniciar sesión de cliente con Google",
         "description": "Inicia sesión de un cliente utilizando la API de Google OAuth. La autenticación se realiza en una página externa de Google y la respuesta exitosa se genera después de una autenticación exitosa en la página de inicio de sesión de Google.Este entorno solo es informativo. Para probar esta ruta, utiliza la siguiente URL en tu navegador:<br><br>**Producción:** [Haz clic aquí para iniciar sesión en producción](https://s11-03-react-node-production.up.railway.app/api/v1/auth/google)<br>**Desarrollo:** [Haz clic aquí para iniciar sesión en desarrollo](http://localhost:3001/api/v1/auth/google)",
-        "tags": ["Auth"],
+        "tags": [
+          "Auth"
+        ],
         "responses": {
           "200": {
             "description": "Inicio de sesión exitoso",
@@ -1041,163 +1047,13 @@
         }
       }
     },
-    "/images/upload": {
-      "post": {
-        "summary": "Cargar una imagen",
-        "description": "Carga una imagen y devuelve un URL"
-        "tags": [
-          "Images"
-        ],
-        "requestBody": {
-          "description": "Imagen a cargar",
-          "required": true,
-          "content": {
-            "multipart/form-data": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "image": {
-                    "type": "string",
-                    "format": "binary"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Imagen cargada con éxito",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "photo_url": {
-                      "type": "string",
-                      "format": "uri"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Error interno del servidor",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "string",
-                      "example": "error"
-                    },
-                    "errors": {
-                      "type": "object",
-                      "properties": {
-                        "message": {
-                          "type": "string",
-                          "example": "Error interno del servidor"
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/images/delete": {
-      "delete": {
-        "summary": "Eliminar una imagen",
-        "description": "Elimina una imagen en Cloudinary por su public_id. El `publicId` debe corresponder a la ubicación de la imagen en Cloudinary, que sigue el formato: `https://res.cloudinary.com/dxq0pypxu/image/upload/v1696653300/{publicId}.png`",
-        "tags": [
-          "Images"
-        ],
-        "requestBody": {
-          "description": "Datos de la imagen a eliminar",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "publicId": {
-                    "type": "string",
-                    "example": "nxq4opczwrvn9rblu2uq"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Imagen eliminada con éxito",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "message": {
-                      "type": "string"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad Request: Error en la solicitud",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "error": {
-                      "type": "string"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Error interno del servidor",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "string",
-                      "example": "error"
-                    },
-                    "errors": {
-                      "type": "object",
-                      "properties": {
-                        "message": {
-                          "type": "string",
-                          "example": "Error interno del servidor"
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/appointments": {
+      "/appointments": {
       "post": {
         "summary": "Crea una nueva cita",
         "description": "Crea una nueva cita con la información proporcionada",
-        "tags": ["Appointments (Citas)"],
+        "tags": [
+          "Appointments"
+        ],
         "security": [
           {
             "BearerAuth": []
@@ -1387,7 +1243,9 @@
       "get": {
         "summary": "Obtener todas las citas",
         "description": "Obtiene una lista de todos las citas en el sistema",
-        "tags": ["Appointments (Citas)"],
+        "tags": [
+          "Appointments"
+        ],
         "security": [
           {
             "BearerAuth": []
@@ -1517,7 +1375,9 @@
       "get": {
         "summary": "Obtener una cita por ID",
         "description": "Obtiene una cita específica por su ID",
-        "tags": ["Appointments (Citas)"],
+        "tags": [
+          "Appointments"
+        ],
         "security": [
           {
             "BearerAuth": []
@@ -1682,7 +1542,9 @@
       "put": {
         "summary": "Actualizar una cita por ID",
         "description": "Actualiza una cita específica por su ID",
-        "tags": ["Appointments (Citas)"],
+        "tags": [
+          "Appointments"
+        ],
         "security": [
           {
             "BearerAuth": []
@@ -1876,7 +1738,9 @@
       "delete": {
         "summary": "Desactivar una cita por ID",
         "description": "Desactivar una cita específica por su ID",
-        "tags": ["Appointments (Citas)"],
+        "tags": [
+          "Appointments"
+        ],
         "security": [
           {
             "BearerAuth": []
@@ -1991,6 +1855,158 @@
                             "type": "string",
                             "example": "Error interno del servidor"
                           }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/images/upload": {
+      "post": {
+        "summary": "Cargar una imagen",
+        "description": "Carga una imagen y devuelve un URL",
+        "tags": [
+          "Images"
+        ],
+        "requestBody": {
+          "description": "Imagen a cargar",
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "image": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Imagen cargada con éxito",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "photo_url": {
+                      "type": "string",
+                      "format": "uri"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error interno del servidor",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "error"
+                    },
+                    "errors": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "Error interno del servidor"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/images/delete": {
+      "delete": {
+        "summary": "Eliminar una imagen",
+        "description": "Elimina una imagen en Cloudinary por su public_id. El `publicId` debe corresponder a la ubicación de la imagen en Cloudinary, que sigue el formato: `https://res.cloudinary.com/dxq0pypxu/image/upload/v1696653300/{publicId}.png`",
+        "tags": [
+          "Images"
+        ],
+        "requestBody": {
+          "description": "Datos de la imagen a eliminar",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "publicId": {
+                    "type": "string",
+                    "example": "nxq4opczwrvn9rblu2uq"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Imagen eliminada con éxito",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request: Error en la solicitud",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error interno del servidor",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "error"
+                    },
+                    "errors": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "Error interno del servidor"
                         }
                       }
                     }
