@@ -7,25 +7,20 @@ import ErrorApp from '../utils/ErrorApp';
 
 // Registrar un nuevo veterinario
 export const createVeterinarian = async(req, res) => {
-    try {
-        const { first_name, last_name, speciality, phone, license } = req.body;
 
-        const newVeterinarian = new Veterinarian({
-            first_name,
-            last_name,
-            speciality,
-            phone,
-            license
-        });
+    const { first_name, last_name, speciality, phone, license } = req.body;
 
-        // Guarda una nueva cita en la base de datos
-        await newVeterinarian.save();
+    const newVeterinarian = new Veterinarian({
+        first_name,
+        last_name,
+        speciality,
+        phone,
+        license
+    });
 
-        res.status(201).json({ message: 'Se registró el veterinario con éxito', veterinarian: newVeterinarian });
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'Error interno del servidor' });
-    }
+    // Guarda una nueva cita en la base de datos
+    await newVeterinarian.save();
+    sendResponse(res, 201, 'Se registró el veterinario con éxito', newVeterinarian);
 };
 
 // Obtener todos los veterinarios registrados

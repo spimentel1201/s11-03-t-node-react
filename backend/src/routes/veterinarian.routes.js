@@ -2,7 +2,7 @@ import express from 'express';
 import { createVeterinarian, getAllVeterinarians, getVeterinarianById, updateVeterinarian, deleteVeterinarian } from '../controllers/veterinarian.controller';
 import { createVeterinarianValidation, updateVeterinarianValidation } from '../middlewares/validation.middleware';
 import { validMongoId } from '../middlewares/validMongoId.middleware';
-//import { authenticate } from '../middlewares/auth.middleware';
+import { authenticate } from '../middlewares/auth.middleware';
 
 const router = express.Router();
 
@@ -13,10 +13,10 @@ router.param('veterinarianId', validMongoId('veterinarianId'));
 //router.use(authenticate);
 
 // Rutas CRUD para veterinarios
-router.post('/', createVeterinarianValidation, createVeterinarian);
+router.post('/', authenticate, createVeterinarianValidation, createVeterinarian);
 router.get('/', getAllVeterinarians);
 router.get('/:veterinarianId', getVeterinarianById);
-router.patch('/:veterinarianId', updateVeterinarianValidation, updateVeterinarian);
-router.delete('/:veterinarianId', deleteVeterinarian);
+router.patch('/:veterinarianId', authenticate, updateVeterinarianValidation, updateVeterinarian);
+router.delete('/:veterinarianId', authenticate, deleteVeterinarian);
 
 export default router;
