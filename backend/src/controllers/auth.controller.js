@@ -18,7 +18,7 @@ export const registerClient = tryCatch(async (req, res) => {
   const existingClient = await Client.findOne({ email });
 
   if (existingClient) {
-    const error = ErrorApp('El correo electrónico ya está en uso', 400);
+    const error = ErrorApp('El correo electrónico ya está en uso', 409);
     throw error;
   }
 

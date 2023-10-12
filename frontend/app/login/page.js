@@ -1,66 +1,103 @@
-import Image from 'next/image'
+'use client'
+import { useState, useRef } from 'react'
+import { loginService } from '../_api/auth'
+import toast from 'react-hot-toast'
+import Container from '../components/auth/container'
+import FooterAuth from '../components/auth/footerAuth'
+import InputAuth from '../components/auth/inputAuth'
+import Link from 'next/link'
+import useErrors from './useErrors'
 
-const Login = () => (
-  <div class="flex justify-center items-start h-screen">
-    <div className="hero-content flex-col lg:flex-row-reverse justify-start lg:justify-start">
-      <div className="text-center lg:text-left">
-        <Image
-          src="/auth-image.png"
-          alt="Imagen de perritos"
-          width="350"
-          height="500"
-        />
-        {/* <p className="py-6">
-          Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
-          excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a
-          id nisi.
-        </p> */}
-      </div>
-      <div className="card flex-shrink-0 w-full max-w-sm bg-base-300">
-        <div className="card-body bg-primary text-primary-content">
-          <h1 className="text-3xl font-bold">Iniciar Sesión</h1>
-          <div className="form-control">
-            <label className="label">
-              <span className="font-bold">E-mail</span>
-            </label>
-            <input
+const notifyOk = (msg) => toast.success(msg)
+const notifyError = (msg) => toast.error(msg)
+
+const Login = () => {
+  const [email, setEmail] = useState('jhondoe@gmail.com')
+  const [password, setPassword] = useState('Password123$')
+  const [token, setToken] = useState(null)
+  const { errors, setErrors, errorRef, validarEmail, validarPassword } =
+    useErrors()
+
+  const resetTokenAndErrorRef = () => {
+    localStorage.removeItem('token')
+    setToken('')
+    errorRef.current = false
+  }
+
+  const saveTokenAndResetData = (t) => {
+    localStorage.setItem('token', t)
+    setToken(t)
+    setErrors('')
+    errorRef.current = false
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    validarEmail(email)
+    validarPassword(password)
+    console.log(errorRef.current)
+    if (errorRef.current != true) {
+      const response = await loginService(email, password)
+      if (response?.status === 200) {
+        notifyOk('Login Exitoso')
+        saveTokenAndResetData(response.data.data.token)
+      } else {
+        notifyError('Las credenciales son incorrectas')
+        setErrors('')
+        resetTokenAndErrorRef()
+      }
+    } else {
+      resetTokenAndErrorRef()
+    }
+  }
+
+  return (
+    <Container>
+      <form onSubmit={handleSubmit} className="min-w-[414px]">
+        <div className="card flex-shrink-0 w-full min-w-sm bg-base-300">
+          <div className="card-body bg-primary text-primary-content">
+            <h1 className="text-3xl font-bold text-center lg:text-left">
+              Iniciar Sesión
+            </h1>
+            {token && (
+              <div className="text-sm" style={{ textWrap: 'balance' }}>
+                Token: {token.slice(0, 35)}...
+              </div>
+            )}
+            <InputAuth
+              title="E-mail"
               type="text"
               placeholder="vetcare@gmail"
-              className="input input-bordered bg-slate-100 border-none"
+              value={email}
+              changeValue={setEmail}
+              error={errors?.email}
             />
-          </div>
-          <div className="form-control">
-            <label className="label">
-              <span className="font-bold">Contraseña</span>
-            </label>
-            <input
-              type="text"
-              placeholder="Ingrese tu contraseña"
-              className="input input-bordered bg-slate-100 border-none"
+            <InputAuth
+              title="Contraseña"
+              type="password"
+              placeholder="Ingresa tu contraseña"
+              value={password}
+              changeValue={setPassword}
+              error={errors?.password}
             />
-          </div>
-          <div class="flex justify-end">¿Olviste la contraseña?</div>
-          <div className="form-control mt-6">
-            <button className="btn btn-accent text-accent-content">
-              Iniciar Sesión
-            </button>
-          </div>
-          <div class="divider">O iniciar sesión con</div>
-          <div className="avatar justify-center gap-8">
-            <div className="rounded">
-              <Image src="/logo.png" width="24" height="24" alt="icono" />
+            <div className="flex justify-end">¿Olviste la contraseña?</div>
+            <div className="form-control mt-6">
+              <button className="btn btn-accent text-accent-content hover:bg-[#FF7E5B]">
+                Iniciar Sesión
+              </button>
+              <Link
+                href="/register"
+                className="btn btn-outline mt-2 border-accent text-accent hover:bg-primary hover:border-[#FF7E5B] hover:text-[#FF7E5B]"
+              >
+                Registrarse
+              </Link>
             </div>
-            <div className="rounded">
-              <Image src="/logo.png" width="24" height="24" alt="icono" />
-            </div>
-            <div className="rounded">
-              <Image src="/logo.png" width="24" height="24" alt="icono" />
-            </div>
+            <FooterAuth text="O iniciar sesión con" />
           </div>
         </div>
-      </div>
-    </div>
-  </div>
-)
+      </form>
+    </Container>
+  )
+}
 
 export default Login

@@ -11,15 +11,16 @@ module.exports = {
       {
         veterinaria: {
           primary: '#FFFFFF',
+          'primary-content': '#1D2939',
           secondary: '#FFFAF5',
           accent: '#FF5B2E',
-          'accent-content': '#FFFFFF',
+          'accent-content': '#FFFFFF',          
           neutral: '#2b3440',
           'base-100': '#ffffff',
           info: '#3abff8',
           success: '#36d399',
           warning: '#fbbd23',
-          error: '#f87272',
+          error: '#C02222',
         },
       },
       'light',

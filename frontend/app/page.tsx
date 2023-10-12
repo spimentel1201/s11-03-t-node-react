@@ -5,7 +5,7 @@ import NavBar from './home/navBar'
 export default function Home() {
   return (
     <main >
-      <NavBar />
+      
     </main>
   )
 }
