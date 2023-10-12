@@ -79,7 +79,13 @@ export const updateAppointment = tryCatch(async (req, res) => {
     const error = ErrorApp(`Cita no encontrada`, 404);
     throw error;
   }
-  
+
+  // Verifica si la cita está activa antes de permitir la actualización
+  if (!appointment.isActive) {
+    const error = ErrorApp('No se puede actualizar una cita inactiva', 404);
+    throw error;
+  }
+
   const updatedAppointment = await Appointment.findByIdAndUpdate(appointmentId, { $set: updateFields }, { new: true });
 
   // Devuelve una respuesta RESTful desde utils
