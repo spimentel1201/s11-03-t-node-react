@@ -79,10 +79,14 @@ const Register = () => {
     if (errorRef.current != true) {
       const response = await registerService(fullname, email, password)
       if (response?.status === 201) {
-        notifyOk('RegisterExitoso')
+        notifyOk('Register Exitoso')
         saveTokenAndResetData(response.data.data.token)
       } else {
-        notifyError(JSON.stringify(response.response.data.errors))
+        if (response.response.data.errors.message.includes('E11000')) {
+          // notifyError('Prohibido hackear este sitio')
+          notifyError('El email que usaste ya esta registrado!')
+        }
+        notifyError('Register Fallido')
         setErrors('')
         resetTokenAndErrorRef()
       }
