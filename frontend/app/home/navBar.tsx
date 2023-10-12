@@ -1,48 +1,36 @@
 "use client"
-import Link from "next/link";
-import { HamburgerIcon, VetcareIcon } from "./icons";
-import { useState } from "react";
+
+import { HamburgerIcon, VetcareIcon, SignIcon } from "./icons";
+import DropDownMobile from "./dropDownMobile";
+import NavBarLogic from "./navBarLogic";
+import { useRouter } from "next/navigation";
 
 export default function NavBar() {
-  const [open, setOpen] = useState(false)
+  const router = useRouter()
+
   return (
-    <nav className="p-5 bg-primary shadow md:flex md:items-center md:justify-between">
-      <div className="flex justify-between items-center ">
-        <span className="text-2xl font-[Poppins] cursor-pointer">
+    <nav className="md:pr-10 md:pl-20 px-5 bg-secondary shadow md:flex md:items-center md:justify-between md:h-[98px] h-[55px]">
+      <div className="flex justify-between items-center h-[55px]">
+        <div className="flex flex-row" onClick={() => router.push("/")}>
+        <span className="text-2xl font-[Poppins] cursor-pointer md:hidden">
           <VetcareIcon />
         </span>
-        <span className="text-3xl cursor-pointer mx-2 md:hidden block">
-          <HamburgerIcon />
+        <span className="hidden md:block text-accent text-2xl font-normal">
+          Vet
+        </span>
+        <span className="hidden md:block">
+          <VetcareIcon />
+        </span>
+        <span className="hidden md:block text-accent text-2xl font-normal">
+          care
+        </span>
+        </div>
+        <span className="text-3xl cursor-pointer mx-2 md:hidden">
+          <DropDownMobile />
         </span>
       </div>
-
-      <ul className="md:flex md:items-center z-[-1] md:z-auto md:static absolute bg-white w-full left-0 md:w-auto md:py-0 py-4 md:pl-0 pl-7 md:opacity-100 opacity-0 top-[-400px] transition-all ease-in duration-500">
-        <li className="mx-4 my-6 md:my-0">
-          <a href="#" className="text-xl hover:text-cyan-500 duration-500">
-            HOME
-          </a>
-        </li>
-        <li className="mx-4 my-6 md:my-0">
-          <a href="#" className="text-xl hover:text-cyan-500 duration-500">
-            SERVICE
-          </a>
-        </li>
-        <li className="mx-4 my-6 md:my-0">
-          <a href="#" className="text-xl hover:text-cyan-500 duration-500">
-            ABOUT
-          </a>
-        </li>
-        <li className="mx-4 my-6 md:my-0">
-          <a href="#" className="text-xl hover:text-cyan-500 duration-500">
-            CONTACT
-          </a>
-        </li>
-        <li className="mx-4 my-6 md:my-0">
-          <a href="#" className="text-xl hover:text-cyan-500 duration-500">
-            BLOG
-          </a>
-        </li>
-      </ul>
+       <NavBarLogic/>
     </nav>
   );
-}
+
+  }
