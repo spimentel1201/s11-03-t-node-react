@@ -11,11 +11,10 @@ export const globalError = (error, req, res, next) => {
     // En entorno de desarrollo, proporciona información detallada del error.
     return res.status(error.statusCode).json({
       status: error.status,
-      errors: [
-        {
-          message: error.message,
-        },
-      ],
+      errors: {
+        message: error.message,
+      },
+
       error: error,
       stack: error.stack,
     });
@@ -23,11 +22,9 @@ export const globalError = (error, req, res, next) => {
     // En otros entornos, proporciona solo el estado y el mensaje.
     return res.status(error.statusCode).json({
       status: error.status,
-      errors: [
-        {
-          message: error.message,
-        },
-      ],
+      errors: {
+        message: error.message,
+      },
     });
   }
 };
