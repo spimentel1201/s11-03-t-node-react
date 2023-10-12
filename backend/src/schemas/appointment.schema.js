@@ -32,6 +32,7 @@ const appointmentSchemaDefinition = new mongoose.Schema({
     ref: 'Veterinarian',
     required: true,
   }, */
+  isActive: { type: Boolean, default: true }
 });
 
 const Appointment = mongoose.model('Appointment', appointmentSchemaDefinition);
