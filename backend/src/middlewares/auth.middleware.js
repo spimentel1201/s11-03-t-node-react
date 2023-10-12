@@ -2,7 +2,7 @@ import jwt from 'jsonwebtoken';
 import ErrorApp from '../utils/ErrorApp';
 import { tryCatch } from '../utils/tryCatch';
 
-export const authenticate = tryCatch((req, res, next) => {
+export const checkAuthentication = tryCatch((req, res, next) => {
   const authHeader = req.headers.authorization;
 
   if (!authHeader || !authHeader.startsWith('Bearer ')) {

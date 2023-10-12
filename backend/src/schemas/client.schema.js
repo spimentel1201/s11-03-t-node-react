@@ -6,6 +6,8 @@ const clientSchemaDefinition = new mongoose.Schema({
   fullname: String,
   phone: String,
   address: String,
+  verificationCode: Number,
+  verificationCodeExpires: Number,
   photo_url: {
     type: String,
     default: 'https://res.cloudinary.com/dxq0pypxu/image/upload/v1696476957/nn12qmebo7v6qhbwbkdf.png',
@@ -17,6 +19,9 @@ const clientSchemaDefinition = new mongoose.Schema({
 clientSchemaDefinition.methods.toJSON = function () {
   const obj = this.toObject();
   delete obj.password;
+  delete obj.verificationCode;
+  delete obj.verificationCodeExpires;
+
   return obj;
 };
 

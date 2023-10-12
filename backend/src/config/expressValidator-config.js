@@ -102,7 +102,7 @@ export const validationConfig = {
   },
   isMongoId: {
     validator: (fieldName) => body(fieldName).isMongoId(),
-    errorMessage: (fieldName) => `ID ${fieldName} proporcionado no es un ObjectId válido de MongoDB.`,
+    errorMessage: (fieldName) => `El campo ${fieldName} debe ser un ObjectId válido de MongoDB.`,
   },
 
   // Agrega más reglas de validación nativas aquí...
@@ -113,11 +113,11 @@ export const validationConfig = {
     validator: (fieldName) =>
       body(fieldName).custom((value, { req }) => {
         if (!req.file) {
-          throw new Error(`El campo ${fieldName} no puede estar vacío.`);
+          throw new Error(`El campo ${fieldName} es obligatorio.`);
         }
         return true;
       }),
-    errorMessage: (fieldName) => `El campo ${fieldName} no puede estar vacío.`,
+    errorMessage: (fieldName) => `El campo ${fieldName} es obligatorio.`,
   },
   isImage: {
     validator: (fieldName) =>
