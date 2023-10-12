@@ -1,109 +1,103 @@
-import mongoose from 'mongoose';
+import { sendResponse } from '../responses/responseUtils';
+import { tryCatch } from '../utils/tryCatch';
 import Client from '../schemas/client.schema';
 import Pet from '../schemas/pet.schema';
 import Appointment from '../schemas/appointment.schema';
+import ErrorApp from '../utils/ErrorApp';
+import disableEntity from '../utils/disableEntity';
 
 // Crear una nueva cita
-export const createAppointment = async (req, res) => {
-  try {
-    const { date, reason, cost, notes, petId, clientId } = req.body;
+export const createAppointment = tryCatch(async (req, res) => {
+  const { date, reason, cost, notes, petId, clientId } = req.body;
 
-    // Verificar si el cliente que se asociara a la cita existe en DB.
-    const existingPet = await Pet.findById(petId);
-    const existingClient = await Client.findById(clientId);
+  // Verificar si el cliente que se asociara a la cita existe en DB.
+  const existingClient = await Client.findById(clientId);
 
-    if (!existingPet || !existingClient) {
-      return res.status(400).json({ error: 'No se encontro cliente-mascota en DB' });
-    }
-
-    const newAppointment = new Appointment({
-      date,
-      reason,
-      cost,
-      notes,
-      petId,
-      clientId,
-    });
-
-    // Guarda una nueva cita en la base de datos
-    await newAppointment.save();
-
-    res.status(201).json({ message: 'Cita registrada con éxito', appointment: newAppointment });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Error interno del servidor' });
+  if (!existingClient) {
+    const error = ErrorApp(`Cliente no encontrado`, 404);
+    throw error;
   }
-};
+
+  // Verificar si la mascota que se asociara a la cita existe en DB.
+  const existingPet = await Pet.findById(petId);
+
+  if (!existingPet) {
+    const error = ErrorApp(`Mascota no encontrada`, 404);
+    throw error;
+  }
+
+  const newAppointment = new Appointment({
+    date,
+    reason,
+    cost,
+    notes,
+    petId,
+    clientId,
+  });
+
+  // Guarda una nueva cita en la base de datos
+  await newAppointment.save();
+
+  // Devuelve una respuesta RESTful desde utils
+  sendResponse(res, 201, 'Cita creada con éxito', newAppointment);
+});
 
 // Obtener todas las citas
-export const getAllAppointments = async (req, res) => {
-  try {
-    const appointments = await Appointment.find().populate([
-      { path: 'clientId', select: '-password' },
-      { path: 'petId' },
-    ]);
-    res.status(200).json(appointments);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Error al obtener la información de las citas' });
-  }
-};
+export const getAllAppointments = tryCatch(async (req, res) => {
+  const appointments = await Appointment.find().populate([
+    { path: 'clientId', select: '-password' },
+    { path: 'petId' },
+  ]);
+
+  // Devuelve una respuesta RESTful desde utils
+  sendResponse(res, 200, 'Citas encontradas con éxito', appointments);
+});
 
 // Obtener una cita por ID
-export const getAppointmentById = async (req, res) => {
+export const getAppointmentById = tryCatch(async (req, res) => {
   const { appointmentId } = req.params;
-  try {
-    const appointment = await Appointment.findById(appointmentId).populate('clientId', '-password').populate('petId');
+  const appointment = await Appointment.findById(appointmentId).populate('clientId', '-password').populate('petId');
 
-    if (!appointment) {
-      return res.status(404).json({ error: 'Cita no encontrada' });
-    }
-
-    res.status(200).json(appointment);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Error al obtener la cita' });
+  if (!appointment) {
+    const error = ErrorApp(`Cita no encontrado`, 404);
+    throw error;
   }
-};
+
+  // Devuelve una respuesta RESTful desde utils
+  sendResponse(res, 200, 'Cita encontrada con éxito', appointment);
+});
 
 // Actualizar una cita por ID
-export const updateAppointment = async (req, res) => {
+export const updateAppointment = tryCatch(async (req, res) => {
   const { appointmentId } = req.params;
   const { ...updateFields } = req.body;
 
-  try {
-    const appointment = await Appointment.findById(appointmentId);
+  const appointment = await Appointment.findById(appointmentId);
 
-    if (!appointment) {
-      return res.status(404).json({ error: 'Cita no encontrada' });
-    }
-    const updatedAppointment = await Appointment.findByIdAndUpdate(
-      appointmentId,
-      { $set: updateFields },
-      { new: true },
-    );
-
-    res.status(200).json({ message: 'Datos de la cita actualizados con éxito', appointment: updatedAppointment });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Error al actualizar la información sobre la cita' });
+  // Verificar si la cita existe en DB.
+  if (!appointment) {
+    const error = ErrorApp(`Cita no encontrada`, 404);
+    throw error;
   }
-};
+
+  // Verifica si la cita está activa antes de permitir la actualización
+  if (!appointment.isActive) {
+    const error = ErrorApp('No se puede actualizar una cita inactiva', 404);
+    throw error;
+  }
+
+  const updatedAppointment = await Appointment.findByIdAndUpdate(appointmentId, { $set: updateFields }, { new: true });
+
+  // Devuelve una respuesta RESTful desde utils
+  sendResponse(res, 200, 'Cita actualizada con éxito', updatedAppointment);
+});
 
 // Eliminar una cita por ID
-export const deleteAppointment = async (req, res) => {
+export const deleteAppointment = tryCatch(async (req, res) => {
   const { appointmentId } = req.params;
 
-  try {
-    const deletedAppointment = await Appointment.findByIdAndDelete(appointmentId);
+  await disableEntity(Appointment, appointmentId, 'Cita');
 
-    if (!deletedAppointment) {
-      return res.status(404).json({ error: 'Cita no encontrada' });
-    }
-
-    res.status(200).json({ message: 'La cita fue eliminada con éxito' });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Error al eliminar cita' });
-  }
-};
+  // Devuelve una respuesta RESTful desde utils
+  sendResponse(res, 200, 'Cita desactivada con éxito');
+});
