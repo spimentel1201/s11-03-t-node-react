@@ -18,7 +18,7 @@ export const getAllClients = tryCatch(async (req, res) => {
   sendResponse(res, 200, 'Clientes encontrados con éxito', response);
 });
 
-// Obtener un cliene por ID
+// Obtener un cliente por ID
 export const getClientById = tryCatch(async (req, res) => {
   const { clientId } = req.params;
 

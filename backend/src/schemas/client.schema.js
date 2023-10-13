@@ -11,8 +11,6 @@ const clientSchemaDefinition = new mongoose.Schema({
     default: 'https://res.cloudinary.com/dxq0pypxu/image/upload/v1696476957/nn12qmebo7v6qhbwbkdf.png',
   },
   isActive: { type: Boolean, default: true },
-  // pets: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Pet' }],
-  // appointments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Appointment' }],
 });
 
 // Función toJSON personalizada para excluir campos sensibles
