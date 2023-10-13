@@ -6,8 +6,7 @@ import ErrorApp from '../utils/ErrorApp';
 import { tryCatch } from '../utils/tryCatch';
 
 // Importa la duración del token desde .env
-const TOKEN_EXPIRATION = process.env.TOKEN_EXPIRATION || '1h';
-
+const TOKEN_EXPIRATION = process.env.TOKEN_EXPIRATION || '24h';
 // Registrar un nuevo cliente
 export const registerClient = tryCatch(async (req, res) => {
   const { fullname, email, password } = req.body;

@@ -5,12 +5,16 @@ const appointmentSchemaDefinition = new mongoose.Schema({
     type: Date,
     required: true,
   },
-  reason: {
-    type: String,
+  start_time: {
+    type: Date,
     required: true,
   },
-  cost: {
-    type: Number,
+  end_time: {
+    type: Date,
+    required: true,
+  },
+  reason: {
+    type: String,
     required: true,
   },
   notes: {
@@ -27,12 +31,12 @@ const appointmentSchemaDefinition = new mongoose.Schema({
     ref: 'Client',
     required: true,
   },
-  /* veterinarianId: {
+  veterinarianId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Veterinarian',
     required: true,
-  }, */
-  isActive: { type: Boolean, default: true }
+  },
+  isActive: { type: Boolean, default: true },
 });
 
 const Appointment = mongoose.model('Appointment', appointmentSchemaDefinition);
