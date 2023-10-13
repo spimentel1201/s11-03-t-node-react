@@ -4,6 +4,7 @@ import imageRoutes from './images.routes';
 import petRoutes from './pet.routes';
 import authRoutes from './auth.routes';
 import appointmentsRoutes from './appointments.routes';
+import veterinarianRoutes from './veterinarian.routes';
 
 const router = express.Router();
 
@@ -17,6 +18,8 @@ router.use('/api/v1/images', imageRoutes);
 router.use('/api/v1/pets', petRoutes);
 // Rutas de Citas
 router.use('/api/v1/appointments', appointmentsRoutes);
+// Rutas de Veterinarios
+router.use('/api/v1/veterinarians', veterinarianRoutes);
 
 // Otras rutas
 
