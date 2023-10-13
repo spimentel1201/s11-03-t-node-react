@@ -18,7 +18,9 @@ export default function RootLayout({
   return (
     <html lang="en" data-theme="veterinaria">
       <body className={inter.className}>
+        <div className='sticky top-0 z-10 '>
         <NavBar />
+        </div>
         {children}</body>
     </html>
   )
