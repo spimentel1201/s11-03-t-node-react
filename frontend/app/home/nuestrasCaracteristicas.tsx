@@ -2,11 +2,11 @@ import Image from 'next/image'
 import Section from './nuestrasSection'
 
 const NuestrasCaracteristicas = () => (
-  <div className="flex flex-row px-10 text-primary-content justify-center">
+  <div className="flex flex-col-reverse items-center xl:flex-row px-10 text-primary-content justify-center">
     <div className="max-w-2xl">
-      <h4 className="mt-20 text-accent font-bold"> Nuestras Caracteristcas</h4>
-      <h1 className="mt-5 text-3xl font-bold"> Cuidamos de tu mascota</h1>
-      <p className="mt-9 text-lg">
+      <h4 className="text-center xl:text-start mt-20 text-accent font-bold"> Nuestras Característcas</h4>
+      <h1 className="text-center xl:text-start text-xl xl:text-3xl mt-5 font-bold"> Cuidamos de tu mascota</h1>
+      <p className="text-center xl:text-start mt-9 text-lg">
         El equipo de VetCare se dedica a proporcionar el más alto atención de
         calidad para su perro. Todos nuestros campistas reciben atención
         individual y cuidados amor amores sensibles
@@ -33,7 +33,7 @@ const NuestrasCaracteristicas = () => (
         text="Limpiezas rutinarias y exámenes dentales para mantener la de tu mascota salud bucal."
       />
     </div>
-    <div className="ml-20 mt-32 relative">
+    <div className="xl:ml-20 xl:mt-32 relative">
       <Image
         className="rounded-br-3xl"
         src="/veterinario-trabajando.png"

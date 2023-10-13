@@ -1,6 +1,12 @@
 import Image from 'next/image'
 
-const Section = ({src, text, title}) => (
+type Props = {
+  src: string,
+  text: string,
+  title: string
+  }
+
+const Section = ({src, text, title}: Props) => (
   <section className="mt-10 ml-3 flex">
     <Image
       src={src}
