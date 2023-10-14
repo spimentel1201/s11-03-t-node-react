@@ -8,6 +8,14 @@ export const uploadImageValidation = generateValidationRules('UploadImage', {
   },
 });
 
+export const updatePasswordValidation = generateValidationRules('updatePasswordClient', {
+  newPassword: {
+    notEmpty: {},
+    isLength: { min: 8, max: 12 },
+    password: {},
+  },
+});
+
 export const updateClientValidation = generateValidationRules('updateClient', {
   fullname: {
     notEmpty: {},
@@ -50,20 +58,6 @@ export const loginClientValidation = generateValidationRules('loginClient', {
     isEmail: {},
   },
   password: {
-    notEmpty: {},
-  },
-});
-
-export const updatePasswordValidation = generateValidationRules('updatePasswordClient', {
-  newPassword: {
-    notEmpty: {},
-    isLength: { min: 8, max: 12 },
-    password: {},
-  },
-});
-
-export const deleteImageValidation = generateValidationRules('deleteImage', {
-  publicId: {
     notEmpty: {},
   },
 });
