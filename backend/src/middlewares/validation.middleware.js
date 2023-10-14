@@ -54,6 +54,14 @@ export const loginClientValidation = generateValidationRules('loginClient', {
   },
 });
 
+export const updatePasswordValidation = generateValidationRules('updatePasswordClient', {
+  newPassword: {
+    notEmpty: {},
+    isLength: { min: 8, max: 12 },
+    password: {},
+  },
+});
+
 export const deleteImageValidation = generateValidationRules('deleteImage', {
   publicId: {
     notEmpty: {},

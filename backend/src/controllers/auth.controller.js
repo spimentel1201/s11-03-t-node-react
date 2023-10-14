@@ -1,11 +1,12 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import fs from 'fs';
 import { sendResponse } from '../responses/responseUtils';
 import Client from '../schemas/client.schema';
 import ErrorApp from '../utils/ErrorApp';
 import { tryCatch } from '../utils/tryCatch';
 import transporter from '../config/node-mailer';
-import { generateVerificationCode } from '../utils/generateVerificationCode';
+import { generateUniqueVerificationCode } from '../utils/generateUniqueVerificationCode';
 
 // Importa la duración del token desde .env
 const TOKEN_EXPIRATION = process.env.TOKEN_EXPIRATION || '24h';
@@ -71,11 +72,6 @@ export const loginClient = tryCatch(async (req, res) => {
 export const sendVerificationCode = tryCatch(async (req, res) => {
   const { email } = req.body;
 
-  // Genera un código de verificación temporal
-  const recoveryCode = generateVerificationCode();
-
-  console.log('Código de verificación generado:', recoveryCode);
-
   // Almacena el código de verificación en la base de datos del cliente
   const existingClient = await Client.findOne({ email });
 
@@ -83,6 +79,13 @@ export const sendVerificationCode = tryCatch(async (req, res) => {
     const error = ErrorApp('Tus datos no son válidos, por favor vuelve a intentarlo', 404);
     throw error;
   }
+
+  // Lee la plantilla HTML desde el archivo
+  const templatePath = 'public/mails/templates/verification_email.html';
+  const templateContent = fs.readFileSync(templatePath, 'utf8');
+
+  // Genera un código de verificación temporal
+  const recoveryCode = await generateUniqueVerificationCode();
 
   // Almacena el código de verificación en el cliente
   existingClient.verificationCode = recoveryCode;
@@ -92,22 +95,24 @@ export const sendVerificationCode = tryCatch(async (req, res) => {
   codeExpiration.setMinutes(codeExpiration.getMinutes() + 5);
   existingClient.verificationCodeExpires = codeExpiration;
 
-  console.log('Código de verificación asignado al cliente:', existingClient.verificationCode);
-
   // Guarda los cambios en la entidad Client
   await existingClient.save();
 
-  console.log('Cambios guardados en la entidad del cliente:', existingClient);
+  // Reemplaza las variables con valores reales
+  const fullname = existingClient.fullname; // Obtén el nombre del cliente
+  const emailContent = templateContent
+    .replace('[Nombre del Cliente]', fullname)
+    .replace('[Código de Verificación]', recoveryCode)
+    .replace('[Duración del Código]', '5');
 
   // Envía el correo de recuperación con el código de verificación
   const mailOptions = {
     from: process.env.EMAIL_ADDRESS,
     to: email,
-    subject: 'Recuperación de contraseña',
-    text: `Utiliza el siguiente código para recuperar tu contraseña: ${recoveryCode}`,
+    subject: 'Verificación de correo electrónico',
+    html: emailContent,
   };
 
-  // Envía el correo de recuperación
   await transporter.sendMail(mailOptions);
 
   // Respondemos con un mensaje de éxito
@@ -115,10 +120,10 @@ export const sendVerificationCode = tryCatch(async (req, res) => {
 });
 
 export const verifyVerificationCode = tryCatch(async (req, res) => {
-  const { code } = req.body;
+  const { validationCode } = req.body;
 
   // Buscar al cliente por su código de verificación
-  const existingClient = await Client.findOne({ verificationCode: code });
+  const existingClient = await Client.findOne({ verificationCode: validationCode });
 
   if (!existingClient) {
     const error = ErrorApp('Código de verificación no válido', 404);
@@ -126,7 +131,7 @@ export const verifyVerificationCode = tryCatch(async (req, res) => {
   }
 
   // Comprobar si el código de verificación coincide
-  if (existingClient.verificationCode === code) {
+  if (existingClient.verificationCode === validationCode) {
     // El código de verificación es válido, permitir continuar
     const secretKey = process.env.SECRET_KEY;
     const token = jwt.sign({ clientId: existingClient._id }, secretKey, {
@@ -135,6 +140,9 @@ export const verifyVerificationCode = tryCatch(async (req, res) => {
 
     // Elimina el código de verificación de la base de datos
     existingClient.verificationCode = undefined;
+
+    // Elimina el tiempo de expiración de la base de datos
+    existingClient.verificationCodeExpires = undefined;
 
     // Guarda los cambios en la entidad Client para eliminar el código
     await existingClient.save();

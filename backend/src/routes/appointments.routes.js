@@ -8,7 +8,7 @@ import {
 } from '../controllers/appointment.controller';
 import { createAppointmentValidation, updateAppointmentValidation } from '../middlewares/validation.middleware';
 import { validMongoId } from '../middlewares/validMongoId.middleware';
-import { authenticate } from '../middlewares/auth.middleware';
+import { checkAuthentication } from '../middlewares/auth.middleware';
 
 const router = express.Router();
 
@@ -16,7 +16,7 @@ const router = express.Router();
 router.param('appointmentId', validMongoId('appointmentId'));
 
 // Aplica el middleware de autenticación a las rutas que deseas proteger
-router.use(authenticate);
+router.use(checkAuthentication);
 
 // Rutas para citas
 // Registrar una cita
