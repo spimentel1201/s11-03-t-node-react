@@ -190,5 +190,38 @@
       "speciality",
       "license"
     ]
+  },
+  "image": {
+    "type": "object",
+    "properties": {
+      "clientId": {
+        "type": "objectid",
+        "description": "ID del usuario al que pertenece la imagen."
+      },
+      "public_id": {
+        "type": "string",
+        "description": "El public_id de Cloudinary de la imagen."
+      },
+      "photo_url": {
+        "type": "string",
+        "description": "La URL de la imagen almacenada en Cloudinary."
+      },
+      "created_at": {
+        "type": "date",
+        "description": "Fecha y hora de creación de la imagen.",
+        "format": "date-time"
+      },
+      "_id": {
+        "type": "objectid"
+      },
+      "__v": {
+        "type": "number"
+      }
+    },
+    "required": [
+      "clientId",
+      "public_id",
+      "photo_url"
+    ]
   }
 }
