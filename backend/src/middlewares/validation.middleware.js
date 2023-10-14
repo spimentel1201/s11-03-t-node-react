@@ -54,12 +54,6 @@ export const loginClientValidation = generateValidationRules('loginClient', {
   },
 });
 
-export const deleteImageValidation = generateValidationRules('deleteImage', {
-  publicId: {
-    notEmpty: {},
-  },
-});
-
 export const createAppointmentValidation = generateValidationRules('createAppointment', {
   date: {
     isDate: {},

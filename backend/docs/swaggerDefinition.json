@@ -215,6 +215,39 @@
           "speciality",
           "license"
         ]
+      },
+      "image": {
+        "type": "object",
+        "properties": {
+          "clientId": {
+            "type": "objectid",
+            "description": "ID del usuario al que pertenece la imagen."
+          },
+          "public_id": {
+            "type": "string",
+            "description": "El public_id de Cloudinary de la imagen."
+          },
+          "photo_url": {
+            "type": "string",
+            "description": "La URL de la imagen almacenada en Cloudinary."
+          },
+          "created_at": {
+            "type": "date",
+            "description": "Fecha y hora de creación de la imagen.",
+            "format": "date-time"
+          },
+          "_id": {
+            "type": "objectid"
+          },
+          "__v": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "clientId",
+          "public_id",
+          "photo_url"
+        ]
       }
     }
   },
@@ -223,7 +256,9 @@
       "post": {
         "summary": "Registra un nuevo cliente",
         "description": "Registra un nuevo cliente con la información proporcionada",
-        "tags": ["Auth"],
+        "tags": [
+          "Auth"
+        ],
         "requestBody": {
           "description": "Datos del cliente a crear",
           "required": true,
@@ -378,7 +413,9 @@
       "post": {
         "summary": "Iniciar sesión de cliente",
         "description": "Inicia sesión de un cliente utilizando su correo electrónico y contraseña.",
-        "tags": ["Auth"],
+        "tags": [
+          "Auth"
+        ],
         "requestBody": {
           "description": "Datos de inicio de sesión del cliente",
           "required": true,
@@ -520,7 +557,9 @@
       "get": {
         "summary": "Iniciar sesión de cliente con Google",
         "description": "Inicia sesión de un cliente utilizando la API de Google OAuth. La autenticación se realiza en una página externa de Google y la respuesta exitosa se genera después de una autenticación exitosa en la página de inicio de sesión de Google.Este entorno solo es informativo. Para probar esta ruta, utiliza la siguiente URL en tu navegador:<br><br>**Producción:** [Haz clic aquí para iniciar sesión en producción](https://s11-03-react-node-production.up.railway.app/api/v1/auth/google)<br>**Desarrollo:** [Haz clic aquí para iniciar sesión en desarrollo](http://localhost:3001/api/v1/auth/google)",
-        "tags": ["Auth"],
+        "tags": [
+          "Auth"
+        ],
         "responses": {
           "200": {
             "description": "Inicio de sesión exitoso",
@@ -583,7 +622,9 @@
       "get": {
         "summary": "Obtener todos los clientes activos",
         "description": "Obtiene una lista de todos los clientes activos en el sistema",
-        "tags": ["Clients"],
+        "tags": [
+          "Clients"
+        ],
         "security": [
           {
             "BearerAuth": []
@@ -751,7 +792,9 @@
       "get": {
         "summary": "Obtener un cliente por ID",
         "description": "Obtiene un cliente específico por su ID",
-        "tags": ["Clients"],
+        "tags": [
+          "Clients"
+        ],
         "security": [
           {
             "BearerAuth": []
@@ -913,7 +956,9 @@
       "put": {
         "summary": "Actualizar un cliente por ID",
         "description": "Actualiza un cliente específico por su ID",
-        "tags": ["Clients"],
+        "tags": [
+          "Clients"
+        ],
         "security": [
           {
             "BearerAuth": []
@@ -1104,7 +1149,9 @@
       "delete": {
         "summary": "Desactivar un cliente por ID",
         "description": "Desactiva un cliente específico por su ID",
-        "tags": ["Clients"],
+        "tags": [
+          "Clients"
+        ],
         "security": [
           {
             "BearerAuth": []
@@ -1231,7 +1278,9 @@
       "post": {
         "summary": "Crea una nueva cita",
         "description": "Crea una nueva cita con la información proporcionada",
-        "tags": ["Appointments"],
+        "tags": [
+          "Appointments"
+        ],
         "security": [
           {
             "BearerAuth": []
@@ -1421,7 +1470,9 @@
       "get": {
         "summary": "Obtener todas las citas",
         "description": "Obtiene una lista de todos las citas en el sistema",
-        "tags": ["Appointments"],
+        "tags": [
+          "Appointments"
+        ],
         "security": [
           {
             "BearerAuth": []
@@ -1551,7 +1602,9 @@
       "get": {
         "summary": "Obtener una cita por ID",
         "description": "Obtiene una cita específica por su ID",
-        "tags": ["Appointments"],
+        "tags": [
+          "Appointments"
+        ],
         "security": [
           {
             "BearerAuth": []
@@ -1716,7 +1769,9 @@
       "put": {
         "summary": "Actualizar una cita por ID",
         "description": "Actualiza una cita específica por su ID",
-        "tags": ["Appointments"],
+        "tags": [
+          "Appointments"
+        ],
         "security": [
           {
             "BearerAuth": []
@@ -1910,7 +1965,9 @@
       "delete": {
         "summary": "Desactivar una cita por ID",
         "description": "Desactivar una cita específica por su ID",
-        "tags": ["Appointments"],
+        "tags": [
+          "Appointments"
+        ],
         "security": [
           {
             "BearerAuth": []
@@ -2036,159 +2093,13 @@
         }
       }
     },
-    "/images/upload": {
-      "post": {
-        "summary": "Cargar una imagen",
-        "description": "Carga una imagen y devuelve un URL",
-        "tags": ["Images"],
-        "requestBody": {
-          "description": "Imagen a cargar",
-          "required": true,
-          "content": {
-            "multipart/form-data": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "image": {
-                    "type": "string",
-                    "format": "binary"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Imagen cargada con éxito",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "photo_url": {
-                      "type": "string",
-                      "format": "uri"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Error interno del servidor",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "string",
-                      "example": "error"
-                    },
-                    "errors": {
-                      "type": "object",
-                      "properties": {
-                        "message": {
-                          "type": "string",
-                          "example": "Error interno del servidor"
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/images/delete": {
-      "delete": {
-        "summary": "Eliminar una imagen",
-        "description": "Elimina una imagen en Cloudinary por su public_id. El `publicId` debe corresponder a la ubicación de la imagen en Cloudinary, que sigue el formato: `https://res.cloudinary.com/dxq0pypxu/image/upload/v1696653300/{publicId}.png`",
-        "tags": ["Images"],
-        "requestBody": {
-          "description": "Datos de la imagen a eliminar",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "publicId": {
-                    "type": "string",
-                    "example": "nxq4opczwrvn9rblu2uq"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Imagen eliminada con éxito",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "message": {
-                      "type": "string"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad Request: Error en la solicitud",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "error": {
-                      "type": "string"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Error interno del servidor",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "string",
-                      "example": "error"
-                    },
-                    "errors": {
-                      "type": "object",
-                      "properties": {
-                        "message": {
-                          "type": "string",
-                          "example": "Error interno del servidor"
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/pets": {
       "post": {
         "summary": "Registrar una mascota",
         "description": "Registra una mascota",
-        "tags": ["Pets"],
+        "tags": [
+          "Pets"
+        ],
         "security": [
           {
             "BearerAuth": []
@@ -2346,7 +2257,9 @@
       "get": {
         "summary": "Obtener todas las mascotas registradas",
         "description": "Obtiene una lista con todos los veterinarios registrados en el sistema",
-        "tags": ["Pets"],
+        "tags": [
+          "Pets"
+        ],
         "responses": {
           "200": {
             "description": "Mascotas encontradas con éxito",
@@ -2439,7 +2352,9 @@
       "get": {
         "summary": "Obtener una mascota por ID",
         "description": "Obtiene un registro de mascota por su ID",
-        "tags": ["Pets"],
+        "tags": [
+          "Pets"
+        ],
         "parameters": [
           {
             "name": "petId",
@@ -2595,7 +2510,9 @@
       "put": {
         "summary": "Actualizar una mascota por ID",
         "description": "Actualiza la información de una mascota por su ID",
-        "tags": ["Pets"],
+        "tags": [
+          "Pets"
+        ],
         "security": [
           {
             "BearerAuth": []
@@ -2795,7 +2712,9 @@
       "post": {
         "summary": "Registrar un nuevo veterinario",
         "description": "Registra un nuevo veterinario en la base de datos",
-        "tags": ["Veterinarians"],
+        "tags": [
+          "Veterinarians"
+        ],
         "security": [
           {
             "BearerAuth": []
@@ -2957,7 +2876,9 @@
       "get": {
         "summary": "Obtener todos los veterinarios registrados",
         "description": "Obtiene una lista con todos los veterinarios registrados en el sistema",
-        "tags": ["Veterinarians"],
+        "tags": [
+          "Veterinarians"
+        ],
         "responses": {
           "200": {
             "description": "Veterinarios encontrados con éxito",
@@ -3054,7 +2975,9 @@
       "get": {
         "summary": "Obtener un veterinario por ID",
         "description": "Obtiene un registro de veterinario por su ID",
-        "tags": ["Veterinarians"],
+        "tags": [
+          "Veterinarians"
+        ],
         "parameters": [
           {
             "name": "veterinarianId",
@@ -3214,7 +3137,9 @@
       "patch": {
         "summary": "Actualizar una veterinario por ID",
         "description": "Actualiza la información de un veterinario por su ID",
-        "tags": ["Veterinarians"],
+        "tags": [
+          "Veterinarians"
+        ],
         "security": [
           {
             "BearerAuth": []
@@ -3416,7 +3341,9 @@
       "delete": {
         "summary": "Desactivar una veterinario por ID",
         "description": "Desactivar una veterinario por su ID",
-        "tags": ["Veterinarians"],
+        "tags": [
+          "Veterinarians"
+        ],
         "security": [
           {
             "BearerAuth": []
@@ -3502,6 +3429,466 @@
                           "message": {
                             "type": "string",
                             "example": "Veterinario no encontrado"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error interno del servidor",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "error"
+                    },
+                    "errors": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "message": {
+                            "type": "string",
+                            "example": "Error interno del servidor"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/images/upload": {
+      "post": {
+        "summary": "Cargar una imagen",
+        "description": "Carga una imagen y devuelve un URL",
+        "tags": [
+          "Images"
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "description": "Imagen a cargar",
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "image": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Imagen cargada con éxito",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "success"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Imagen cargada con éxito"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "clientId": {
+                          "type": "string",
+                          "example": "6526d6354cd4f875db7f35ec"
+                        },
+                        "public_id": {
+                          "type": "string",
+                          "example": "sq0li33kejgq17ajpt75"
+                        },
+                        "photo_url": {
+                          "type": "string",
+                          "format": "uri",
+                          "example": "https://res.cloudinary.com/dxq0pypxu/image/upload/v1697253212/sq0li33kejgq17ajpt75.png"
+                        },
+                        "_id": {
+                          "type": "string",
+                          "example": "652a075c51de9d0ce17cf4b2"
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "format": "date-time",
+                          "example": "2023-10-14T03:13:32.977Z"
+                        },
+                        "__v": {
+                          "type": "number",
+                          "example": 0
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Solicitud incorrecta",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "fail"
+                    },
+                    "errors": {
+                      "type": "object",
+                      "properties": {
+                        "image": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error interno del servidor",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "error"
+                    },
+                    "errors": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "example": "Error interno del servidor"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/images": {
+      "get": {
+        "summary": "Obtener todas las imágenes del usuario",
+        "description": "Obtiene una lista de todas las imágenes registradas para un usuario específico.",
+        "tags": [
+          "Images"
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Imágenes del usuario obtenidas con éxito",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "success"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Imágenes del usuario obtenidas con éxito"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "_id": {
+                            "type": "string",
+                            "example": "6526ecdc19dbfd9fc925be45"
+                          },
+                          "clientId": {
+                            "type": "string",
+                            "example": "65230b075ea6e6c2d69cd529"
+                          },
+                          "public_id": {
+                            "type": "string",
+                            "example": "vioxf8z79nxs7kvuvufc"
+                          },
+                          "url": {
+                            "type": "string",
+                            "example": "https://res.cloudinary.com/dxq0pypxu/image/upload/v1697245370/vioxf8z79nxs7kvuvufc.png"
+                          },
+                          "created_at": {
+                            "type": "string",
+                            "example": "2023-10-14T01:02:50.706Z",
+                            "format": "date-time"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error interno del servidor",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "error"
+                    },
+                    "errors": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "message": {
+                            "type": "string",
+                            "example": "Error interno del servidor"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/images/{imageId}": {
+      "get": {
+        "summary": "Obtener una imagen por ID",
+        "description": "Obtiene los detalles de una imagen específica según su ID.",
+        "tags": [
+          "Images"
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "imageId",
+            "in": "path",
+            "required": true,
+            "description": "ID de la imagen a obtener",
+            "schema": {
+              "type": "string",
+              "example": "6529fdece99ba022e2b9f614"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Imagen obtenida con éxito",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "success"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Imagen obtenida con éxito"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "_id": {
+                          "type": "string",
+                          "example": "6526ecdc19dbfd9fc925be45"
+                        },
+                        "clientId": {
+                          "type": "string",
+                          "example": "65230b075ea6e6c2d69cd529"
+                        },
+                        "public_id": {
+                          "type": "string",
+                          "example": "vioxf8z79nxs7kvuvufc"
+                        },
+                        "photo_url": {
+                          "type": "string",
+                          "example": "https://res.cloudinary.com/dxq0pypxu/image/upload/v1697245370/vioxf8z79nxs7kvuvufc.png"
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "example": "2023-10-14T01:02:50.706Z",
+                          "format": "date-time"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Imagen no encontrada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "fail"
+                    },
+                    "errors": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "message": {
+                            "type": "string",
+                            "example": "Imagen no encontrada"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error interno del servidor",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "error"
+                    },
+                    "errors": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "message": {
+                            "type": "string",
+                            "example": "Error interno del servidor"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Eliminar una imagen por ID",
+        "description": "Elimina una imagen específica según su ID.",
+        "tags": [
+          "Images"
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "imageId",
+            "in": "path",
+            "required": true,
+            "description": "ID de la imagen a eliminar",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Imagen eliminada con éxito",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "success"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Imagen eliminada con éxito"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Imagen no encontrada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "fail"
+                    },
+                    "errors": {
+                      "type": "object",
+                      "properties": {
+                        "image": {
+                          "type": "array",
+                          "items": {
+                            "type": "string",
+                            "example": "La imagen no se encuentra en la base de datos."
                           }
                         }
                       }

@@ -1,15 +1,26 @@
 import express from 'express';
 import multer from 'multer';
-import { deleteImage, uploadImage } from '../controllers/image.controller';
-import { deleteImageValidation, uploadImageValidation } from '../middlewares/validation.middleware';
+import { deleteImage, getAllImagesUser, getImageById, uploadImage } from '../controllers/image.controller';
+import { uploadImageValidation } from '../middlewares/validation.middleware';
+import { authenticate } from '../middlewares/auth.middleware';
+import { validMongoId } from '../middlewares/validMongoId.middleware';
 
 const router = express.Router();
+
+// Aplica el middleware de autenticación a las rutas que deseas proteger
+router.use(authenticate);
+
+// Middleware para todas las rutas de cliente que requieren un cliente por ID
+router.param('imageId', validMongoId('imageId'));
 
 // Configuración de multer para manejar la carga de archivos
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
 // Ruta para cargar imágenes, utiliza el controlador
+router.get('/', getAllImagesUser);
+router.get('/:imageId', getImageById);
 router.post('/upload', upload.single('image'), uploadImageValidation, uploadImage);
-router.delete('/delete', deleteImageValidation, deleteImage);
+router.delete('/:imageId', deleteImage);
+
 export default router;
