@@ -68,16 +68,15 @@ export const createAppointmentValidation = generateValidationRules('createAppoin
     notEmpty: {},
     isLength: { min: 0, max: 255 },
   },
-  cost: {
-    notEmpty: {},
-    isFloat: {},
+  start_time: {
+    isDate: {},
+  },
+  end_time: {
+    isDate: {},
   },
   notes: {
     notEmpty: {},
     isLength: { min: 0, max: 255 },
-  },
-  clientId: {
-    isMongoId: {},
   },
   petId: {
     isMongoId: {},
@@ -99,5 +98,57 @@ export const updateAppointmentValidation = generateValidationRules('updateAppoin
   notes: {
     notEmpty: {},
     isLength: { min: 0, max: 255 },
+  },
+});
+
+export const createVeterinarianValidation = generateValidationRules('createVeterinarian', {
+  first_name: {
+    notEmpty: {},
+    isLength: { min: 5, max: 40 },
+    OnlyLetters: {},
+  },
+  last_name: {
+    notEmpty: {},
+    isLength: { min: 5, max: 40 },
+    OnlyLetters: {},
+  },
+  speciality: {
+    notEmpty: {},
+    isLength: { min: 5, max: 40 },
+    OnlyLetters: {},
+  },
+  phone: {
+    notEmpty: {},
+    isLength: { min: 1, max: 15 },
+  },
+  license: {
+    notEmpty: {},
+    isLength: { min: 5, max: 40 },
+    OnlyLetters: {},
+  },
+});
+
+export const updateVeterinarianValidation = generateValidationRules('updateVeterinarian', {
+  first_name: {
+    isLength: { min: 5, max: 40 },
+    OnlyLetters: {},
+  },
+  last_name: {
+    isLength: { min: 5, max: 40 },
+    OnlyLetters: {},
+  },
+  speciality: {
+    isLength: { min: 5, max: 40 },
+    OnlyLetters: {},
+  },
+  phone: {
+    isLength: { min: 1, max: 15 },
+  },
+  license: {
+    isLength: { min: 5, max: 40 },
+    OnlyLetters: {},
+  },
+  photo_url: {
+    isURL: {},
   },
 });

@@ -1,10 +1,10 @@
 import { useState, useRef } from 'react'
 
 const useErrors = () => {
-  const [errors, setErrors] = useState(null)
+  const [errors, setErrors] = useState<Object | null>(null)
   const errorRef = useRef(false)
 
-  function validarEmail(email) {
+  function validarEmail(email: string) {
     var regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
     if (!regex.test(email)) {
       setErrors({ email: 'Ingrese un mail válido' })
@@ -15,7 +15,7 @@ const useErrors = () => {
       errorRef.current = true
     }
   }
-  function validarPassword(password) {
+  function validarPassword(password: string) {
     if (password.length == 0) {
       setErrors({ password: 'La contraseña es obligatoria' })
       errorRef.current = true
