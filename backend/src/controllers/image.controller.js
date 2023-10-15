@@ -58,7 +58,7 @@ export const uploadImage = tryCatch(async (req, res) => {
 
     await newImage.save();
 
-    sendResponse(res, 200, 'Imagen cargada con éxito', newImage);
+    sendResponse(res, 201, 'Imagen cargada con éxito', newImage);
   });
 
   stream.pipe(result);
