@@ -63,11 +63,7 @@
             "type": "number"
           }
         },
-        "required": [
-          "email",
-          "fullname",
-          "password"
-        ]
+        "required": ["email", "fullname", "password"]
       },
       "appointment": {
         "type": "object",
@@ -118,16 +114,7 @@
             "type": "number"
           }
         },
-        "required": [
-          "date",
-          "start_time",
-          "end_time",
-          "reason",
-          "notes",
-          "petId",
-          "clientId",
-          "veterinarianId"
-        ]
+        "required": ["date", "start_time", "end_time", "reason", "notes", "petId", "clientId", "veterinarianId"]
       },
       "pet": {
         "type": "object",
@@ -163,13 +150,7 @@
             "type": "number"
           }
         },
-        "required": [
-          "name",
-          "age",
-          "size",
-          "weight",
-          "clientId"
-        ]
+        "required": ["name", "age", "size", "weight", "clientId"]
       },
       "veterinarian": {
         "type": "object",
@@ -209,12 +190,7 @@
             "type": "number"
           }
         },
-        "required": [
-          "first_name",
-          "last_name",
-          "speciality",
-          "license"
-        ]
+        "required": ["first_name", "last_name", "speciality", "license"]
       },
       "image": {
         "type": "object",
@@ -243,11 +219,7 @@
             "type": "number"
           }
         },
-        "required": [
-          "clientId",
-          "public_id",
-          "photo_url"
-        ]
+        "required": ["clientId", "public_id", "photo_url"]
       }
     }
   },
@@ -256,9 +228,7 @@
       "post": {
         "summary": "Registra un nuevo cliente",
         "description": "Registra un nuevo cliente con la información proporcionada",
-        "tags": [
-          "Auth"
-        ],
+        "tags": ["Auth"],
         "requestBody": {
           "description": "Datos del cliente a crear",
           "required": true,
@@ -413,9 +383,7 @@
       "post": {
         "summary": "Iniciar sesión de cliente",
         "description": "Inicia sesión de un cliente utilizando su correo electrónico y contraseña.",
-        "tags": [
-          "Auth"
-        ],
+        "tags": ["Auth"],
         "requestBody": {
           "description": "Datos de inicio de sesión del cliente",
           "required": true,
@@ -557,9 +525,7 @@
       "get": {
         "summary": "Iniciar sesión de cliente con Google",
         "description": "Inicia sesión de un cliente utilizando la API de Google OAuth. La autenticación se realiza en una página externa de Google y la respuesta exitosa se genera después de una autenticación exitosa en la página de inicio de sesión de Google.Este entorno solo es informativo. Para probar esta ruta, utiliza la siguiente URL en tu navegador:<br><br>**Producción:** [Haz clic aquí para iniciar sesión en producción](https://s11-03-react-node-production.up.railway.app/api/v1/auth/google)<br>**Desarrollo:** [Haz clic aquí para iniciar sesión en desarrollo](http://localhost:3001/api/v1/auth/google)",
-        "tags": [
-          "Auth"
-        ],
+        "tags": ["Auth"],
         "responses": {
           "200": {
             "description": "Inicio de sesión exitoso",
@@ -622,9 +588,7 @@
       "get": {
         "summary": "Obtener todos los clientes activos",
         "description": "Obtiene una lista de todos los clientes activos en el sistema",
-        "tags": [
-          "Clients"
-        ],
+        "tags": ["Clients"],
         "security": [
           {
             "BearerAuth": []
@@ -792,9 +756,7 @@
       "get": {
         "summary": "Obtener un cliente por ID",
         "description": "Obtiene un cliente específico por su ID",
-        "tags": [
-          "Clients"
-        ],
+        "tags": ["Clients"],
         "security": [
           {
             "BearerAuth": []
@@ -956,9 +918,7 @@
       "put": {
         "summary": "Actualizar un cliente por ID",
         "description": "Actualiza un cliente específico por su ID",
-        "tags": [
-          "Clients"
-        ],
+        "tags": ["Clients"],
         "security": [
           {
             "BearerAuth": []
@@ -1149,9 +1109,7 @@
       "delete": {
         "summary": "Desactivar un cliente por ID",
         "description": "Desactiva un cliente específico por su ID",
-        "tags": [
-          "Clients"
-        ],
+        "tags": ["Clients"],
         "security": [
           {
             "BearerAuth": []
@@ -1278,9 +1236,7 @@
       "post": {
         "summary": "Crea una nueva cita",
         "description": "Crea una nueva cita con la información proporcionada",
-        "tags": [
-          "Appointments"
-        ],
+        "tags": ["Appointments"],
         "security": [
           {
             "BearerAuth": []
@@ -1469,13 +1425,89 @@
       },
       "get": {
         "summary": "Obtener todas las citas",
-        "description": "Obtiene una lista de todos las citas en el sistema",
-        "tags": [
-          "Appointments"
-        ],
-        "security": [
+        "description": "Obtiene una lista de todas las citas en el sistema. Puedes filtrar las citas utilizando parámetros de consulta, como clientId, petId, veterinarianId, date y cita activa o inactiva.",
+        "tags": ["Appointments"],
+        
+        "parameters": [
           {
-            "BearerAuth": []
+            "name": "page",
+            "in": "query",
+            "description": "Número de página para la paginación",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "example": 1
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Número de elementos por página para la paginación",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "example": 10
+            }
+          },
+          {
+            "name": "clientId",
+            "in": "query",
+            "description": "Filtrar citas por ID de cliente",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example":"6526d6354cd4f875db7f35ec"
+            }
+          },
+          {
+            "name": "petId",
+            "in": "query",
+            "description": "Filtrar citas por ID de mascota",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example":"65289e577c53765dcaac589b"
+            }
+          },
+          {
+            "name": "veterinarianId",
+            "in": "query",
+            "description": "Filtrar citas por ID de veterinario",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example":"65257fdb84a825a841323454"
+            }
+          },
+          {
+            "name": "date",
+            "in": "query",
+            "description": "Filtrar citas por fecha",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date",
+              "example": "2023-12-14"
+            }
+          },
+          {
+            "name": "search",  
+            "in": "query",
+            "description": "Búsqueda de texto completo en la razón de la cita",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": "enrojecimiento"
+            }
+          },
+          {
+            "name": "isActive",
+            "in": "query",
+            "description": "Filtrar citas por estado (activo o inactivo)",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
           }
         ],
         "responses": {
@@ -1602,9 +1634,7 @@
       "get": {
         "summary": "Obtener una cita por ID",
         "description": "Obtiene una cita específica por su ID",
-        "tags": [
-          "Appointments"
-        ],
+        "tags": ["Appointments"],
         "security": [
           {
             "BearerAuth": []
@@ -1769,9 +1799,7 @@
       "put": {
         "summary": "Actualizar una cita por ID",
         "description": "Actualiza una cita específica por su ID",
-        "tags": [
-          "Appointments"
-        ],
+        "tags": ["Appointments"],
         "security": [
           {
             "BearerAuth": []
@@ -1965,9 +1993,7 @@
       "delete": {
         "summary": "Desactivar una cita por ID",
         "description": "Desactivar una cita específica por su ID",
-        "tags": [
-          "Appointments"
-        ],
+        "tags": ["Appointments"],
         "security": [
           {
             "BearerAuth": []
@@ -2097,9 +2123,7 @@
       "post": {
         "summary": "Registrar una mascota",
         "description": "Registra una mascota",
-        "tags": [
-          "Pets"
-        ],
+        "tags": ["Pets"],
         "security": [
           {
             "BearerAuth": []
@@ -2257,9 +2281,7 @@
       "get": {
         "summary": "Obtener todas las mascotas registradas",
         "description": "Obtiene una lista con todos los veterinarios registrados en el sistema",
-        "tags": [
-          "Pets"
-        ],
+        "tags": ["Pets"],
         "responses": {
           "200": {
             "description": "Mascotas encontradas con éxito",
@@ -2352,9 +2374,7 @@
       "get": {
         "summary": "Obtener una mascota por ID",
         "description": "Obtiene un registro de mascota por su ID",
-        "tags": [
-          "Pets"
-        ],
+        "tags": ["Pets"],
         "parameters": [
           {
             "name": "petId",
@@ -2510,9 +2530,7 @@
       "put": {
         "summary": "Actualizar una mascota por ID",
         "description": "Actualiza la información de una mascota por su ID",
-        "tags": [
-          "Pets"
-        ],
+        "tags": ["Pets"],
         "security": [
           {
             "BearerAuth": []
@@ -2712,9 +2730,7 @@
       "post": {
         "summary": "Registrar un nuevo veterinario",
         "description": "Registra un nuevo veterinario en la base de datos",
-        "tags": [
-          "Veterinarians"
-        ],
+        "tags": ["Veterinarians"],
         "security": [
           {
             "BearerAuth": []
@@ -2876,9 +2892,7 @@
       "get": {
         "summary": "Obtener todos los veterinarios registrados",
         "description": "Obtiene una lista con todos los veterinarios registrados en el sistema",
-        "tags": [
-          "Veterinarians"
-        ],
+        "tags": ["Veterinarians"],
         "responses": {
           "200": {
             "description": "Veterinarios encontrados con éxito",
@@ -2975,9 +2989,7 @@
       "get": {
         "summary": "Obtener un veterinario por ID",
         "description": "Obtiene un registro de veterinario por su ID",
-        "tags": [
-          "Veterinarians"
-        ],
+        "tags": ["Veterinarians"],
         "parameters": [
           {
             "name": "veterinarianId",
@@ -3137,9 +3149,7 @@
       "patch": {
         "summary": "Actualizar una veterinario por ID",
         "description": "Actualiza la información de un veterinario por su ID",
-        "tags": [
-          "Veterinarians"
-        ],
+        "tags": ["Veterinarians"],
         "security": [
           {
             "BearerAuth": []
@@ -3341,9 +3351,7 @@
       "delete": {
         "summary": "Desactivar una veterinario por ID",
         "description": "Desactivar una veterinario por su ID",
-        "tags": [
-          "Veterinarians"
-        ],
+        "tags": ["Veterinarians"],
         "security": [
           {
             "BearerAuth": []
@@ -3473,9 +3481,7 @@
       "post": {
         "summary": "Cargar una imagen",
         "description": "Carga una imagen y devuelve un URL",
-        "tags": [
-          "Images"
-        ],
+        "tags": ["Images"],
         "security": [
           {
             "BearerAuth": []
@@ -3609,9 +3615,7 @@
       "get": {
         "summary": "Obtener todas las imágenes del usuario",
         "description": "Obtiene una lista de todas las imágenes registradas para un usuario específico.",
-        "tags": [
-          "Images"
-        ],
+        "tags": ["Images"],
         "security": [
           {
             "BearerAuth": []
@@ -3702,9 +3706,7 @@
       "get": {
         "summary": "Obtener una imagen por ID",
         "description": "Obtiene los detalles de una imagen específica según su ID.",
-        "tags": [
-          "Images"
-        ],
+        "tags": ["Images"],
         "security": [
           {
             "BearerAuth": []
@@ -3830,9 +3832,7 @@
       "delete": {
         "summary": "Eliminar una imagen por ID",
         "description": "Elimina una imagen específica según su ID.",
-        "tags": [
-          "Images"
-        ],
+        "tags": ["Images"],
         "security": [
           {
             "BearerAuth": []
