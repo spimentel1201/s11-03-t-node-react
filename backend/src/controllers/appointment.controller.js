@@ -6,6 +6,7 @@ import Appointment from '../schemas/appointment.schema';
 import ErrorApp from '../utils/ErrorApp';
 import disableEntity from '../utils/disableEntity';
 import Veterinarian from '../schemas/veterinarian.schema';
+import { paginate } from '../utils/pagination';
 
 // Crear una nueva cita
 export const createAppointment = tryCatch(async (req, res) => {
@@ -99,16 +100,169 @@ export const createAppointment = tryCatch(async (req, res) => {
   sendResponse(res, 201, 'Cita creada con éxito', newAppointment);
 });
 
-// Obtener todas las citas
-export const getAllAppointments = tryCatch(async (req, res) => {
-  const appointments = await Appointment.find().populate([
-    { path: 'clientId' },
-    { path: 'petId' },
-    { path: 'veterinarianId' },
-  ]);
+// Obtener todas las citas con filtros opcionales y paginación
+// export const getAllAppointments = tryCatch(async (req, res) => {
+//   // Obtiene los parámetros de consulta (query parameters) de la solicitud, incluyendo la página y el límite
+//   const { clientId, petId, veterinarianId, date, isActive, search } = req.query;
 
-  // Devuelve una respuesta RESTful desde utils
-  sendResponse(res, 200, 'Citas encontradas con éxito', appointments);
+//   const page = parseInt(req.query.page) || 1;
+//   const limit = parseInt(req.query.limit) || 10;
+//   const baseUrl = `${req.protocol}://${req.get('host')}${req.originalUrl.split('?')[0]}`;
+
+//   // Crea un objeto de filtro inicial vacío
+//   const filter = {};
+
+//   // Agrega filtros si se proporcionan los parámetros
+//   if (clientId) {
+//     filter.clientId = clientId;
+//   }
+//   if (petId) {
+//     filter.petId = petId;
+//   }
+//   if (veterinarianId) {
+//     filter.veterinarianId = veterinarianId;
+//   }
+//   if (date) {
+//     filter.date = new Date(date);
+//   }
+//   if (isActive) {
+//     filter.isActive = isActive;
+//   }
+
+//   // Realiza la consulta sin paginación para contar los resultados
+//   const totalResults = await Appointment.countDocuments(filter);
+
+//   let results;
+
+//   // Si el número de resultados es mayor que el límite, aplica paginación, de lo contrario, obtén todos los resultados
+//   if (totalResults > limit) {
+//     results = await paginate(Appointment, page, limit, baseUrl, filter);
+//   } else {
+//     // Si se proporciona una palabra clave de búsqueda, utiliza la búsqueda de texto completo
+//     if (search) {
+//       results = await Appointment.find({ $text: { $search: search } }, { score: { $meta: 'textScore' } })
+//         .sort({ date: -1 }) // Ordena por fecha en orden descendente (más recientes primero)
+//         .limit(limit);
+//     } else {
+//       results = await Appointment.find(filter).populate([
+//         { path: 'clientId' },
+//         { path: 'petId' },
+//         { path: 'veterinarianId' },
+//       ]);
+//     }
+//   }
+
+//   // Devuelve una respuesta RESTful desde utils con la cantidad total de resultados
+//   sendResponse(res, 200, 'Citas encontradas con éxito', { totalResults, results });
+// });
+// export const getAllAppointments = tryCatch(async (req, res) => {
+//   // Obtiene los parámetros de consulta (query parameters) de la solicitud, incluyendo la página y el límite
+//   const { clientId, petId, veterinarianId, date, isActive, search } = req.query;
+
+//   const page = parseInt(req.query.page) || 1;
+//   const limit = parseInt(req.query.limit) || 10;
+//   const baseUrl = `${req.protocol}://${req.get('host')}${req.originalUrl.split('?')[0]}`;
+
+//   // Crea un objeto de filtro inicial vacío
+//   const filter = {};
+
+//   // Agrega filtros si se proporcionan los parámetros
+//   if (clientId) {
+//     filter.clientId = clientId;
+//   }
+//   if (petId) {
+//     filter.petId = petId;
+//   }
+//   if (veterinarianId) {
+//     filter.veterinarianId = veterinarianId;
+//   }
+//   if (date) {
+//     filter.date = new Date(date);
+//   }
+//   if (isActive) {
+//     filter.isActive = isActive;
+//   }
+
+//   // Realiza la consulta sin paginación para contar los resultados
+//   let totalResults;
+//   let results;
+
+//   if (search) {
+//     // Si se proporciona una palabra clave de búsqueda, busca en varios campos
+//     results = await Appointment.find({
+//       $or: [{ reason: { $regex: search, $options: 'i' } }, { notes: { $regex: search, $options: 'i' } }],
+//     })
+//       .sort({ date: -1 }) // Ordena por fecha en orden descendente (más recientes primero)
+//       .limit(limit);
+//     totalResults = results.length; // Actualiza el número total de resultados después de la búsqueda
+//   } else {
+//     totalResults = await Appointment.countDocuments(filter);
+//     // Si el número de resultados es mayor que el límite, aplica paginación, de lo contrario, obtén todos los resultados
+//     if (totalResults > limit) {
+//       results = await paginate(Appointment, page, limit, baseUrl, filter);
+//     } else {
+//       results = await Appointment.find(filter).populate([
+//         { path: 'clientId' },
+//         { path: 'petId' },
+//         { path: 'veterinarianId' },
+//       ]);
+//     }
+//   }
+
+//   // Devuelve una respuesta RESTful desde utils con la cantidad total de resultados
+//   sendResponse(res, 200, 'Citas encontradas con éxito', { totalResults, results });
+// });
+export const getAllAppointments = tryCatch(async (req, res) => {
+  // Obtiene los parámetros de consulta (query parameters) de la solicitud, incluyendo la página y el límite
+  const { clientId, petId, veterinarianId, date, isActive, search } = req.query;
+
+  const page = parseInt(req.query.page) || 1;
+  const limit = parseInt(req.query.limit) || 10;
+  const baseUrl = `${req.protocol}://${req.get('host')}${req.originalUrl.split('?')[0]}`;
+
+  // Crea un objeto de filtro inicial vacío
+  const filter = {};
+
+  // Agrega filtros si se proporcionan los parámetros
+  if (clientId) {
+    filter.clientId = clientId;
+  }
+  if (petId) {
+    filter.petId = petId;
+  }
+  if (veterinarianId) {
+    filter.veterinarianId = veterinarianId;
+  }
+  if (date) {
+    filter.date = new Date(date);
+  }
+  if (isActive) {
+    filter.isActive = isActive;
+  }
+
+  // Realiza la consulta sin paginación para contar los resultados
+  let totalResults;
+  let results;
+
+  if (search) {
+    // Si se proporciona una palabra clave de búsqueda, busca en varios campos
+    results = await Appointment.find({
+      $or: [{ reason: { $regex: search, $options: 'i' } }, { notes: { $regex: search, $options: 'i' } }],
+    }).sort({ date: -1 }); // Ordena por fecha en orden descendente (más recientes primero);
+  } else {
+    results = await Appointment.find(filter).sort({ date: -1 }); // Ordena por fecha en orden descendente (más recientes primero);
+  }
+
+  // Calcula el número total de resultados
+  totalResults = results.length;
+
+  if (totalResults > limit) {
+    // Si el número de resultados es mayor que el límite, aplica paginación
+    results = await paginate(Appointment, page, limit, baseUrl, filter);
+  }
+
+  // Devuelve una respuesta RESTful desde utils con la cantidad total de resultados
+  sendResponse(res, 200, 'Citas encontradas con éxito', { totalResults, results });
 });
 
 // Obtener una cita por ID
