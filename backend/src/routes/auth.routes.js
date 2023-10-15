@@ -26,7 +26,7 @@ router.get('/google', passport.authenticate('google', { scope: ['profile', 'emai
 router.get('/google/callback', passport.authenticate('google', { failureRedirect: '/login' }), (req, res) => {
   // Lógica después de la autenticación exitosa
   const secretKey = process.env.SECRET_KEY;
-  const clientId = req.client._id;
+  const clientId = req.client.clientId;
 
   // Crear un token JWT para el usuario
   const token = jwt.sign({ clientId }, secretKey, { expiresIn: process.env.TOKEN_EXPIRATION });

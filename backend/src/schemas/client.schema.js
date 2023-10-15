@@ -21,7 +21,6 @@ const clientSchemaDefinition = new mongoose.Schema({
   },
   password: {
     type: String,
-    required: true,
     swagger: {
       type: 'string',
       description: 'La contraseña del cliente.',
