@@ -2,13 +2,13 @@ import express from 'express';
 import multer from 'multer';
 import { deleteImage, getAllImagesUser, getImageById, uploadImage } from '../controllers/image.controller';
 import { uploadImageValidation } from '../middlewares/validation.middleware';
-import { authenticate } from '../middlewares/auth.middleware';
+import { checkAuthentication } from '../middlewares/auth.middleware';
 import { validMongoId } from '../middlewares/validMongoId.middleware';
 
 const router = express.Router();
 
 // Aplica el middleware de autenticación a las rutas que deseas proteger
-router.use(authenticate);
+router.use(checkAuthentication);
 
 // Middleware para todas las rutas de cliente que requieren un cliente por ID
 router.param('imageId', validMongoId('imageId'));

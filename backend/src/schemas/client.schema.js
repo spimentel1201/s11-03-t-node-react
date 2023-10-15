@@ -57,12 +57,21 @@ const clientSchemaDefinition = new mongoose.Schema({
       description: 'Indica si el cliente está activo o inactivo.',
     },
   },
+  verificationCode: {
+    type: Number,
+  },
+  verificationCodeExpires: {
+    type: Date,
+  },
 });
 
 // Función toJSON personalizada para excluir campos sensibles
 clientSchemaDefinition.methods.toJSON = function () {
   const obj = this.toObject();
   delete obj.password;
+  delete obj.verificationCode;
+  delete obj.verificationCodeExpires;
+
   return obj;
 };
 

@@ -2,7 +2,7 @@ import express from 'express';
 import { getAllClients, getClientById, updateClient, deleteClient } from '../controllers/client.controller';
 import { updateClientValidation } from '../middlewares/validation.middleware';
 import { validMongoId } from '../middlewares/validMongoId.middleware';
-import { authenticate } from '../middlewares/auth.middleware';
+import { checkAuthentication } from '../middlewares/auth.middleware';
 
 const router = express.Router();
 
@@ -10,7 +10,7 @@ const router = express.Router();
 router.param('clientId', validMongoId('clientId'));
 
 // Aplica el middleware de autenticación a las rutas que deseas proteger
-router.use(authenticate);
+router.use(checkAuthentication);
 
 // Rutas CRUD para clientes
 router.get('/', getAllClients);
