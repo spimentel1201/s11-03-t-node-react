@@ -121,9 +121,12 @@ export const createAppointment = tryCatch(async (req, res) => {
     timeZone: 'UTC',
   });
 
+  const petName = existingPet.name;
+
   const appointmentReason = reason;
 
   const appointmentConfirmationContentReplaced = appointmentConfirmationContent
+    .replace('[Nombre de Mascota]', petName)
     .replace('[Nombre del Cliente]', clientFullname)
     .replace('[Nombre del Veterinario]', veterinarianFullname)
     .replace('[Fecha de Cita]', appointmentDate)
