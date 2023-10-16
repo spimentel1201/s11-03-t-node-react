@@ -31,6 +31,12 @@
         "type": "boolean",
         "description": "Indica si el cliente está activo o inactivo."
       },
+      "verificationCode": {
+        "type": "number"
+      },
+      "verificationCodeExpires": {
+        "type": "date"
+      },
       "_id": {
         "type": "objectid"
       },
@@ -40,8 +46,7 @@
     },
     "required": [
       "email",
-      "fullname",
-      "password"
+      "fullname"
     ]
   },
   "appointment": {
@@ -111,21 +116,21 @@
         "type": "string",
         "description": "Nombre de la mascota"
       },
+      "specie": {
+        "type": "string",
+        "description": "Tipo de mascota"
+      },
+      "sex": {
+        "type": "string",
+        "description": "Sexo de la mascota"
+      },
       "age": {
         "type": "number",
         "description": "Edad de la mascota"
       },
-      "size": {
-        "type": "number",
-        "description": "Tamaño de la mascota"
-      },
-      "weight": {
-        "type": "number",
-        "description": "Peso de la mascota"
-      },
-      "suffering": {
+      "photo_url": {
         "type": "string",
-        "description": "Enfermedades o sufrimientos de la mascota"
+        "description": "URL de la imagen o foto de la mascota"
       },
       "clientId": {
         "type": "objectid",
@@ -140,9 +145,9 @@
     },
     "required": [
       "name",
+      "specie",
+      "sex",
       "age",
-      "size",
-      "weight",
       "clientId"
     ]
   },

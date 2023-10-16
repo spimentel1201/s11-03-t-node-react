@@ -5,7 +5,8 @@ import ErrorApp from '../utils/ErrorApp';
 
 // Crear un nuevo mascota
 export const createPet = async(req, res) => {
-    const { name, age, size, weight, suffering, clientId } = req.body;
+    const { name, specie, sex, age, photo_url } = req.body;
+    const clientId = req.client.clientId;
 
     // Verificar si el cliente o usuario dueño de la mascota existe
     const existingClient = await Client.findById(clientId);
@@ -17,10 +18,10 @@ export const createPet = async(req, res) => {
 
     const newPet = new Pet({
         name,
+        specie,
+        sex,
         age,
-        size,
-        weight,
-        suffering,
+        photo_url,
         clientId,
     });
 
@@ -47,7 +48,7 @@ export const getPetById = async(req, res) => {
     sendResponse(res, 200, 'Mascota encontrada con éxito', pet);
 };
 
-// Actualizar un cliente por ID
+// Actualizar datos de una mascota por ID
 export const updatePet = async(req, res) => {
     const { petId } = req.params;
     const {...updateFields } = req.body;
