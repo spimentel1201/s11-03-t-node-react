@@ -7,11 +7,13 @@ import ErrorApp from '../utils/ErrorApp';
 import disableEntity from '../utils/disableEntity';
 import Veterinarian from '../schemas/veterinarian.schema';
 import { paginate } from '../utils/pagination';
+import transporter from '../config/node-mailer';
+import fs from 'fs';
 
 // Crear una nueva cita
 export const createAppointment = tryCatch(async (req, res) => {
   const { date, start_time, end_time, reason, notes, petId, veterinarianId } = req.body;
-  const clientId = req.client.clientId; // Accede al ID del cliente directamente
+  const clientId = req.client.clientId;
 
   // Verificar si el cliente que se asociará a la cita existe en DB.
   const existingClient = await Client.findById(clientId);
@@ -83,9 +85,9 @@ export const createAppointment = tryCatch(async (req, res) => {
 
   // Si no hay superposiciones, crea la nueva cita
   const newAppointment = new Appointment({
-    date,
-    start_time,
-    end_time,
+    date: new Date(date),
+    start_time: new Date(start_time),
+    end_time: new Date(end_time),
     reason,
     notes,
     petId,
@@ -95,6 +97,48 @@ export const createAppointment = tryCatch(async (req, res) => {
 
   // Guarda una nueva cita en la base de datos
   await newAppointment.save();
+
+  // Envía el correo de confirmación de la cita
+  const clientEmail = existingClient.email;
+  const appointmentConfirmationTemplatePath = 'public/mails/templates/appointment_confirmation.html';
+  const appointmentConfirmationContent = fs.readFileSync(appointmentConfirmationTemplatePath, 'utf8');
+
+  // Reemplaza las variables con valores reales
+  const clientFullname = existingClient.fullname;
+  const veterinarianFullname = existingVeterinarian.first_name; //!Falta Actualizar por si cambia el campo de veterinario a fullname
+
+  const appointmentStartTime = new Date(start_time).toLocaleTimeString('en-US', {
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: true,
+    timeZone: 'UTC',
+  });
+
+  const appointmentDate = new Date(date).toLocaleDateString('es-ES', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    timeZone: 'UTC',
+  });
+
+  const appointmentReason = reason;
+
+  const appointmentConfirmationContentReplaced = appointmentConfirmationContent
+    .replace('[Nombre del Cliente]', clientFullname)
+    .replace('[Nombre del Veterinario]', veterinarianFullname)
+    .replace('[Fecha de Cita]', appointmentDate)
+    .replace('[Hora de Inicio]', appointmentStartTime)
+    .replace('[Motivo de Cita]', appointmentReason);
+
+  // Envía el correo de confirmación de la cita al cliente
+  const clientMailOptions = {
+    from: process.env.EMAIL_ADDRESS,
+    to: clientEmail,
+    subject: 'Confirmación de Cita',
+    html: appointmentConfirmationContentReplaced,
+  };
+
+  await transporter.sendMail(clientMailOptions);
 
   // Devuelve una respuesta RESTful desde utils
   sendResponse(res, 201, 'Cita creada con éxito', newAppointment);
