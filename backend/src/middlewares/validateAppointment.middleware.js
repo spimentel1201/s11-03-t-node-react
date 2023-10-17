@@ -39,6 +39,7 @@ export const validateAppointment = async (req, res, next) => {
   const overlappingAppointments = await Appointment.find({
     veterinarianId: veterinarianId,
     date: date,
+    isActive: true,
     $or: [
       {
         $and: [{ start_time: { $lt: end_time } }, { end_time: { $gt: start_time } }],
