@@ -52,7 +52,7 @@ export const createAppointment = tryCatch(async (req, res) => {
 
   // Reemplaza las variables en la plantilla HTML
   const clientFullname = existingClient.fullname;
-  const veterinarianFullname = existingVeterinarian.first_name;
+  const veterinarianFullname = existingVeterinarian.fullname;
   const appointmentStartTime = new Date(start_time).toLocaleTimeString('en-US', {
     hour: '2-digit',
     minute: '2-digit',

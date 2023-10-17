@@ -112,12 +112,7 @@ export const updateAppointmentValidation = generateValidationRules('updateAppoin
 });
 
 export const createVeterinarianValidation = generateValidationRules('createVeterinarian', {
-  first_name: {
-    notEmpty: {},
-    isLength: { min: 5, max: 40 },
-    OnlyLetters: {},
-  },
-  last_name: {
+  fullname: {
     notEmpty: {},
     isLength: { min: 5, max: 40 },
     OnlyLetters: {},
@@ -139,11 +134,7 @@ export const createVeterinarianValidation = generateValidationRules('createVeter
 });
 
 export const updateVeterinarianValidation = generateValidationRules('updateVeterinarian', {
-  first_name: {
-    isLength: { min: 5, max: 40 },
-    OnlyLetters: {},
-  },
-  last_name: {
+  fullname: {
     isLength: { min: 5, max: 40 },
     OnlyLetters: {},
   },
