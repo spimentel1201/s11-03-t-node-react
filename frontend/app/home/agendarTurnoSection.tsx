@@ -1,13 +1,13 @@
 import Image from "next/image";
 import petsHome from "../assets/petsHome.png";
 import Link from "next/link";
-import BiggerFingerprint, { FingerPrint } from "./icons";
+import  { FingerPrint,BiggerFingerprint } from "./icons";
 
 export default function agendarTurnoSection() {
   return (
     <section
       className="bg-secondary-content flex flex-col 
-    items-center justify-center px-[21px] mb-10 pb-8 md:items-start md:pl-28 md:h-[650px]"
+    items-center justify-center px-[21px]  pb-8 md:items-start md:pl-28 md:h-[650px]"
     >
       <span className="absolute top-[80px] left-[20px]  md:top-[630px]  md:left-32">
         <FingerPrint />

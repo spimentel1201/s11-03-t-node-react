@@ -8,6 +8,7 @@ import InputAuth from '../components/auth/inputAuth'
 import Link from 'next/link'
 import useErrors from './useErrors'
 
+
 const notifyOk = (msg) => toast.success(msg)
 const notifyError = (msg) => toast.error(msg)
 
@@ -15,6 +16,7 @@ const Login = () => {
   const [email, setEmail] = useState('jhondoe@gmail.com')
   const [password, setPassword] = useState('Password123$')
   const [token, setToken] = useState(null)
+  
   const { errors, setErrors, errorRef, validarEmail, validarPassword } =
     useErrors()
 
