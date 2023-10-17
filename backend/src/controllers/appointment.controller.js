@@ -38,6 +38,17 @@ export const createAppointment = tryCatch(async (req, res) => {
     const error = ErrorApp(`Veterinario no encontrado`, 404);
     throw error;
   }
+  // Verifica si la fecha en start_time coincide con la fecha principal
+  if (new Date(start_time).toISOString().split('T')[0] !== date) {
+    const error = ErrorApp('La fecha en start_time debe coincidir con la fecha principal', 400);
+    throw error;
+  }
+
+  // Verifica si la fecha en end_time coincide con la fecha principal
+  if (new Date(end_time).toISOString().split('T')[0] !== date) {
+    const error = ErrorApp('La fecha en end_time debe coincidir con la fecha principal', 400);
+    throw error;
+  }
 
   // Verifica si la hora de inicio es mayor o igual que la hora de finalización
   if (new Date(start_time) >= new Date(end_time)) {
@@ -50,9 +61,9 @@ export const createAppointment = tryCatch(async (req, res) => {
   const endTimeMs = new Date(end_time).getTime();
   const timeDifferenceMinutes = (endTimeMs - startTimeMs) / (1000 * 60);
 
-  // Verifica si la diferencia es menor que 30 minutos
-  if (timeDifferenceMinutes < 30) {
-    const error = ErrorApp('La diferencia de tiempo debe ser de al menos 30 minutos', 400);
+  // Verifica si la diferencia es menor que 30 minutos o mayor que 60 minutos
+  if (timeDifferenceMinutes < 30 || timeDifferenceMinutes > 60) {
+    const error = ErrorApp('La diferencia de tiempo debe estar entre 30 y 60 minutos', 400);
     throw error;
   }
 

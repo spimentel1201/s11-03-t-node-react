@@ -89,7 +89,7 @@ export const validationConfig = {
     errorMessage: (fieldName) => `El campo ${fieldName} debe ser un valor booleano (true o false)`,
   },
   isDate: {
-    validator: (fieldName) => body(fieldName).toDate().isISO8601(),
+    validator: (fieldName) => body(fieldName).isISO8601(),
     errorMessage: (fieldName) => `El campo ${fieldName} debe ser una fecha válida`,
   },
   isAfter: {
