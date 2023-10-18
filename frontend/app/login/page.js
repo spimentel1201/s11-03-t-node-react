@@ -89,7 +89,7 @@ const Login = () => {
               changeValue={setPassword}
               error={errors?.password}
             />
-            <div className="flex justify-end">¿Olviste la contraseña?</div>
+            <div className="flex justify-end">¿Olvidaste la contraseña?</div>
             <div className="form-control mt-6">
               <button className="btn btn-accent text-accent-content hover:bg-[#FF7E5B]">
                 Iniciar Sesión
