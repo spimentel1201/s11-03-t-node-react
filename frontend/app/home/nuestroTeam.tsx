@@ -4,7 +4,7 @@ import Card from './nuestroTeamCard'
 import CardContainer from './nuestroTeamCardContainer'
 
 const NuestroTeam = () => (
-  <div className="flex flex-col-reverse items-center justify-center xl:flex-row px-10 pb-24 bg-secondary text-secondary-content">
+  <div className="flex flex-col-reverse items-center justify-center xl:flex-row px-10 pb-24 bg-secondary">
     <div className="max-w-[90rem]">
       <h4 className="text-center mt-20 text-accent font-bold">Profesionales</h4>
       <h1 className="text-center text-xl xl:text-3xl mt-2 font-bold mb-10">

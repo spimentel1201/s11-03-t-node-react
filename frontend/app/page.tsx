@@ -8,16 +8,18 @@ import Mascotas from './home/mascotas/mascotas'
 import SobreNosotros from './home/sobreNosotros'
 import NuestrosServicios from './home/nuestrosServicios'
 import Contacto from './home/contacto/contacto'
+import GaleriaProductos from './home/galeriaProductos'
 
 export default function Home() {
   return (
     <main>
-      <AgendarTurnoSection />
+       <AgendarTurnoSection />
       <Mascotas />
       <SobreNosotros />
       <NuestrosServicios />
       <NuestrasCaracteristicas /> 
       <NuestroTeam />
+      <GaleriaProductos />
       <Contacto />
     </main>
   )
