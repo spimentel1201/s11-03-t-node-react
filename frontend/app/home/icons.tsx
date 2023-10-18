@@ -42,12 +42,7 @@ export function BiggerFingerprint(){
   </g>
   </svg>
 }
-  export  function BackgroundCarousel(){
-    return <svg xmlns="http://www.w3.org/2000/svg" className="bg-cover bg-center" width="400" height="149" viewBox="0 0 360 149" fill="none">
-    <path d="M359.826 145.201L-0.324013 148.296L-2 0.0949302C147.224 24.2079 248.121 -11.6584 358.249 5.77214L359.826 145.201Z" fill="#FFCC37"/>
-   
-  </svg>
-}
+
 export function BackgroundCarouselMd(){
   return <svg xmlns="http://www.w3.org/2000/svg" width="1440" height="186" viewBox="0 0 1440 186" fill="none">
   <path d="M1439.5 170.703L-2.9411 185.495L-4.61708 8.641C592.179 32.8262 997.469 -13.0956 1437.92 4.31757L1439.5 170.703Z" fill="#FFCC37"/>
