@@ -7,6 +7,9 @@ import FooterAuth from '../components/auth/footerAuth'
 import InputAuth from '../components/auth/inputAuth'
 import Link from 'next/link'
 import useErrors from './useErrors'
+import { useRouter } from 'next/navigation'
+
+
 
 
 const notifyOk = (msg) => toast.success(msg)
@@ -16,6 +19,7 @@ const Login = () => {
   const [email, setEmail] = useState('jhondoe@gmail.com')
   const [password, setPassword] = useState('Password123$')
   const [token, setToken] = useState(null)
+  const router = useRouter()
   
   const { errors, setErrors, errorRef, validarEmail, validarPassword } =
     useErrors()
@@ -43,6 +47,9 @@ const Login = () => {
       if (response?.status === 200) {
         notifyOk('Login Exitoso')
         saveTokenAndResetData(response.data.data.token)
+        router.push('/')
+        
+        router.refresh()
       } else {
         notifyError('Las credenciales son incorrectas')
         setErrors('')

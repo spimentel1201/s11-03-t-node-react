@@ -25,7 +25,6 @@ export default function navBarLogic() {
         <li className="mx-4 my-6 md:my-0 md:pt-2 link">
           {!token ? <DropDownWithOutLogin /> :
           <DropDownWithLogin /> }
-          
         </li>
     </ul>
   );

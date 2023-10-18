@@ -1,7 +1,17 @@
+"use client "
 import Link from "next/link";
 import { Profile } from "./icons";
+import { useRouter } from "next/navigation";
 
-export default function DropDownWithLogin() {
+export default function DropDownWithLogin(){
+
+const router = useRouter()
+
+  const handleClick = () => {
+    localStorage.removeItem("token")
+
+    router.refresh()
+  }
   return (
     <>
       <div className="dropdown dropdown-end">
@@ -18,8 +28,8 @@ export default function DropDownWithLogin() {
           <li>
             <Link href={"#"}>Historial de turnos</Link>
           </li>
-          <li>
-            <Link href={"#"}>Cerrar sesion</Link>
+          <li >
+            <Link href={"#"} onClick={handleClick}>Cerrar sesion</Link>
           </li>
         </ul>
       </div>

@@ -30,7 +30,11 @@ module.exports = {
     ],
   },
   theme: {
-    extend: {},
+    extend: {
+      backgroundImage:(theme) =>({
+        "background": "url('/BackgroundCarousel.svg')",
+      })
+    },
   },
   plugins: [require('daisyui')],
 }
