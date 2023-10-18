@@ -35,7 +35,7 @@ const NuestroTeam = () => (
           <CardContainer add="invisible xl:hidden carousel-item w-2/6 xl:w-1/4">
             <Card
               src="/vet4.png"
-              title="Julie K. Rusella"
+              title="Julie K. Rusela"
               text="Veterinaria Clínica"
             />
           </CardContainer>
