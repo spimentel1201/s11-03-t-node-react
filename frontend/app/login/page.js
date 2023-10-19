@@ -8,6 +8,7 @@ import InputAuth from '../components/auth/inputAuth'
 import Link from 'next/link'
 import useErrors from './useErrors'
 import { useRouter } from 'next/navigation'
+import UseToken from '../hooks/token'
 
 
 
@@ -18,20 +19,18 @@ const notifyError = (msg) => toast.error(msg)
 const Login = () => {
   const [email, setEmail] = useState('jhondoe@gmail.com')
   const [password, setPassword] = useState('Password123$')
-  const [token, setToken] = useState(null)
+  const {setToken} = UseToken()
   const router = useRouter()
   
   const { errors, setErrors, errorRef, validarEmail, validarPassword } =
     useErrors()
 
   const resetTokenAndErrorRef = () => {
-    localStorage.removeItem('token')
-    setToken('')
+    setToken(null)
     errorRef.current = false
   }
 
   const saveTokenAndResetData = (t) => {
-    localStorage.setItem('token', t)
     setToken(t)
     setErrors('')
     errorRef.current = false
@@ -41,7 +40,7 @@ const Login = () => {
     e.preventDefault()
     validarEmail(email)
     validarPassword(password)
-    console.log(errorRef.current)
+    
     if (errorRef.current != true) {
       const response = await loginService(email, password)
       if (response?.status === 200) {

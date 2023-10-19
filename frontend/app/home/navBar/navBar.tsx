@@ -5,9 +5,10 @@ import DropDownMobile from "./dropDownMobile";
 import NavBarLogic from "./navBarLogic";
 import { useRouter } from "next/navigation";
 import DropdownMobileWithLogin from "./dropdownMobileWithLogin";
+import UseToken from "@/app/hooks/token";
 
 export default function NavBar() {
-  const token = localStorage.getItem("token");
+  const token = UseToken()
   const router = useRouter()
 
  

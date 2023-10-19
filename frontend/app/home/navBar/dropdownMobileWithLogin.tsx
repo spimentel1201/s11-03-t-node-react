@@ -2,13 +2,11 @@ import { useRouter } from "next/navigation";
 import { HamburgerIcon } from "../icons";
 import NavLink from "./navLink";
 import Link from "next/link";
+import UseToken from "@/app/hooks/token";
 export default function DropdownMobileWithLogin(){
-const router = useRouter()
 
-const handleClick = () => {
-    localStorage.removeItem("token")
-    router.refresh()
-}
+  const {handleUpdateToken} = UseToken()
+  
     return(
         <div className="dropdown dropdown-end ">
         <span tabIndex={0} className="text-3xl cursor-pointer mx-2 md:hidden">
@@ -37,7 +35,7 @@ const handleClick = () => {
             <NavLink href="#">Perfil</NavLink>
           </li>
           <li className="mx-4 my-6 md:my-0">
-            <Link className="text-xl"href="/" onClick={handleClick}>Cerrar sesion</Link>
+            <Link className="text-xl"href="/" onClick={handleUpdateToken}>Cerrar sesion</Link>
           </li> 
         </ul>
       </div>
