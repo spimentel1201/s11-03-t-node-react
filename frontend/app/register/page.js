@@ -40,34 +40,7 @@ const Register = () => {
     setToken(t)
     setErrors('')
     errorRef.current = false
-  }
-
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault()
-  //   if (password === repeatPassword) {
-  //     try {
-  //       const response = await registerService(fullname, email, password)
-  //       if (response?.status === 201) {
-  //         notifyOk('Register Exitoso')
-  //         console.log(response.data.data.token)
-  //         localStorage.setItem('token', response.data.data.token)
-  //       } else {
-  //         notifyError(JSON.stringify(response.response.data.errors))
-  //         if (verificar(response.response.data.errors, 'fullname'))
-  //           console.log('error en fullname')
-  //         if (verificar(response.response.data.errors, 'email'))
-  //           console.log('error en email')
-  //         if (verificar(response.response.data.errors, 'password'))
-  //           console.log('error en password')
-  //       }
-  //     } catch (error) {
-  //       notifyError('Register fallido, intente nuevamente')
-  //       console.log(error)
-  //     }
-  //   } else {
-  //     notifyError('Las contraseñas no coinciden')
-  //   }
-  // }
+  }  
 
   const handleSubmit = async (e) => {
     e.preventDefault()
