@@ -68,11 +68,11 @@ const Login = () => {
             <h1 className="text-3xl font-bold text-center lg:text-left">
               Iniciar Sesión
             </h1>
-            {token && (
+            {/* {token && (
               <div className="text-sm" style={{ textWrap: 'balance' }}>
                 Token: {token.slice(0, 35)}...
               </div>
-            )}
+            )} */}
             <InputAuth
               title="E-mail"
               type="text"
