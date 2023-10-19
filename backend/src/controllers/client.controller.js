@@ -4,6 +4,9 @@ import { tryCatch } from '../utils/tryCatch';
 import Client from '../schemas/client.schema';
 import disableEntity from '../utils/disableEntity';
 import ErrorApp from '../utils/ErrorApp';
+import mongoose from 'mongoose';
+import { sendEmail } from '../services/sendEmail';
+import fs from 'fs';
 
 // Obtener todos los clientes
 export const getAllClients = tryCatch(async (req, res) => {
@@ -17,19 +20,65 @@ export const getAllClients = tryCatch(async (req, res) => {
   sendResponse(res, 200, 'Clientes encontrados con éxito', response);
 });
 
+// Enviar un mail a la veterinaria
+export const sendEmailToVet = tryCatch(async (req, res) => {
+  const { fullname, email, message } = req.body;
+
+  // Lee el contenido de la plantilla HTML desde el archivo
+  const template = fs.readFileSync('public/mails/templates/consultation_confirmation.html', 'utf8');
+
+  // Reemplaza los marcadores de posición en la plantilla con los datos dinámicos
+  const htmlContent = template
+    .replace('[Nombre Completo]', fullname)
+    .replace('[Correo Electrónico]', email)
+    .replace('[Mensaje]', message);
+
+  // Configura el asunto del correo electrónico
+  const subject = 'Consulta Médica';
+
+  // Envía el correo electrónico utilizando la función sendEmail
+  await sendEmail(email, subject, htmlContent);
+
+  sendResponse(res, 200, 'Correo enviado con éxito');
+});
+
 // Obtener un cliente por ID
 export const getClientById = tryCatch(async (req, res) => {
   const { clientId } = req.params;
 
-  const client = await Client.findById(clientId);
+  // Realiza una sola agregación para obtener el cliente con sus citas y mascotas.
+  const clientData = await Client.aggregate([
+    {
+      $match: { _id: new mongoose.Types.ObjectId(clientId) },
+    },
+    {
+      $lookup: {
+        from: 'appointments',
+        localField: '_id',
+        foreignField: 'clientId',
+        as: 'appointments',
+      },
+    },
+    {
+      $lookup: {
+        from: 'pets',
+        localField: '_id',
+        foreignField: 'clientId',
+        as: 'pets',
+      },
+    },
+  ]).option({ lean: true });
 
-  if (!client) {
+  if (!clientData || clientData.length === 0) {
     const error = ErrorApp(`Cliente no encontrado`, 404);
     throw error;
   }
+  // Excluir el campo "password" del resultado
+  const clientDataWithoutPassword = { ...clientData[0] };
+  delete clientDataWithoutPassword.password;
 
-  // Devuelve una respuesta RESTful desde utils
-  sendResponse(res, 200, 'Cliente encontrado con éxito', client);
+  // Devuelve el resultado con la información del cliente, sus citas y mascotas.
+  sendResponse(res, 200, 'Cliente encontrado con éxito', clientDataWithoutPassword);
 });
 
 // Actualizar un cliente por ID

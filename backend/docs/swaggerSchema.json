@@ -1,0 +1,227 @@
+{
+  "client": {
+    "type": "object",
+    "properties": {
+      "email": {
+        "type": "string",
+        "description": "La dirección de correo electrónico del cliente.",
+        "format": "email"
+      },
+      "fullname": {
+        "type": "string",
+        "description": "El nombre completo del cliente."
+      },
+      "password": {
+        "type": "string",
+        "description": "La contraseña del cliente."
+      },
+      "phone": {
+        "type": "string",
+        "description": "El número de teléfono del cliente."
+      },
+      "address": {
+        "type": "string",
+        "description": "La dirección del cliente."
+      },
+      "photo_url": {
+        "type": "string",
+        "description": "URL de la foto del cliente."
+      },
+      "isActive": {
+        "type": "boolean",
+        "description": "Indica si el cliente está activo o inactivo."
+      },
+      "verificationCode": {
+        "type": "number"
+      },
+      "verificationCodeExpires": {
+        "type": "date"
+      },
+      "_id": {
+        "type": "objectid"
+      },
+      "__v": {
+        "type": "number"
+      }
+    },
+    "required": [
+      "email",
+      "fullname"
+    ]
+  },
+  "appointment": {
+    "type": "object",
+    "properties": {
+      "date": {
+        "type": "date",
+        "description": "Fecha de la cita",
+        "format": "date"
+      },
+      "start_time": {
+        "type": "date",
+        "description": "Hora de inicio de la cita",
+        "format": "time"
+      },
+      "end_time": {
+        "type": "date",
+        "description": "Hora de finalización de la cita",
+        "format": "time"
+      },
+      "reason": {
+        "type": "string",
+        "description": "Motivo de la cita"
+      },
+      "notes": {
+        "type": "string",
+        "description": "Notas adicionales sobre la cita"
+      },
+      "petId": {
+        "type": "objectid",
+        "description": "ID de la mascota relacionada con la cita"
+      },
+      "clientId": {
+        "type": "objectid",
+        "description": "ID del cliente relacionado con la cita"
+      },
+      "veterinarianId": {
+        "type": "objectid",
+        "description": "ID del veterinario relacionado con la cita"
+      },
+      "isActive": {
+        "type": "boolean",
+        "description": "Indica si la cita está activa o inactiva"
+      },
+      "_id": {
+        "type": "objectid"
+      },
+      "__v": {
+        "type": "number"
+      }
+    },
+    "required": [
+      "date",
+      "start_time",
+      "end_time",
+      "reason",
+      "notes",
+      "petId",
+      "clientId",
+      "veterinarianId"
+    ]
+  },
+  "pet": {
+    "type": "object",
+    "properties": {
+      "name": {
+        "type": "string",
+        "description": "Nombre de la mascota"
+      },
+      "specie": {
+        "type": "string",
+        "description": "Tipo de mascota"
+      },
+      "sex": {
+        "type": "string",
+        "description": "Sexo de la mascota"
+      },
+      "age": {
+        "type": "number",
+        "description": "Edad de la mascota"
+      },
+      "photo_url": {
+        "type": "string",
+        "description": "URL de la imagen o foto de la mascota"
+      },
+      "clientId": {
+        "type": "objectid",
+        "description": "ID del cliente dueño de la mascota"
+      },
+      "_id": {
+        "type": "objectid"
+      },
+      "__v": {
+        "type": "number"
+      }
+    },
+    "required": [
+      "name",
+      "specie",
+      "sex",
+      "age",
+      "clientId"
+    ]
+  },
+  "veterinarian": {
+    "type": "object",
+    "properties": {
+      "fullname": {
+        "type": "string",
+        "description": "Nombre completo del veterinario"
+      },
+      "speciality": {
+        "type": "string",
+        "description": "Especialidad del veterinario"
+      },
+      "phone": {
+        "type": "string",
+        "description": "Número de teléfono del veterinario"
+      },
+      "license": {
+        "type": "string",
+        "description": "Número de licencia del veterinario"
+      },
+      "photo_url": {
+        "type": "string",
+        "description": "URL de la foto del veterinario"
+      },
+      "isActive": {
+        "type": "boolean",
+        "description": "Indica si el veterinario está activo o inactivo"
+      },
+      "_id": {
+        "type": "objectid"
+      },
+      "__v": {
+        "type": "number"
+      }
+    },
+    "required": [
+      "fullname",
+      "speciality",
+      "license"
+    ]
+  },
+  "image": {
+    "type": "object",
+    "properties": {
+      "clientId": {
+        "type": "objectid",
+        "description": "ID del usuario al que pertenece la imagen."
+      },
+      "public_id": {
+        "type": "string",
+        "description": "El public_id de Cloudinary de la imagen."
+      },
+      "photo_url": {
+        "type": "string",
+        "description": "La URL de la imagen almacenada en Cloudinary."
+      },
+      "created_at": {
+        "type": "date",
+        "description": "Fecha y hora de creación de la imagen.",
+        "format": "date-time"
+      },
+      "_id": {
+        "type": "objectid"
+      },
+      "__v": {
+        "type": "number"
+      }
+    },
+    "required": [
+      "clientId",
+      "public_id",
+      "photo_url"
+    ]
+  }
+}

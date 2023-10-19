@@ -89,7 +89,7 @@ export const validationConfig = {
     errorMessage: (fieldName) => `El campo ${fieldName} debe ser un valor booleano (true o false)`,
   },
   isDate: {
-    validator: (fieldName) => body(fieldName).toDate().isISO8601(),
+    validator: (fieldName) => body(fieldName).isISO8601(),
     errorMessage: (fieldName) => `El campo ${fieldName} debe ser una fecha válida`,
   },
   isAfter: {
@@ -102,7 +102,7 @@ export const validationConfig = {
   },
   isMongoId: {
     validator: (fieldName) => body(fieldName).isMongoId(),
-    errorMessage: (fieldName) => `ID ${fieldName} proporcionado no es un ObjectId válido de MongoDB.`,
+    errorMessage: (fieldName) => `El campo ${fieldName} debe ser un ObjectId válido de MongoDB.`,
   },
 
   // Agrega más reglas de validación nativas aquí...
@@ -113,11 +113,11 @@ export const validationConfig = {
     validator: (fieldName) =>
       body(fieldName).custom((value, { req }) => {
         if (!req.file) {
-          throw new Error(`El campo ${fieldName} no puede estar vacío.`);
+          throw new Error(`El campo ${fieldName} es obligatorio.`);
         }
         return true;
       }),
-    errorMessage: (fieldName) => `El campo ${fieldName} no puede estar vacío.`,
+    errorMessage: (fieldName) => `El campo ${fieldName} es obligatorio.`,
   },
   isImage: {
     validator: (fieldName) =>
@@ -161,7 +161,7 @@ export const validationConfig = {
     validator: (fieldName) =>
       body(fieldName).custom((value) => {
         // Define la expresión regular para validar nombres que solo contienen letras y espacios
-        const regex = /^[A-Za-zÁáÉéÍíÓóÚúÜüÑñ\s-]+$/;
+        const regex = /^[A-Za-zÁáÉéÍíÓóÚúÜüÑñ\s-.]+$/;
 
         if (!regex.test(value)) {
           throw new Error(`El campo ${fieldName} debe contener solo letras, espacios o guiones.`);
