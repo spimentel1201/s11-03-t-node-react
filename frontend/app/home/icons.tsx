@@ -51,7 +51,7 @@ export function Tick(){
 }
 export function Peluqueria(){
   return <svg xmlns="http://www.w3.org/2000/svg" width="84" height="84" viewBox="0 0 84 84" fill="none">
-  <g clip-path="url(#clip0_202_1179)">
+  <g clipPath="url(#clip0_202_1179)">
     <g filter="url(#filter0_d_202_1179)">
       <path d="M79 41C79 20.5655 62.4345 4 42 4C21.5655 4 5 20.5655 5 41C5 61.4345 21.5655 78 42 78C62.4345 78 79 61.4345 79 41Z" fill="white"/>
       <path d="M54.0312 26H50.125C49.9592 26 49.8002 25.9342 49.683 25.8169C49.5658 25.6997 49.5 25.5408 49.5 25.375C49.5 25.2092 49.5658 25.0503 49.683 24.9331C49.8002 24.8158 49.9592 24.75 50.125 24.75H54.0312C54.197 24.75 54.356 24.8158 54.4732 24.9331C54.5904 25.0503 54.6562 25.2092 54.6562 25.375C54.6562 25.5408 54.5904 25.6997 54.4732 25.8169C54.356 25.9342 54.197 26 54.0312 26ZM53.875 28.5H50.125C49.9592 28.5 49.8002 28.4342 49.683 28.3169C49.5658 28.1997 49.5 28.0408 49.5 27.875C49.5 27.7092 49.5658 27.5503 49.683 27.4331C49.8002 27.3158 49.9592 27.25 50.125 27.25H53.875C54.0407 27.25 54.1997 27.3158 54.3169 27.4331C54.4341 27.5503 54.5 27.7092 54.5 27.875C54.5 28.0408 54.4341 28.1997 54.3169 28.3169C54.1997 28.4342 54.0407 28.5 53.875 28.5ZM53.875 31H50.125C49.9592 31 49.8002 30.9342 49.683 30.8169C49.5658 30.6997 49.5 30.5408 49.5 30.375C49.5 30.2092 49.5658 30.0503 49.683 29.9331C49.8002 29.8158 49.9592 29.75 50.125 29.75H53.875C54.0407 29.75 54.1997 29.8158 54.3169 29.9331C54.4341 30.0503 54.5 30.2092 54.5 30.375C54.5 30.5408 54.4341 30.6997 54.3169 30.8169C54.1997 30.9342 54.0407 31 53.875 31ZM53.875 33.5H50.125C49.9592 33.5 49.8002 33.4342 49.683 33.3169C49.5658 33.1997 49.5 33.0408 49.5 32.875C49.5 32.7092 49.5658 32.5503 49.683 32.4331C49.8002 32.3158 49.9592 32.25 50.125 32.25H53.875C54.0407 32.25 54.1997 32.3158 54.3169 32.4331C54.4341 32.5503 54.5 32.7092 54.5 32.875C54.5 33.0408 54.4341 33.1997 54.3169 33.3169C54.1997 33.4342 54.0407 33.5 53.875 33.5ZM53.875 36H50.125C49.9592 36 49.8002 35.9342 49.683 35.8169C49.5658 35.6997 49.5 35.5408 49.5 35.375C49.5 35.2092 49.5658 35.0503 49.683 34.9331C49.8002 34.8158 49.9592 34.75 50.125 34.75H53.875C54.0407 34.75 54.1997 34.8158 54.3169 34.9331C54.4341 35.0503 54.5 35.2092 54.5 35.375C54.5 35.5408 54.4341 35.6997 54.3169 35.8169C54.1997 35.9342 54.0407 36 53.875 36ZM53.875 38.5H50.125C49.9592 38.5 49.8002 38.4342 49.683 38.3169C49.5658 38.1997 49.5 38.0408 49.5 37.875C49.5 37.7092 49.5658 37.5503 49.683 37.4331C49.8002 37.3158 49.9592 37.25 50.125 37.25H53.875C54.0407 37.25 54.1997 37.3158 54.3169 37.4331C54.4341 37.5503 54.5 37.7092 54.5 37.875C54.5 38.0408 54.4341 38.1997 54.3169 38.3169C54.1997 38.4342 54.0407 38.5 53.875 38.5ZM53.875 41H50.125C49.9592 41 49.8002 40.9342 49.683 40.8169C49.5658 40.6997 49.5 40.5408 49.5 40.375C49.5 40.2092 49.5658 40.0503 49.683 39.9331C49.8002 39.8158 49.9592 39.75 50.125 39.75H53.875C54.0407 39.75 54.1997 39.8158 54.3169 39.9331C54.4341 40.0503 54.5 40.2092 54.5 40.375C54.5 40.5408 54.4341 40.6997 54.3169 40.8169C54.1997 40.9342 54.0407 41 53.875 41ZM53.875 43.5H50.125C49.9592 43.5 49.8002 43.4342 49.683 43.3169C49.5658 43.1997 49.5 43.0408 49.5 42.875C49.5 42.7092 49.5658 42.5503 49.683 42.4331C49.8002 42.3158 49.9592 42.25 50.125 42.25H53.875C54.0407 42.25 54.1997 42.3158 54.3169 42.4331C54.4341 42.5503 54.5 42.7092 54.5 42.875C54.5 43.0408 54.4341 43.1997 54.3169 43.3169C54.1997 43.4342 54.0407 43.5 53.875 43.5Z" fill="#FF5B2E"/>
@@ -75,8 +75,8 @@ export function Peluqueria(){
     </g>
   </g>
   <defs>
-    <filter id="filter0_d_202_1179" x="0" y="0" width="84" height="84" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-      <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+    <filter id="filter0_d_202_1179" x="0" y="0" width="84" height="84" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
+      <feFlood floodOpacity="0" result="BackgroundImageFix"/>
       <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
       <feOffset dy="1"/>
       <feGaussianBlur stdDeviation="2.5"/>
@@ -95,7 +95,7 @@ export function Peluqueria(){
 export  function Hospitalizacion(){
   return(
     <svg width="84" height="84" viewBox="0 0 84 84" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g clip-path="url(#clip0_202_1212)">
+<g clipPath="url(#clip0_202_1212)">
 <g filter="url(#filter0_d_202_1212)">
 <path d="M79 41C79 20.5655 62.4345 4 42 4C21.5655 4 5 20.5655 5 41C5 61.4345 21.5655 78 42 78C62.4345 78 79 61.4345 79 41Z" fill="white"/>
 <mask id="mask0_202_1212"  maskUnits="userSpaceOnUse" x="22" y="21" width="40" height="40">
@@ -115,8 +115,8 @@ export  function Hospitalizacion(){
 </g>
 </g>
 <defs>
-<filter id="filter0_d_202_1212" x="0" y="0" width="84" height="84" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<filter id="filter0_d_202_1212" x="0" y="0" width="84" height="84" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
+<feFlood floodOpacity="0" result="BackgroundImageFix"/>
 <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
 <feOffset dy="1"/>
 <feGaussianBlur stdDeviation="2.5"/>
@@ -136,7 +136,7 @@ export  function Hospitalizacion(){
 export function Vacunacion (){
   return (
     <svg width="84" height="84" viewBox="0 0 84 84" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g clip-path="url(#clip0_202_1240)">
+<g clipPath="url(#clip0_202_1240)">
 <g filter="url(#filter0_d_202_1240)">
 <path d="M79 41C79 20.5655 62.4345 4 42 4C21.5655 4 5 20.5655 5 41C5 61.4345 21.5655 78 42 78C62.4345 78 79 61.4345 79 41Z" fill="white"/>
 <path d="M60.4711 53.6113L24.7179 55.0052L24.2966 60.2545L25.9072 60.9998H59.9161C60.0633 60.9997 60.2044 60.9413 60.3085 60.8372C60.4126 60.7331 60.4711 60.592 60.4711 60.4448V53.6113Z" fill="#C82B00"/>
@@ -158,8 +158,8 @@ export function Vacunacion (){
 </g>
 </g>
 <defs>
-<filter id="filter0_d_202_1240" x="0" y="0" width="84" height="84" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<filter id="filter0_d_202_1240" x="0" y="0" width="84" height="84" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
+<feFlood floodOpacity="0" result="BackgroundImageFix"/>
 <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
 <feOffset dy="1"/>
 <feGaussianBlur stdDeviation="2.5"/>
@@ -179,7 +179,7 @@ export function Vacunacion (){
 export function MedicinaPreventiva(){
   return (
     <svg width="84" height="84" viewBox="0 0 84 84" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g clip-path="url(#clip0_202_1271)">
+<g clipPath="url(#clip0_202_1271)">
 <g filter="url(#filter0_d_202_1271)">
 <path d="M79 41C79 20.5655 62.4345 4 42 4C21.5655 4 5 20.5655 5 41C5 61.4345 21.5655 78 42 78C62.4345 78 79 61.4345 79 41Z" fill="white"/>
 <path d="M40.1256 41H39.9219C38.8838 41.0042 37.855 40.8035 36.8946 40.4094C35.9343 40.0153 35.0611 39.4355 34.3252 38.7033C33.5892 37.9712 33.005 37.101 32.606 36.1426C32.207 35.1842 32.0011 34.1565 32 33.1184V30.375C32 29.3608 32.3289 28.3739 32.9375 27.5625C31.937 26.5621 31.375 25.2052 31.375 23.7903V22.875H40.75C42.7391 22.875 44.6468 23.6652 46.0533 25.0717C47.4598 26.4782 48.25 28.3859 48.25 30.375V32.8756C48.25 35.0303 47.394 37.0968 45.8704 38.6204C44.3468 40.144 42.2803 41 40.1256 41Z" fill="#2F2D53"/>
@@ -216,8 +216,8 @@ export function MedicinaPreventiva(){
 </g>
 </g>
 <defs>
-<filter id="filter0_d_202_1271" x="0" y="0" width="84" height="84" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<filter id="filter0_d_202_1271" x="0" y="0" width="84" height="84" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
+<feFlood floodOpacity="0" result="BackgroundImageFix"/>
 <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
 <feOffset dy="1"/>
 <feGaussianBlur stdDeviation="2.5"/>

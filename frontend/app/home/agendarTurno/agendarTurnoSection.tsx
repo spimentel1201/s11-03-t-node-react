@@ -1,7 +1,7 @@
 import Image from "next/image";
-import petsHome from "../assets/petsHome.png";
+import petsHome from "../../assets/petsHome.png";
 import Link from "next/link";
-import  { FingerPrint,BiggerFingerprint } from "./icons";
+import  { FingerPrint,BiggerFingerprint } from "../icons";
 
 export default function agendarTurnoSection() {
   return (
@@ -23,9 +23,7 @@ export default function agendarTurnoSection() {
         alt="Pets Home"
         width={317}
         height={188}
-        objectFit="cover"
-        objectPosition="center"
-        className="md:absolute md:bottom-[-18px] md:right-[70px] md:w-[600px] md:h-[600px]"
+        className="md:absolute md:bottom-[-18px] md:right-[70px] md:w-[600px] md:h-[600px] bg-cover"
       />
       <h1
         className="text-[#062D3E] text-[20px] leading-[26px] 
