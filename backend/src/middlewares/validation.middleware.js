@@ -129,7 +129,6 @@ export const createVeterinarianValidation = generateValidationRules('createVeter
   license: {
     notEmpty: {},
     isLength: { min: 5, max: 40 },
-    OnlyLetters: {},
   },
 });
 
@@ -147,7 +146,6 @@ export const updateVeterinarianValidation = generateValidationRules('updateVeter
   },
   license: {
     isLength: { min: 5, max: 40 },
-    OnlyLetters: {},
   },
   photo_url: {
     isURL: {},
@@ -211,5 +209,21 @@ export const updatePetValidation = generateValidationRules('updatePet', {
   clientId: {
     notEmpty: {},
     isMongoId: {},
+  },
+});
+
+export const sendMailValidation = generateValidationRules('sendMail', {
+  fullname: {
+    notEmpty: {},
+    isLength: { min: 5, max: 40 },
+    OnlyLetters: {},
+  },
+  email: {
+    notEmpty: {},
+    isEmail: {},
+  },
+  message: {
+    notEmpty: {},
+    isLength: { min: 10, max: 255 },
   },
 });

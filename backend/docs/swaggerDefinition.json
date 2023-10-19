@@ -23,7 +23,7 @@
         "bearerFormat": "JWT"
       }
     },
-    "schemas":{
+    "schemas": {
       "client": {
         "type": "object",
         "properties": {
@@ -55,7 +55,7 @@
           "isActive": {
             "type": "boolean",
             "description": "Indica si el cliente está activo o inactivo."
-          },          
+          },
           "_id": {
             "type": "objectid"
           },
@@ -63,10 +63,7 @@
             "type": "number"
           }
         },
-        "required": [
-          "email",
-          "fullname"
-        ]
+        "required": ["email", "fullname"]
       },
       "appointment": {
         "type": "object",
@@ -117,16 +114,7 @@
             "type": "number"
           }
         },
-        "required": [
-          "date",
-          "start_time",
-          "end_time",
-          "reason",
-          "notes",
-          "petId",
-          "clientId",
-          "veterinarianId"
-        ]
+        "required": ["date", "start_time", "end_time", "reason", "notes", "petId", "clientId", "veterinarianId"]
       },
       "pet": {
         "type": "object",
@@ -162,13 +150,7 @@
             "type": "number"
           }
         },
-        "required": [
-          "name",
-          "specie",
-          "sex",
-          "age",
-          "clientId"
-        ]
+        "required": ["name", "specie", "sex", "age", "clientId"]
       },
       "veterinarian": {
         "type": "object",
@@ -204,11 +186,7 @@
             "type": "number"
           }
         },
-        "required": [
-          "fullname",
-          "speciality",
-          "license"
-        ]
+        "required": ["fullname", "speciality", "license"]
       },
       "image": {
         "type": "object",
@@ -237,11 +215,7 @@
             "type": "number"
           }
         },
-        "required": [
-          "clientId",
-          "public_id",
-          "photo_url"
-        ]
+        "required": ["clientId", "public_id", "photo_url"]
       }
     },
     "responses": {
@@ -727,6 +701,7 @@
         }
       }
     },
+    
     "/clients": {
       "get": {
         "summary": "Obtener todos los clientes activos",
@@ -842,6 +817,66 @@
           "401": {
             "$ref": "#/components/responses/UnauthorizedError"
           },
+          "500": {
+            "$ref": "#/components/responses/ServerError"
+          }
+        }
+      }
+    },
+    "/clients/send-mail": {
+      "post": {
+        "summary": "Enviar una correo con una consulta médica",
+        "description": "Envía una solicitud para una evaluación médica, no requiere registro del cliente",
+        "tags": ["Clients"],
+        "requestBody": {
+          "description": "Cuerpo de la solicitud",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "fullname": {
+                    "type": "string",
+                    "example": "Max Cereceda"
+                  },
+                  "email": {
+                    "type": "string",
+                    "example": "cereceda1991@gmail.com"
+                  },
+                  "message": {
+                    "type": "string",
+                    "example": "Mi mascota muestra dificultad al comer y parece incómoda. ¿Podrían evaluarnos para identificar y tratar cualquier problema dental o de salud?"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Solicitud de evaluación enviada con éxito",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "success"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Solicitud de evaluación enviada con éxito"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequestError"
+          },          
           "500": {
             "$ref": "#/components/responses/ServerError"
           }
@@ -2257,7 +2292,6 @@
                           "type": "string",
                           "example": "Carlos Galdos"
                         },
-
                         "speciality": {
                           "type": "string",
                           "example": "Fauna Silvestre"

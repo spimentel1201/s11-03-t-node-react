@@ -161,7 +161,7 @@ export const validationConfig = {
     validator: (fieldName) =>
       body(fieldName).custom((value) => {
         // Define la expresión regular para validar nombres que solo contienen letras y espacios
-        const regex = /^[A-Za-zÁáÉéÍíÓóÚúÜüÑñ\s-]+$/;
+        const regex = /^[A-Za-zÁáÉéÍíÓóÚúÜüÑñ\s-.]+$/;
 
         if (!regex.test(value)) {
           throw new Error(`El campo ${fieldName} debe contener solo letras, espacios o guiones.`);
