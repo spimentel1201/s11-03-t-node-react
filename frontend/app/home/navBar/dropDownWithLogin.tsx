@@ -1,17 +1,11 @@
 "use client "
 import Link from "next/link";
 import { Profile } from "../icons";
-import { useRouter } from "next/navigation";
+import UseToken from "@/app/hooks/token";
 
 export default function DropDownWithLogin(){
 
-const router = useRouter()
-
-  const handleClick = () => {
-    localStorage.removeItem("token")
-
-    router.refresh()
-  }
+  const { handleUpdateToken } = UseToken()
   return (
     <>
       <div className="dropdown dropdown-end">
@@ -29,7 +23,7 @@ const router = useRouter()
             <Link href={"#"}>Historial de turnos</Link>
           </li>
           <li >
-            <Link href={"#"} onClick={handleClick}>Cerrar sesion</Link>
+            <Link href={"#"} onClick={handleUpdateToken}>Cerrar sesion</Link>
           </li>
         </ul>
       </div>
