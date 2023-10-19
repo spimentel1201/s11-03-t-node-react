@@ -1,6 +1,6 @@
 "use client "
 import Link from "next/link";
-import { Profile } from "./icons";
+import { Profile } from "../icons";
 import { useRouter } from "next/navigation";
 
 export default function DropDownWithLogin(){

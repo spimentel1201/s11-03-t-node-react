@@ -1,9 +1,9 @@
 import Image from "next/image";
-import sobreNosotros from "../assets/sobreNosotros/sobreNosotrosImage.png";
-import sobreNosotrosDesktop from "../assets/sobreNosotros/sobreNosotrosDesktop.png" 
-import aboutDot from "../assets/sobreNosotros/about-dot.png.png";
-import aboutDotDesktop from "../assets/sobreNosotros/about-dotDesktop.png"
-import { Tick } from "./icons";
+import sobreNosotros from "../../assets/sobreNosotros/sobreNosotrosImage.png";
+import sobreNosotrosDesktop from "../../assets/sobreNosotros/sobreNosotrosDesktop.png" 
+import aboutDot from "../../assets/sobreNosotros/about-dot.png.png";
+import aboutDotDesktop from "../../assets/sobreNosotros/about-dotDesktop.png"
+import { Tick } from "../icons";
 import { ComponentType, SVGProps } from "react";
 interface ListItemType {
   title: string;
@@ -50,8 +50,6 @@ export default function SobreNosotros() {
         <Image
           src={aboutDot}
           alt="sobreNosotros"
-          objectFit="cover"
-          objectPosition="center"
           width={85}
           height={82}
           className="absolute top-[-15px] left-[-20px] z-[-30] md:hidden"
@@ -59,8 +57,6 @@ export default function SobreNosotros() {
          <Image
           src={aboutDotDesktop}
           alt="sobreNosotros"
-          objectFit="cover"
-          objectPosition="center"
           width={197}
           height={197}
           className="hidden md:block md:absolute md:top-[-80px] md:left-[-70px] md:z-[-30]"
@@ -68,8 +64,6 @@ export default function SobreNosotros() {
         <Image
           src={sobreNosotros}
           alt="sobreNosotros"
-          objectFit="cover"
-          objectPosition="center"
           width={208}
           height={207}
           className="z-40 md:hidden "
@@ -77,8 +71,6 @@ export default function SobreNosotros() {
          <Image
           src={sobreNosotrosDesktop}
           alt="sobreNosotros"
-          objectFit="cover"
-          objectPosition="center"
           width={481}
           height={385}
           className="hidden md:block  "
