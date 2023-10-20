@@ -6,10 +6,6 @@ export const uploadImageValidation = generateValidationRules('UploadImage', {
     notEmptyFile: {},
     isImage: {},
   },
-  image: {
-    notEmptyFile: {},
-    isImage: {},
-  },
 });
 
 export const updatePasswordValidation = generateValidationRules('updatePasswordClient', {
@@ -18,30 +14,9 @@ export const updatePasswordValidation = generateValidationRules('updatePasswordC
     isLength: { min: 8, max: 12 },
     password: {},
   },
-  newPassword: {
-    notEmpty: {},
-    isLength: { min: 8, max: 12 },
-    password: {},
-  },
 });
 
 export const updateClientValidation = generateValidationRules('updateClient', {
-  fullname: {
-    notEmpty: {},
-    isLength: { min: 5, max: 40 },
-    OnlyLetters: {},
-  },
-  phone: {
-    notEmpty: {},
-    isLength: { min: 1, max: 15 },
-  },
-  address: {
-    notEmpty: {},
-  },
-  photo_url: {
-    notEmpty: {},
-    isURL: {},
-  },
   fullname: {
     notEmpty: {},
     isLength: { min: 5, max: 40 },
@@ -75,30 +50,9 @@ export const registerClientValidation = generateValidationRules('registerClient'
     isLength: { min: 8, max: 12 },
     password: {},
   },
-  fullname: {
-    notEmpty: {},
-    isLength: { min: 5, max: 40 },
-    OnlyLetters: {},
-  },
-  email: {
-    notEmpty: {},
-    isEmail: {},
-  },
-  password: {
-    notEmpty: {},
-    isLength: { min: 8, max: 12 },
-    password: {},
-  },
 });
 
 export const loginClientValidation = generateValidationRules('loginClient', {
-  email: {
-    notEmpty: {},
-    isEmail: {},
-  },
-  password: {
-    notEmpty: {},
-  },
   email: {
     notEmpty: {},
     isEmail: {},
@@ -137,34 +91,6 @@ export const createAppointmentValidation = generateValidationRules('createAppoin
     notEmpty: {},
     isMongoId: {},
   },
-  date: {
-    notEmpty: {},
-    isDate: {},
-  },
-  reason: {
-    notEmpty: {},
-    isLength: { min: 0, max: 255 },
-  },
-  start_time: {
-    notEmpty: {},
-    isDate: {},
-  },
-  end_time: {
-    notEmpty: {},
-    isDate: {},
-  },
-  notes: {
-    notEmpty: {},
-    isLength: { min: 0, max: 255 },
-  },
-  petId: {
-    notEmpty: {},
-    isMongoId: {},
-  },
-  veterinarianId: {
-    notEmpty: {},
-    isMongoId: {},
-  },
 });
 
 export const updateAppointmentValidation = generateValidationRules('updateAppointment', {
@@ -175,16 +101,9 @@ export const updateAppointmentValidation = generateValidationRules('updateAppoin
     notEmpty: {},
     isLength: { min: 0, max: 255 },
   },
-  notes: {
+  cost: {
     notEmpty: {},
-    isLength: { min: 0, max: 255 },
-  },
-  date: {
-    isDate: {},
-  },
-  reason: {
-    notEmpty: {},
-    isLength: { min: 0, max: 255 },
+    isFloat: {},
   },
   notes: {
     notEmpty: {},
@@ -261,63 +180,9 @@ export const createPetValidation = generateValidationRules('createPet', {
     notEmpty: {},
     isMongoId: {},
   },
-  name: {
-    notEmpty: {},
-    isLength: { min: 5, max: 40 },
-    OnlyLetters: {},
-  },
-  specie: {
-    notEmpty: {},
-    isLength: { min: 5, max: 40 },
-    OnlyLetters: {},
-  },
-  sex: {
-    notEmpty: {},
-    isLength: { min: 8, max: 9 },
-    OnlyLetters: {},
-  },
-  age: {
-    notEmpty: {},
-    isLength: { min: 1, max: 2 },
-    isFloat: {},
-  },
-  photo_url: {
-    isURL: {},
-  },
-  clientId: {
-    notEmpty: {},
-    isMongoId: {},
-  },
 });
 
 export const updatePetValidation = generateValidationRules('updatePet', {
-  name: {
-    notEmpty: {},
-    isLength: { min: 5, max: 40 },
-    OnlyLetters: {},
-  },
-  specie: {
-    notEmpty: {},
-    isLength: { min: 5, max: 40 },
-    OnlyLetters: {},
-  },
-  sex: {
-    notEmpty: {},
-    isLength: { min: 8, max: 9 },
-    OnlyLetters: {},
-  },
-  age: {
-    notEmpty: {},
-    isLength: { min: 1, max: 2 },
-    isFloat: {},
-  },
-  photo_url: {
-    isURL: {},
-  },
-  clientId: {
-    notEmpty: {},
-    isMongoId: {},
-  },
   name: {
     notEmpty: {},
     isLength: { min: 5, max: 40 },
