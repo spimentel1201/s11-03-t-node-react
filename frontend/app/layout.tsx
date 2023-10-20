@@ -1,6 +1,6 @@
 import './globals.css'
 import type { Metadata } from 'next'
-import NavBar from './home/navBar'
+import NavBar from './home/navBar/navBar'
 import { Inter } from 'next/font/google'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -18,7 +18,9 @@ export default function RootLayout({
   return (
     <html lang="en" data-theme="veterinaria">
       <body className={inter.className}>
+        <div className='sticky top-0 z-10 '>
         <NavBar />
+        </div>
         {children}</body>
     </html>
   )
