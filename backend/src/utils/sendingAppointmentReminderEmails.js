@@ -37,7 +37,7 @@ export default function sendReminders() {
       const clientEmail = appointment.clientId.email;
       const petName = appointment.petId.name;
       const clientFullname = appointment.clientId.fullname;
-      const veterinarianFullname = appointment.veterinarianId.first_name; //!Falta Actualizar por si cambia el campo de veterinario a fullname
+      const veterinarianFullname = appointment.veterinarianId.fullname;
 
       const appointmentDate = new Date(appointment.date).toLocaleDateString('es-ES', {
         year: 'numeric',
