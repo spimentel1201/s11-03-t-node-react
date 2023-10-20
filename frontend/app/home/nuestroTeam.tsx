@@ -26,6 +26,7 @@ async function NuestroTeam() {
           Nuestro TEAM
         </h1>
         <div>
+      
           <MySlider>
             {vets &&
               vets.data &&
