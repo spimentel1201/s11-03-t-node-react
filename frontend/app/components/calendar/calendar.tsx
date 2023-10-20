@@ -36,7 +36,7 @@ const Calendar = () => {
 
   return (
     <>
-      <h1 className="text-center text-xl font-bold mb-4 mt-16">PEDIR CITA</h1>
+      <h1 className="font-secular text-center text-xl font-bold mb-4 mt-16">PEDIR CITA</h1>
       <div className="text-center text-sm pt-2 bg-[#FFCC37] mx-[20%] px-4">
         Solicitar o cancelar la cita con 24 hs. de anticipacion
       </div>

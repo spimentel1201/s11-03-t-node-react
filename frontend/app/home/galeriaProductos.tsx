@@ -7,7 +7,7 @@ function PinterestLayout() {
         <h4 className="self-start mt-20 text-accent font-bold">
           Nuestros productos
         </h4>
-        <h1 className="self-start text-xl xl:text-3xl mt-2 font-bold mb-10">
+        <h1 className="self-start text-xl xl:text-4xl mt-2 font-bold mb-10">
           Galeria de Imágenes
         </h1>
         <div className="flex flex-row justify-center items-end gap-x-2 mb-[18px]">

@@ -1,9 +1,18 @@
 import './globals.css'
 import type { Metadata } from 'next'
 import NavBar from './home/navBar/navBar'
-import { Inter } from 'next/font/google'
+import { Inter, Secular_One } from 'next/font/google'
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({
+  subsets: ['latin'],  
+  variable: '--font-inter',
+})
+const secular_one = Secular_One({
+  subsets: ['latin'],
+  weight: '400',
+  display: 'swap',
+  variable: '--font-secular-one',
+})
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -17,11 +26,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" data-theme="veterinaria">
-      <body className={inter.className}>
-        <div className='sticky top-0 z-10 '>
-        <NavBar />
+      <body className={`${inter.variable} ${secular_one.variable}`}>
+        <div className="sticky top-0 z-10 ">
+          <NavBar />
         </div>
-        {children}</body>
+        {children}
+      </body>
     </html>
   )
 }
