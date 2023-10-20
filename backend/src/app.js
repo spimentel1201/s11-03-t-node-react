@@ -5,6 +5,7 @@ import routes from './routes/routes';
 import configureSwagger from './config/swagger';
 import { globalError } from './middlewares/globalError.middleware';
 import { configurePassport } from './auth/passportAuth';
+import sendReminders from './utils/sendingAppointmentReminderEmails';
 
 dotenv.config();
 const app = express();
@@ -20,6 +21,9 @@ app.use('/', routes);
 
 // Configurar Swagger UI
 configureSwagger(app);
+
+//Schedule para programar envío de email diario de recordatorio de citas activas.
+sendReminders();
 
 // Configura Express para servir archivos estáticos desde la carpeta "public"
 app.use(express.static('public'));
