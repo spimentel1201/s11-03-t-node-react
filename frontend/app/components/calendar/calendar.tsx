@@ -1,3 +1,5 @@
+'use client'
+
 import Week from './week'
 import NuestroTeamCard from '../../home/nuestroTeamCard'
 
@@ -35,45 +37,41 @@ const Calendar = () => {
   const years = [2023, 2024]
 
   return (
-    <>
-      <h1 className="font-secular text-center text-xl font-bold mb-4 mt-16">PEDIR CITA</h1>
-      <div className="text-center text-sm pt-2 bg-[#FFCC37] mx-[20%] px-4">
-        Solicitar o cancelar la cita con 24 hs. de anticipacion
-      </div>
-      <div className="text-center text-sm pt-2 pb-4 bg-[#FFCC37] mx-[20%] px-4">
-        Una vez solicitada la cita podrá visualizarlo en su calendario
-      </div>
+    <div className="max-w-[90rem] m-auto">
       <div className="mt-4">
-        <NuestroTeamCard
-          src={'/logo.png'}
-          title="Cathy J. Gomez"
-          text="Veterinaria Clinica"
-        />
-        <div className="flex flex-col mx-1 sm:mx-32 lg:mx-40 border-b-2">
+        <div className="flex flex-col mx-1 border-b-2">
           <div className="">
-            <h1 className="text-center text-xl mt-2 font-bold mb-4">
+            <h1 className="font-secular text-center text-3xl mt-2 font-bold mb-10">
               Horarios disponibles
             </h1>
-            <div className="flex justify-center pb-4 gap-4">
-              <select className="select select-bordered w-full max-w-xs">
-                <option selected>Noviembre</option>
-                <option>Diciembre</option>
-                <option>Enero</option>
+            <div className="flex justify-center pb-4 gap-8 mx-2">
+              <select
+                defaultValue="Octubre"
+                className="select select-bordered w-full max-w-xs text-3xl"
+              >
+                <option value="Octubre">Octubre</option>
+                <option value="Noviembre">Noviembre</option>
+                <option value="Diciembre">Diciembre</option>
+                <option value="Enero">Enero</option>
+                <option value="Febrero">Febrero</option>
+                <option value="Marzo">Marzo</option>
               </select>
-              <select className="select select-bordered w-full max-w-xs">
-                <option selected>2023</option>
-                <option>2024</option>
-                <option>2025</option>
+              <select
+                defaultValue="2023"
+                className="select select-bordered w-full max-w-xs text-3xl"
+              >
+                <option value="2023">2023</option>
+                <option value="2024">2024</option>
               </select>
             </div>
 
-            <div className="flex justify-between items-center font-small uppercase text-xs pt-2 pb-2">
+            <div className="flex justify-between items-center font-small uppercase pt-20 pb-2 mb-8">
               {week.map((w, index) => (
                 <span
                   key={index}
                   className="w-full font-bold flex justify-center items-center"
                 >
-                  <span className="text-accent">{w}</span>
+                  <span className="text-sm md:text-2xl text-accent">{w}</span>
                 </span>
               ))}
             </div>
@@ -88,7 +86,7 @@ const Calendar = () => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   )
 }
 
