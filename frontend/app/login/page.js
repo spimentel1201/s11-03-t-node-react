@@ -58,8 +58,7 @@ const Login = () => {
   }
 
   return (
-    <>
-      <Calendar />
+    <>      
       <Container>
         <form onSubmit={handleSubmit} className="min-w-[414px]">
           <div className="card flex-shrink-0 w-full min-w-sm bg-base-300">
