@@ -1,7 +1,4 @@
-import Image from 'next/image'
-import Section from './nuestrasSection'
 import Card from './nuestroTeamCard'
-import CardContainer from './nuestroTeamCardContainer'
 import MySlider from './slider'
 
 const getData = async () => {
@@ -22,7 +19,7 @@ async function NuestroTeam() {
         <h4 className="text-center mt-20 text-accent font-bold">
           Profesionales
         </h4>
-        <h1 className="text-center text-xl xl:text-4xl mt-2 font-bold mb-10">
+        <h1 className="text-center text-xl xl:text-3xl mt-2 font-bold mb-10">
           Nuestro TEAM
         </h1>
         <div>

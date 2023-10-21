@@ -69,7 +69,7 @@ export default function Reviews() {
             </button>
           </div>
         </section>
-        <section className="" >
+        <section>
           <Slider {...settings} ref={sliderRef}>
             {reviewsData.reviews.map((review, index) => (
               <section
