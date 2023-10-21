@@ -1,6 +1,6 @@
 import passport from 'passport';
 import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
-import Client from '../schemas/client.schema';
+import Client from '../../schemas/client.schema';
 import session from 'express-session';
 
 passport.use(

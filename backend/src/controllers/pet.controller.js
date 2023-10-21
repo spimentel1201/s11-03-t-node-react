@@ -4,6 +4,7 @@ import { sendResponse } from '../responses/responseUtils';
 import ErrorApp from '../utils/ErrorApp';
 import { tryCatch } from '../utils/tryCatch';
 import mongoose from 'mongoose';
+import { paginate } from '../utils/pagination';
 
 // Crear un nuevo mascota
 export const createPet = tryCatch(async (req, res) => {
@@ -33,8 +34,17 @@ export const createPet = tryCatch(async (req, res) => {
 });
 // Obtener todas las mascotas
 export const getAllPets = tryCatch(async (req, res) => {
-  const pets = await Pet.find().populate('clientId', { password: 0 });
-  sendResponse(res, 200, 'Mascotas encontradas con éxito', pets);
+  const page = parseInt(req.query.page) || 1;
+  const limit = parseInt(req.query.limit) || 10; // Límite 10 por defecto
+  const baseUrl = `${req.protocol}://${req.get('host')}${req.originalUrl.split('?')[0]}`;
+
+  // Usa la función paginate para obtener los resultados paginados
+  const response = await paginate(Pet, page, limit, baseUrl);
+
+  // Agrega la información del dueño de cada mascota en la respuesta
+  response.results = await Pet.populate(response.results, { path: 'clientId', select: '-password' });
+
+  sendResponse(res, 200, 'Mascotas encontradas con éxito', response);
 });
 
 // Obtener una mascota por ID junto a su historial de citas

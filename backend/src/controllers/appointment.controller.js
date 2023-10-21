@@ -1,20 +1,23 @@
-import { sendResponse } from '../responses/responseUtils';
-import { tryCatch } from '../utils/tryCatch';
-import Client from '../schemas/client.schema';
-import Pet from '../schemas/pet.schema';
-import Appointment from '../schemas/appointment.schema';
-import ErrorApp from '../utils/ErrorApp';
+import { generateEmailContent } from '../utils/generateEmailContent';
 import disableEntity from '../utils/disableEntity';
-import Veterinarian from '../schemas/veterinarian.schema';
 import { paginate } from '../utils/pagination';
-import fs from 'fs';
+import { tryCatch } from '../utils/tryCatch';
+import ErrorApp from '../utils/ErrorApp';
+
+import { sendResponse } from '../responses/responseUtils';
 import { sendEmail } from '../services/sendEmail';
 
+import Appointment from '../schemas/appointment.schema';
+import Client from '../schemas/client.schema';
+import Pet from '../schemas/pet.schema';
+import Veterinarian from '../schemas/veterinarian.schema';
+
+// Crear una nueva cita
 export const createAppointment = tryCatch(async (req, res) => {
   const { date, start_time, end_time, reason, notes, petId, veterinarianId } = req.body;
   const clientId = req.client.clientId;
 
-  // Verifica la existencia de cliente, mascota y veterinario
+  // Verifica la existencia de cliente, mascota y veterinario en paralelo
   const [existingClient, existingPet, existingVeterinarian] = await Promise.all([
     Client.findById(clientId),
     Pet.findById(petId),
@@ -46,39 +49,32 @@ export const createAppointment = tryCatch(async (req, res) => {
   // Guarda la nueva cita en la base de datos
   await newAppointment.save();
 
-  // Lee la plantilla HTML desde el archivo para la confirmación de citas
-  const appointmentConfirmationTemplatePath = 'public/mails/templates/appointment_confirmation.html';
-  const appointmentConfirmationContent = fs.readFileSync(appointmentConfirmationTemplatePath, 'utf8');
+  // Define las variables para la plantilla de correo
+  const templateVariables = {
+    'Nombre de Mascota': existingPet.name,
+    'Nombre del Cliente': existingClient.fullname,
+    'Nombre del Veterinario': existingVeterinarian.fullname,
+    'Fecha de Cita': new Date(date).toLocaleDateString('es-ES', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      timeZone: 'UTC',
+    }),
+    'Hora de Inicio': new Date(start_time).toLocaleTimeString('en-US', {
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: false,
+      timeZone: 'UTC',
+    }),
+    'Motivo de Cita': reason,
+  };
 
-  // Reemplaza las variables en la plantilla HTML
-  const clientFullname = existingClient.fullname;
-  const veterinarianFullname = existingVeterinarian.fullname;
-  const appointmentStartTime = new Date(start_time).toLocaleTimeString('en-US', {
-    hour: '2-digit',
-    minute: '2-digit',
-    hour12: true,
-    timeZone: 'UTC',
-  });
-  const appointmentDate = new Date(date).toLocaleDateString('es-ES', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-    timeZone: 'UTC',
-  });
-  const petName = existingPet.name;
-  const appointmentReason = reason;
-
-  const appointmentConfirmationContentReplaced = appointmentConfirmationContent
-    .replace('[Nombre de Mascota]', petName)
-    .replace('[Nombre del Cliente]', clientFullname)
-    .replace('[Nombre del Veterinario]', veterinarianFullname)
-    .replace('[Fecha de Cita]', appointmentDate)
-    .replace('[Hora de Inicio]', appointmentStartTime)
-    .replace('[Motivo de Cita]', appointmentReason);
+  // Genera el contenido del correo dinámicamente, pasa como parametro la plantilla y las variables
+  const emailContent = generateEmailContent('appointment_confirmation', templateVariables);
 
   // Envía el correo de confirmación de la cita al cliente utilizando la función sendEmail
   const emailSubject = 'Confirmación de Cita';
-  await sendEmail(existingClient.email, emailSubject, appointmentConfirmationContentReplaced);
+  await sendEmail(existingClient.email, emailSubject, emailContent);
 
   // Devuelve una respuesta RESTful desde utils
   sendResponse(res, 201, 'Cita creada con éxito', newAppointment);
@@ -179,75 +175,73 @@ export const updateAppointment = tryCatch(async (req, res) => {
     .populate('veterinarianId')
     .populate('petId');
 
-  // Lee la plantilla HTML desde el archivo para la confirmación de citas
-  const appointmentUpdateTemplatePath = 'public/mails/templates/appointment_confirmation.html';
-  const appointmentUpdateContent = fs.readFileSync(appointmentUpdateTemplatePath, 'utf8');
+  // Define las variables para la plantilla de correo
+  const templateVariables = {
+    'Nombre de Mascota': updatedAppointment.petId.name,
+    'Nombre del Cliente': updatedAppointment.clientId.fullname,
+    'Nombre del Veterinario': updatedAppointment.veterinarianId.fullname,
+    'Fecha de Cita': new Date(updatedAppointment.date).toLocaleDateString('es-ES', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      timeZone: 'UTC',
+    }),
+    'Hora de Inicio': new Date(updatedAppointment.start_time).toLocaleTimeString('en-US', {
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: false,
+      timeZone: 'UTC',
+    }),
+    'Motivo de Cita': updatedAppointment.reason,
+  };
 
-  // Reemplaza las variables en la plantilla HTML
-  const clientFullname = updatedAppointment.clientId.fullname;
-  const veterinarianFullname = updatedAppointment.veterinarianId.fullname;
-  const petName = updatedAppointment.petId.name;
-  const appointmentDate = new Date(updatedAppointment.date).toLocaleDateString('es-ES', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-    timeZone: 'UTC',
-  });
-  const appointmentStartTime = new Date(updatedAppointment.start_time).toLocaleTimeString('en-US', {
-    hour: '2-digit',
-    minute: '2-digit',
-    hour12: true,
-    timeZone: 'UTC',
-  });
+  // Genera el contenido del correo dinámicamente, pasa como parametro la plantilla y las variables
+  const emailContent = generateEmailContent('appointment_update', templateVariables);
 
-  const appointmentUpdateContentReplaced = appointmentUpdateContent
-    .replace('Su cita ha sido confirmada', 'Su cita fué actualizada')
-    .replace('[Nombre de Mascota]', petName)
-    .replace('[Nombre del Cliente]', clientFullname)
-    .replace('[Nombre del Veterinario]', veterinarianFullname)
-    .replace('[Fecha de Cita]', appointmentDate)
-    .replace('[Hora de Inicio]', appointmentStartTime)
-    .replace('[Motivo de Cita]', updatedAppointment.reason);
-
-  // Envía el correo de confirmación de que la cita fue cancelada con la función sendEmail
-  const emailSubject = 'Modificación de Cita';
-  await sendEmail(updatedAppointment.clientId.email, emailSubject, appointmentUpdateContentReplaced);
+  // Envía el correo de confirmación de que la cita fue actualizada con la función sendEmail
+  const emailSubject = 'Actualización de Cita';
+  await sendEmail(updatedAppointment.clientId.email, emailSubject, emailContent);
 
   // Devuelve una respuesta RESTful desde utils
   sendResponse(res, 200, 'Cita actualizada con éxito', updatedAppointment);
 });
 
-// Eliminar una cita por ID
+// Desactivar una cita por ID
 export const deleteAppointment = tryCatch(async (req, res) => {
   const { appointmentId } = req.params;
 
   // Verifica la existencia de cliente, mascota y veterinario
   const existingAppointment = await Appointment.findById(appointmentId).populate('veterinarianId').populate('clientId');
   if (!existingAppointment) {
-    throw ErrorApp('Cita no encontrado', 404);
+    throw ErrorApp('Cita no encontrada', 404);
   }
-  // Lee la plantilla HTML desde el archivo para la confirmación de citas
-  const appointmentCancellationTemplatePath = 'public/mails/templates/appointment_cancellation.html';
-  const appointmentCancellationContent = fs.readFileSync(appointmentCancellationTemplatePath, 'utf8');
 
-  // Reemplaza las variables en la plantilla HTML
-  const clientFullname = existingAppointment.clientId.fullname;
-  const veterinarianFullname = existingAppointment.veterinarianId.fullname;
-  const appointmentDate = new Date(existingAppointment.date).toLocaleDateString('es-ES', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-    timeZone: 'UTC',
-  });
+  // Define las variables para la plantilla de correo
+  const templateVariables = {
+    'Nombre del Cliente': existingAppointment.clientId.fullname,
+    'Nombre del Veterinario': existingAppointment.veterinarianId.fullname,
+    'Fecha de Cita': new Date(existingAppointment.date).toLocaleDateString('es-ES', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      timeZone: 'UTC',
+    }),
+    'Hora de Inicio': new Date(existingAppointment.start_time).toLocaleTimeString('en-US', {
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: false,
+      timeZone: 'UTC',
+    }),
+    'Motivo de Cita': existingAppointment.reason,
+  };
 
-  const appointmentCancellationContentReplaced = appointmentCancellationContent
-    .replace('[Nombre del Cliente]', clientFullname)
-    .replace('[Nombre del Veterinario]', veterinarianFullname)
-    .replace('[Fecha de Cita]', appointmentDate);
+  // Genera el contenido del correo dinámicamente
+  const emailContent = generateEmailContent('appointment_cancellation', templateVariables);
 
   // Envía el correo de confirmación de que la cita fue cancelada con la función sendEmail
   const emailSubject = 'Cancelación de Cita';
-  await sendEmail(existingAppointment.clientId.email, emailSubject, appointmentCancellationContentReplaced);
+  await sendEmail(existingAppointment.clientId.email, emailSubject, emailContent);
+  // Desactiva la Cita
   await disableEntity(Appointment, appointmentId, 'Cita');
 
   // Devuelve una respuesta RESTful desde utils
