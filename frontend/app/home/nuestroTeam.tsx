@@ -10,6 +10,33 @@ const getData = async () => {
   ).then((res) => res.json())
 }
 
+var settings = {
+  dots: false,
+  infinite: true,
+  speed: 500,
+  slidesToShow: 4,
+  slidesToScroll: 4,
+  initialSlide: 0,
+  responsive: [
+    {
+      breakpoint: 1280,
+      settings: {
+        slidesToShow: 4,
+        slidesToScroll: 1,
+        initialSlide: 1,
+      },
+    },
+    {
+      breakpoint: 1024,
+      settings: {
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        initialSlide: 1,
+      },
+    },
+  ],
+}
+
 async function NuestroTeam() {
   const vets = await getData()
 
@@ -23,8 +50,7 @@ async function NuestroTeam() {
           Nuestro TEAM
         </h1>
         <div>
-      
-          <MySlider>
+          <MySlider settings={settings}>
             {vets &&
               vets.data &&
               vets.data.results &&

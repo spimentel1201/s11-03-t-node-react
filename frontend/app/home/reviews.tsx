@@ -72,49 +72,46 @@ export default function Reviews() {
         <section>
           <Slider {...settings} ref={sliderRef}>
             {reviewsData.reviews.map((review, index) => (
-              <section
-                key={index}
-                className="flex p-2"
-              >
+              <section key={index} className="flex p-2">
                 <div className="flex bg-white mb-3 lg:h-[300px] rounded-tr-2xl rounded-bl-2xl">
-                <div className="flex justify-between gap-4 px-5 py-12 rounded-custom">
-                  <div className="w-3/4 lg:max-h-[224px]">
-                    <div>
-                      <div className="inline-flex">
-                        {renderStars(review.rating)}
-                      </div>
-                      <h3 className="font-semibold mt-2 text-lg">
-                        {review.title}
-                      </h3>
-                      <p className="text-sm text-[#667085]">
-                        {review.detailed_comment}
-                      </p>
-                    </div>
-                    <div className="flex justify-between mt-6">
+                  <div className="flex justify-between gap-4 px-5 py-12 rounded-custom">
+                    <div className="w-3/4 lg:max-h-[224px]">
                       <div>
-                        <p className="font-semibold text-lg">
-                          {review.reviewer_name}
+                        <div className="inline-flex">
+                          {renderStars(review.rating)}
+                        </div>
+                        <h3 className="font-semibold mt-2 text-lg">
+                          {review.title}
+                        </h3>
+                        <p className="text-sm text-[#667085]">
+                          {review.detailed_comment}
                         </p>
-                        <p> {review.pet_name_attended}</p>
                       </div>
+                      <div className="flex justify-between mt-6">
+                        <div>
+                          <p className="font-semibold text-lg">
+                            {review.reviewer_name}
+                          </p>
+                          <p> {review.pet_name_attended}</p>
+                        </div>
+                        <Image
+                          src="https://res.cloudinary.com/dxq0pypxu/image/upload/v1697579418/itfrw0r6oeknh85fte3p.svg"
+                          alt="square"
+                          width={59}
+                          height={59}
+                        />
+                      </div>
+                    </div>
+                    <div className="items-center max-w-[194px] px-3">
                       <Image
-                        src="https://res.cloudinary.com/dxq0pypxu/image/upload/v1697579418/itfrw0r6oeknh85fte3p.svg"
-                        alt="square"
-                        width={59}
-                        height={59}
+                        src={review.photo_url}
+                        alt={review.pet_name_attended}
+                        width={170}
+                        height={207}
+                        className="rounded-lg"
                       />
                     </div>
                   </div>
-                  <div className="items-center max-w-[194px] px-3">
-                    <Image
-                      src={review.photo_url}
-                      alt={review.pet_name_attended}
-                      width={170}
-                      height={207}
-                      className="rounded-lg"
-                    />
-                  </div>
-                </div>
                 </div>
               </section>
             ))}
