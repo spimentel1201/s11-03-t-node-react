@@ -19,8 +19,8 @@ export function agregarDiasAlPrincipio(
 ) {
   const days = []
 
-  for (let i = 0; i < mesActual; i++) days.push(i + 1)
-  for (let i = 1; i < 8; i++) days.push(i)
+  for (let i = 0; i < mesActual; i++) days.push({ day: i + 1, status: true })
+  for (let i = 1; i < 8; i++) days.push({ day: i, status: false })
 
   if (
     numeroDiaSemana < 1 ||
@@ -28,7 +28,7 @@ export function agregarDiasAlPrincipio(
     diaFinalMes < 1 ||
     diaFinalMes > 31
   ) {
-    return 'Error: Los números proporcionados deben estar en el rango correcto.'
+    return null
   }
 
   // Encuentra cuántos días adicionales agregar
@@ -36,7 +36,7 @@ export function agregarDiasAlPrincipio(
 
   // Agrega los días al principio del array
   for (let i = 0; i < diasAgregados; i++) {
-    days.unshift(diaFinalMes - i)
+    days.unshift({ day: diaFinalMes - i, status: false })
   }
 
   return days

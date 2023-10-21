@@ -33,7 +33,7 @@ const Calendar = ({ month, year }: Props) => {
     diasMesPrevio,
     mesActual,
   )
-  console.log(arrayMesActual)
+  // console.log(arrayMesActual)
 
   const week = [
     'Lunes',
@@ -106,11 +106,11 @@ const Calendar = ({ month, year }: Props) => {
             </div>
 
             <div className="flex flex-col justify-between font-medium text-sm pb-2">
-              <Week desde="0" hasta="7" enabled={week1} />
-              <Week desde="7" hasta="14" enabled={arreglo} />
-              <Week desde="14" hasta="21" enabled={arreglo} />
-              <Week desde="21" hasta="28" enabled={arreglo} />
-              <Week desde="28" hasta="35" enabled={week5} />
+              <Week desde="0" hasta="7" data={arrayMesActual} />
+              <Week desde="7" hasta="14" data={arrayMesActual} />
+              <Week desde="14" hasta="21" data={arrayMesActual} />
+              <Week desde="21" hasta="28" data={arrayMesActual} />
+              <Week desde="28" hasta="35" data={arrayMesActual} />
             </div>
           </div>
         </div>
