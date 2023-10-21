@@ -10,16 +10,18 @@ import NuestrosServicios from './home/nuestrosServicios'
 import Contacto from './home/contacto/contacto'
 import GaleriaProductos from './home/galeriaProductos'
 import Footer from './components/footer/footer'
+import Reviews from './home/reviews'
 
 export default function Home() {
   return (
     <main>
-       <AgendarTurnoSection />
+      <AgendarTurnoSection />
       <Mascotas />
       <SobreNosotros />
       <NuestrosServicios />
-      <NuestrasCaracteristicas /> 
+      <NuestrasCaracteristicas />
       <NuestroTeam />
+      <Reviews />
       <GaleriaProductos />
       <Contacto />
       <Footer />
