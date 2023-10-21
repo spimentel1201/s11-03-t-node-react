@@ -1,13 +1,39 @@
 'use client'
 
 import Week from './week'
-import NuestroTeamCard from '../../home/nuestroTeamCard'
+import obtenerDiaInicioMes, {
+  obtenerDiasEnMes,
+  agregarDiasAlPrincipio,
+} from './helper'
 
-const Calendar = () => {
-  const days = [
-    1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
-    22, 23, 24, 25, 26, 27, 28, 29, 30, 31,
-  ]
+type Props = {
+  month: number
+  year: number
+}
+
+const Calendar = ({ month, year }: Props) => {
+  // posicion del primer dia del mes actual
+  // console.log(obtenerDiaInicioMes(1, month - 1, year))
+  const posicionDiaIniciodeMes = obtenerDiaInicioMes(1, month - 1, year)
+  // Dias del Mes actual
+  const mesActual = obtenerDiasEnMes(month, year)
+  // console.log(obtenerDiasEnMes(mesActual))
+  // Dias del Mes previo
+  let diasMesPrevio = null
+  if (month > 1) {
+    // console.log(obtenerDiasEnMes(month - 1, year))
+    diasMesPrevio = obtenerDiasEnMes(month - 1, year)
+  }
+  if (month == 1) {
+    // console.log(obtenerDiasEnMes(12, year - 1))
+    diasMesPrevio = obtenerDiasEnMes(12, year - 1)
+  }
+  const arrayMesActual = agregarDiasAlPrincipio(
+    posicionDiaIniciodeMes,
+    diasMesPrevio,
+    mesActual,
+  )
+  console.log(arrayMesActual)
 
   const week = [
     'Lunes',
@@ -35,6 +61,9 @@ const Calendar = () => {
   ]
 
   const years = [2023, 2024]
+  const week1 = [false, false, false, true, true, true, true]
+  const arreglo = [true, true, true, true, true, true, true]
+  const week5 = [true, true, true, true, true, true, false]
 
   return (
     <div className="max-w-[90rem] m-auto">
@@ -77,11 +106,11 @@ const Calendar = () => {
             </div>
 
             <div className="flex flex-col justify-between font-medium text-sm pb-2">
-              <Week desde="0" hasta="7" />
-              <Week desde="7" hasta="14" />
-              <Week desde="14" hasta="21" />
-              <Week desde="21" hasta="28" />
-              <Week desde="28" hasta="35" />
+              <Week desde="0" hasta="7" enabled={week1} />
+              <Week desde="7" hasta="14" enabled={arreglo} />
+              <Week desde="14" hasta="21" enabled={arreglo} />
+              <Week desde="21" hasta="28" enabled={arreglo} />
+              <Week desde="28" hasta="35" enabled={week5} />
             </div>
           </div>
         </div>
