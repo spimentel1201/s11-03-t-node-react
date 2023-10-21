@@ -28,9 +28,9 @@ export function useConsultas(){
           }
           if (data.errors) {
             setState({
-              fullname: data.errors.fullname[0] || "",
-              email: data.errors.email[0] || "",
-              message: data.errors.message[0] || "",
+              fullname: data.errors.fullname ? data.errors.fullname[0] : "",
+          email: data.errors.email ? data.errors.email[0] : "",
+          message: data.errors.message ? data.errors.message[0] : "",
             });
            
           } else {
