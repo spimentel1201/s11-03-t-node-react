@@ -8,7 +8,7 @@ import DropdownMobileWithLogin from "./dropdownMobileWithLogin";
 import UseToken from "@/app/hooks/token";
 
 export default function NavBar() {
-  const token = UseToken()
+  const {token} = UseToken()
   const router = useRouter()
 
  
