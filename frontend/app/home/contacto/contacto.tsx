@@ -32,7 +32,7 @@ export default function Contacto() {
           <Message />
         </span>
         <h3 className="text-slate-600 text-lg font-medium font-['Inter'] leading-7">
-          petcare@gmail.com
+        vetcarefamily@gmail.com
         </h3>
       </div>
       <div className="flex flex-row mb-6 gap-x-5">

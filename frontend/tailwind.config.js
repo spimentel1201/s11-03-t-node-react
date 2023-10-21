@@ -33,7 +33,11 @@ module.exports = {
     extend: {
       backgroundImage:(theme) =>({
         "background": "url('/BackgroundCarousel.svg')",
-      })
+      }),
+      fontFamily: {
+        'inter': ['Inter', 'sans-serif'],
+        'secular': ['Secular One', 'sans-serif'],
+      },
     },
   },
   plugins: [require('daisyui')],

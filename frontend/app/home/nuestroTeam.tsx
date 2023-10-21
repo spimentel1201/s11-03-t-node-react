@@ -1,7 +1,4 @@
-import Image from 'next/image'
-import Section from './nuestrasSection'
 import Card from './nuestroTeamCard'
-import CardContainer from './nuestroTeamCardContainer'
 import MySlider from './slider'
 
 const getData = async () => {
@@ -11,6 +8,33 @@ const getData = async () => {
       cache: 'no-store',
     },
   ).then((res) => res.json())
+}
+
+var settings = {
+  dots: false,
+  infinite: true,
+  speed: 500,
+  slidesToShow: 4,
+  slidesToScroll: 4,
+  initialSlide: 0,
+  responsive: [
+    {
+      breakpoint: 1280,
+      settings: {
+        slidesToShow: 4,
+        slidesToScroll: 1,
+        initialSlide: 1,
+      },
+    },
+    {
+      breakpoint: 1024,
+      settings: {
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        initialSlide: 1,
+      },
+    },
+  ],
 }
 
 async function NuestroTeam() {
@@ -26,7 +50,7 @@ async function NuestroTeam() {
           Nuestro TEAM
         </h1>
         <div>
-          <MySlider>
+          <MySlider settings={settings}>
             {vets &&
               vets.data &&
               vets.data.results &&

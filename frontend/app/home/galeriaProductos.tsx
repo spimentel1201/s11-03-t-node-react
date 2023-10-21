@@ -2,12 +2,12 @@ import GaleriaProductosCard from './galeriaProductosCard'
 
 function PinterestLayout() {
   return (
-    <section className="flex flex-col flex-wrap bg-secondary items-center justify-center pt-[18px] mb-[19px]">
-      <div className="max-w-[78rem]">
+    <section className="flex flex-col flex-wrap bg-secondary items-center justify-center">
+      <div className="max-w-[90rem]">
         <h4 className="self-start mt-20 text-accent font-bold">
           Nuestros productos
         </h4>
-        <h1 className="self-start text-xl xl:text-3xl mt-2 font-bold mb-10">
+        <h1 className="self-start text-xl xl:text-4xl mt-2 font-bold mb-10">
           Galeria de Imágenes
         </h1>
         <div className="flex flex-row justify-center items-end gap-x-2 mb-[18px]">
