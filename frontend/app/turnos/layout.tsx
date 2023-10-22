@@ -11,7 +11,7 @@ export default function RootLayout({
     <div>
       <CalendarHeader />
       {children}
-      <Calendar month={1} year={2024} />
+      <Calendar />
     </div>
   )
 }
