@@ -1,19 +1,39 @@
 'use client'
 
-import { ChangeEvent } from 'react'
 import Weeks from './weeks'
 import { days, months, years } from './helper'
 import useDate from './useDate'
+import { vetDataService } from '../../_api/vetData'
+import { useEffect } from 'react'
 
 const Calendar = () => {
   const { arrayMesActual, handleChangeMonth, handleChangeYear } = useDate()
 
-  const handleMonthChange = (event: any) => {
+  const { pathname } = window.location
+  const id = pathname.slice(8)
+
+  useEffect(() => {
+    const fetchData = async (id) => {
+      try {
+        if (id) {
+          const response = await vetDataService(id)
+          const appointments = response.data.data[0].activeAppointments
+          console.log(appointments)
+        }
+      } catch (error) {
+        console.error('Error fetching data:', error)
+      }
+    }
+
+    fetchData(id)
+  }, [id])
+
+  const handleMonthChange = (event) => {
     const selectedMonth = event.target.value
     handleChangeMonth(parseInt(selectedMonth))
   }
 
-  const handleYearChange = (event: any) => {
+  const handleYearChange = (event) => {
     const selectedYear = event.target.value
     handleChangeYear(parseInt(selectedYear))
   }
@@ -33,14 +53,11 @@ const Calendar = () => {
                 onChange={handleMonthChange}
               >
                 {months &&
-                  months                    
-                    .map(
-                      (m: { mes: string; numero: number }, index: number) => (
-                        <option key={index} value={m.numero}>
-                          {m.mes}
-                        </option>
-                      ),
-                    )}
+                  months.map((m, index) => (
+                    <option key={index} value={m.numero}>
+                      {m.mes}
+                    </option>
+                  ))}
               </select>
               <select
                 defaultValue="2023"
@@ -48,7 +65,7 @@ const Calendar = () => {
                 onChange={handleYearChange}
               >
                 {years &&
-                  years.map((y: string, index: number) => (
+                  years.map((y, index) => (
                     <option key={index} value={y}>
                       {y}
                     </option>
