@@ -1,3 +1,5 @@
+import { MouseEventHandler } from 'react'
+
 type Props = {
   desde: number | undefined
   hasta: number | undefined
@@ -7,9 +9,12 @@ type Props = {
         day: number
         status: boolean
       }[]
+  setDateFilter: (
+    day: number,
+  ) => MouseEventHandler<HTMLDivElement> | undefined
 }
 
-const Weeks = ({ desde, hasta, data }: Props) => {
+const Weeks = ({ desde, hasta, data, setDateFilter }: Props) => {
   const semanas = [
     { desde: 0, hasta: 7 },
     { desde: 7, hasta: 14 },
@@ -20,18 +25,32 @@ const Weeks = ({ desde, hasta, data }: Props) => {
   ]
 
   return semanas.map((s, index) => (
-    <Week key={index} desde={s.desde} hasta={s.hasta} data={data} />
+    <Week
+      key={index}
+      desde={s.desde}
+      hasta={s.hasta}
+      data={data}
+      setDateFilter={setDateFilter}
+    />
   ))
 }
 
-export const Week = ({ desde, hasta, data }: Props) => {
+export const Week = ({ desde, hasta, data, setDateFilter }: Props) => {
+  const handleSetDay = (day: number) => {
+    setDateFilter(day)
+    return null
+  }
+
   return (
     <div className="flex justify-start font-medium text-sm pb-2 mb-9">
       {data?.slice(desde, hasta).map((d, index) => (
         <span key={index} className="w-full flex justify-center items-center">
           {d.status === true && (
             <div className="bg-white text-[#2F2D53] w-16 h-16 rounded-full border-4 border-[#2F2D53] hover:text-white hover:bg-[#2F2D53] cursor-pointer">
-              <div className="flex text-2xl justify-center h-full text-center items-center">
+              <div
+                onClick={() => handleSetDay(d.day)}
+                className="flex text-2xl justify-center h-full text-center items-center"
+              >
                 {d.day}
               </div>
             </div>
