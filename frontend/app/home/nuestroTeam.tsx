@@ -56,13 +56,14 @@ async function NuestroTeam() {
               vets.data.results &&
               vets.data.results.map(
                 (v: {
-                  _id: number
+                  _id: string
                   photo_url: string
                   fullname: string
                   speciality: string
                 }) => (
                   <Card
                     key={v._id}
+                    id={v._id}
                     src={v.photo_url}
                     title={v.fullname}
                     text={v.speciality}

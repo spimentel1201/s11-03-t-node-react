@@ -17,7 +17,7 @@ export default function DropDownWithLogin(){
           className="dropdown-content z-[1] menu p-2 shadow bg-secondary rounded-box w-52 mt-11 -mr-[18px]"
         >
           <li>
-            <Link href={"#"}>Mi Perfil</Link>
+            <Link href={"/perfil"}>Mi Perfil</Link>
           </li>
           <li>
             <Link href={"#"}>Historial de turnos</Link>

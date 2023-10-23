@@ -8,13 +8,10 @@ type Action = {
     setToken:(token:string | null) => void
 }
 
-export const useToken = create<State & Action>()(persist(
+export const useToken = create<State & Action>()(
     (set) => ({
         token: null,
         setToken: (token:string | null) => set({token})
     }),
-    {
-        name: "token",
-    }
-)
+    
 )
