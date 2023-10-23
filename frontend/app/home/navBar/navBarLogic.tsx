@@ -1,7 +1,9 @@
+"use client"
 import UseToken from "@/app/hooks/token";
 import DropDownWithLogin from "./dropDownWithLogin";
 import DropDownWithOutLogin from "./dropDownWithOutLogin";
 import NavLink from "./navLink";
+
 
 export default function navBarLogic() {
   

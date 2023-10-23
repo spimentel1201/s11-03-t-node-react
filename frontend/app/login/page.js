@@ -1,5 +1,5 @@
 'use client'
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { loginService } from '../_api/auth'
 import toast from 'react-hot-toast'
 import Container from '../components/auth/container'
@@ -11,6 +11,7 @@ import { useRouter } from 'next/navigation'
 import UseToken from '../hooks/token'
 import Calendar from '../components/calendar/calendar'
 
+
 const notifyOk = (msg) => toast.success(msg)
 const notifyError = (msg) => toast.error(msg)
 
@@ -19,20 +20,28 @@ const Login = () => {
   const [password, setPassword] = useState('Password123$')
   const { setToken } = UseToken()
   const router = useRouter()
+ 
 
   const { errors, setErrors, errorRef, validarEmail, validarPassword } =
     useErrors()
 
   const resetTokenAndErrorRef = () => {
-    setToken(null)
+    if (typeof window !== 'undefined' && window.localStorage) {
+      localStorage.removeItem('token');
+      setToken(null)
+    }
+    
     errorRef.current = false
   }
 
   const saveTokenAndResetData = (t) => {
-    setToken(t)
-    setErrors('')
+    if (typeof window !== "undefined" && window.localStorage) {
+      localStorage.setItem("token",t)
+      setToken(t)
+      setErrors('')
     errorRef.current = false
   }
+}
 
   const handleSubmit = async (e) => {
     e.preventDefault()
