@@ -70,4 +70,34 @@ export function agregarDiasAlPrincipio(
   return days
 }
 
+export function verificarDisponibilidad(dia: number, mes: number, año: number, inicioCita: string | number | Date) {
+  const fecha = new Date(año, mes - 1, dia)  
+  const start_time = new Date(inicioCita)  
+
+  const mismoDiaMesHora =
+    fecha.getDate() === start_time.getDate() &&
+    fecha.getMonth() === start_time.getMonth() &&
+    fecha.getFullYear() === start_time.getFullYear()
+
+  return mismoDiaMesHora
+}
+
+export function getHorario(inicioCita: string | number | Date) {
+  const start_time = new Date(inicioCita)
+  const horas = start_time.getHours().toString().padStart(2, '0')
+  const minutos = start_time.getMinutes().toString().padStart(2, '0')
+  return horas + ':' + minutos
+}
+
+export const scrollToSection = (elementRef: { current: { offsetTop: any } }) => {
+  setTimeout(
+    () =>
+      window.scrollTo({
+        top: elementRef.current.offsetTop,
+        behavior: 'smooth',
+      }),
+    100,
+  )
+}
+
 export default obtenerDiaInicioMes
