@@ -27,7 +27,7 @@ router.get('/', getAllAppointments);
 //Obtener una cita por Id
 router.get('/:appointmentId', getAppointmentById);
 //Actualizar la información de una cita
-router.put('/:appointmentId', updateAppointmentValidation, updateAppointment);
+router.put('/:appointmentId', updateAppointmentValidation, validateAppointment, updateAppointment);
 //Eliminar una cita
 router.delete('/:appointmentId', deleteAppointment);
 
