@@ -95,11 +95,28 @@ export const createAppointmentValidation = generateValidationRules('createAppoin
 
 export const updateAppointmentValidation = generateValidationRules('updateAppointment', {
   date: {
+    notEmpty: {},
     isDate: {},
   },
   reason: {
     notEmpty: {},
     isLength: { min: 0, max: 255 },
+  },
+  start_time: {
+    notEmpty: {},
+    isDate: {},
+  },
+  end_time: {
+    notEmpty: {},
+    isDate: {},
+  },
+  petId: {
+    notEmpty: {},
+    isMongoId: {},
+  },
+  veterinarianId: {
+    notEmpty: {},
+    isMongoId: {},
   },
   notes: {
     notEmpty: {},

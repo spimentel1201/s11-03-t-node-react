@@ -34,6 +34,14 @@ export const createAppointment = tryCatch(async (req, res) => {
     throw ErrorApp('Veterinario no encontrado', 404);
   }
 
+  if (!existingPet.isActive) {
+    throw ErrorApp('La mascota está inactiva, no se puede crear la cita', 400);
+  }
+  // Validar si el veterinario está activo
+  if (!existingVeterinarian.isActive) {
+    throw ErrorApp('El veterinario está inactivo, no se puede crear la cita', 400);
+  }
+
   // Crea la nueva cita
   const newAppointment = new Appointment({
     date: new Date(date),

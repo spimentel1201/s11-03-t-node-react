@@ -14,7 +14,6 @@ import {
   updatePassword,
   verifyVerificationCode,
 } from '../controllers/auth.controller';
-import { sendResponse } from '../responses/responseUtils';
 import { checkAuthentication } from '../middlewares/auth.middleware';
 
 const router = express.Router();
@@ -24,15 +23,17 @@ router.get('/google', passport.authenticate('google', { scope: ['profile', 'emai
 
 // Ruta de callback de Google después de la autenticación
 router.get('/google/callback', passport.authenticate('google', { failureRedirect: '/login' }), (req, res) => {
-  // Lógica después de la autenticación exitosa
   const secretKey = process.env.SECRET_KEY;
   const clientId = req.client.clientId;
 
   // Crear un token JWT para el usuario
   const token = jwt.sign({ clientId }, secretKey, { expiresIn: process.env.TOKEN_EXPIRATION });
 
-  // Devolver el token en un JSON de respuesta
-  sendResponse(res, 200, 'Inicio de sesión exitoso', { token });
+  // Obtén la URL del frontend desde la variable de entorno
+  const frontendURL = process.env.FRONTEND_URL;
+
+  // Redirige al frontend incluyendo el token como parámetro en la URL
+  res.redirect(`${frontendURL}/google-auth-redirect?token=${token}`);
 });
 
 // Ruta de Inicio de sesion
