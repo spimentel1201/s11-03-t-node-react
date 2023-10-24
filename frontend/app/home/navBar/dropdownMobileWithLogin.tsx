@@ -32,7 +32,7 @@ export default function DropdownMobileWithLogin(){
             <NavLink href="/contacto">Contacto</NavLink>
           </li>
           <li className="mx-4 my-6 md:my-0">
-            <NavLink href="#">Perfil</NavLink>
+            <NavLink href="/perfil">Perfil</NavLink>
           </li>
           <li className="mx-4 my-6 md:my-0">
             <Link className="text-xl"href="/" onClick={handleUpdateToken}>Cerrar sesion</Link>
