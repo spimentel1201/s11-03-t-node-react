@@ -1,6 +1,6 @@
 import { Metadata } from "next/types";
 import MisMascostas from "./MisMascotas";
-import Myperfil from "./miPerfil";
+import Myperfil from "./MiPerfil";
 import Page from "./[id]/page";
 
 export const metadata: Metadata = {
@@ -14,6 +14,7 @@ export default function PerfilLayout({
 }) {
   return (
     <div>
+      {children}
       <Myperfil />
       <MisMascostas />
       <Page
@@ -21,7 +22,7 @@ export default function PerfilLayout({
           id: "",
         }}
       />
-      {children}
+      
     </div>
   );
 }
