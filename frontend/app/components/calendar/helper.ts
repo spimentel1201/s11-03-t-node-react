@@ -135,7 +135,7 @@ export function verificarCitasEnHorarios(
   año: number,
 ) {
   // Horarios a verificar
-  const horarios = [
+  const horarios = [   
     { hora: 8, minuto: 0 },
     { hora: 8, minuto: 30 },
     { hora: 9, minuto: 0 },
@@ -146,19 +146,28 @@ export function verificarCitasEnHorarios(
     { hora: 11, minuto: 30 },
     { hora: 12, minuto: 0 },
     { hora: 12, minuto: 30 },
+    { hora: 17, minuto: 0 },
+    { hora: 17, minuto: 30 },
+    { hora: 18, minuto: 0 },
+    { hora: 18, minuto: 30 },
+    { hora: 19, minuto: 0 },
+    { hora: 19, minuto: 30 },
+    { hora: 20, minuto: 0 },
+    { hora: 20, minuto: 30 },
+    { hora: 21, minuto: 0 },
+    { hora: 21, minuto: 30 },
   ]
 
   let array = []
- 
 
   const dataEspecifica = data.filter(
-    (m: any) => m.dia == dia && m.mes == mes && m.año == año
+    (m: any) => m.dia == dia && m.mes == mes && m.año == año,
   )
 
-  // Verificar si hay citas en los horarios especificados para el día dado
-  for (const cita of dataEspecifica) {
-    // Comparar fecha de la cita con los horarios especificados
-    for (const item of horarios) {
+  for (const item of horarios) {
+    let count = 0
+
+    for (const cita of dataEspecifica) {
       console.log(cita.hora, cita.minuto, cita.dia, cita.mes, cita.año)
       console.log(item.hora, item.minuto, dia, mes, año)
       if (
@@ -169,9 +178,11 @@ export function verificarCitasEnHorarios(
         cita.dia == dia
       ) {
         array.push({ hora: cita.hora, minuto: cita.minuto, existe: true })
-      } else {
-        // array.push({ hora: cita.hora, minuto: cita.minuto, existe: false })
+        count++
       }
+    }
+    if (count == 0) {
+      array.push({ hora: item.hora, minuto: item.minuto, existe: false })
     }
   }
 
