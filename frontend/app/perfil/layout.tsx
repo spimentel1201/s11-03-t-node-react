@@ -1,6 +1,6 @@
 import { Metadata } from "next/types";
 import MisMascostas from "./MisMascotas";
-import MiPerfil from "./MiPerfil"
+import MiPerfil from "./miPerfil"
 import Page from "./[id]/page";
 
 export const metadata: Metadata = {
