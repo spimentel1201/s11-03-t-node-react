@@ -162,32 +162,72 @@ export const getAppointmentById = tryCatch(async (req, res) => {
 // Actualizar una cita por ID
 export const updateAppointment = tryCatch(async (req, res) => {
   const { appointmentId } = req.params;
-  const { ...updateFields } = req.body;
+  const { date, start_time, end_time, reason, notes, petId, veterinarianId } = req.body;
 
-  const appointment = await Appointment.findById(appointmentId);
+  const clientId = req.client.clientId;
 
   // Verificar si la cita existe en DB.
+  const appointment = await Appointment.findById(appointmentId).populate('petId').populate('veterinarianId');
   if (!appointment) {
-    const error = ErrorApp(`Cita no encontrada`, 404);
-    throw error;
+    throw ErrorApp(`Cita no encontrada`, 404);
   }
 
   // Verifica si la cita está activa antes de permitir la actualización
   if (!appointment.isActive) {
-    const error = ErrorApp('No se puede actualizar una cita inactiva', 404);
-    throw error;
+    throw ErrorApp('No se puede actualizar una cita inactiva', 400);
   }
 
-  const updatedAppointment = await Appointment.findByIdAndUpdate(appointmentId, { $set: updateFields }, { new: true })
-    .populate('clientId')
-    .populate('veterinarianId')
-    .populate('petId');
+  // Verificar la existencia del cliente, mascota y veterinario
+  const [client, pet, veterinarian] = await Promise.all([
+    Client.findById(clientId),
+    Pet.findById(petId),
+    Veterinarian.findById(veterinarianId),
+  ]);
+
+  if (!client) {
+    throw ErrorApp('Cliente no encontrado', 404);
+  }
+  if (!pet) {
+    throw ErrorApp('Mascota no encontrada', 404);
+  }
+  if (!veterinarian) {
+    throw ErrorApp('Veterinario no encontrado', 404);
+  }
+
+  if (!pet.isActive) {
+    throw ErrorApp('La mascota está inactiva, no se puede crear la cita', 400);
+  }
+  // Validar si el veterinario está activo
+  if (!veterinarian.isActive) {
+    throw ErrorApp('El veterinario está inactivo, no se puede crear la cita', 400);
+  }
+
+  // Actualiza la cita
+  const updatedAppointment = await Appointment.findByIdAndUpdate(
+    appointmentId,
+    {
+      date: new Date(date),
+      start_time: new Date(start_time),
+      end_time: new Date(end_time),
+      reason,
+      notes,
+      petId,
+      clientId,
+      veterinarianId,
+    },
+    { new: true },
+  );
+
+  // Guarda el nombre del cliente, mascota y veterinario en variables
+  const clientFullname = client.fullname;
+  const petName = pet.name;
+  const veterinarianName = veterinarian.fullname;
 
   // Define las variables para la plantilla de correo
   const templateVariables = {
-    'Nombre de Mascota': updatedAppointment.petId.name,
-    'Nombre del Cliente': updatedAppointment.clientId.fullname,
-    'Nombre del Veterinario': updatedAppointment.veterinarianId.fullname,
+    'Nombre de Mascota': petName,
+    'Nombre del Cliente': clientFullname,
+    'Nombre del Veterinario': veterinarianName,
     'Fecha de Cita': new Date(updatedAppointment.date).toLocaleDateString('es-ES', {
       year: 'numeric',
       month: 'long',
@@ -203,12 +243,12 @@ export const updateAppointment = tryCatch(async (req, res) => {
     'Motivo de Cita': updatedAppointment.reason,
   };
 
-  // Genera el contenido del correo dinámicamente, pasa como parametro la plantilla y las variables
+  // Genera el contenido del correo dinámicamente, pasa como parámetro la plantilla y las variables
   const emailContent = generateEmailContent('appointment_update', templateVariables);
 
   // Envía el correo de confirmación de que la cita fue actualizada con la función sendEmail
   const emailSubject = 'Actualización de Cita';
-  await sendEmail(updatedAppointment.clientId.email, emailSubject, emailContent);
+  await sendEmail(client.email, emailSubject, emailContent);
 
   // Devuelve una respuesta RESTful desde utils
   sendResponse(res, 200, 'Cita actualizada con éxito', updatedAppointment);
@@ -224,10 +264,13 @@ export const deleteAppointment = tryCatch(async (req, res) => {
     throw ErrorApp('Cita no encontrada', 404);
   }
 
+  const clientFullname = existingAppointment.clientId.fullname;
+  const veterinarianFullname = existingAppointment.veterinarianId.fullname;
+
   // Define las variables para la plantilla de correo
   const templateVariables = {
-    'Nombre del Cliente': existingAppointment.clientId.fullname,
-    'Nombre del Veterinario': existingAppointment.veterinarianId.fullname,
+    'Nombre del Cliente': clientFullname,
+    'Nombre del Veterinario': veterinarianFullname,
     'Fecha de Cita': new Date(existingAppointment.date).toLocaleDateString('es-ES', {
       year: 'numeric',
       month: 'long',

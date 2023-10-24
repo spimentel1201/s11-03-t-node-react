@@ -61,7 +61,12 @@ export const loginClient = tryCatch(async (req, res) => {
     throw error;
   }
 
-  // Las credenciales son válidas, generar un token JWT
+  if (!existingClient.isActive) {
+    const error = ErrorApp('El cliente no está activo', 401);
+    throw error;
+  }
+
+  // Las credenciales son válidas y el cliente está activo, generar un token JWT
   const secretKey = process.env.SECRET_KEY;
   const token = jwt.sign({ clientId: existingClient._id }, secretKey, { expiresIn: TOKEN_EXPIRATION });
 
@@ -72,13 +77,20 @@ export const loginClient = tryCatch(async (req, res) => {
 export const sendVerificationCode = tryCatch(async (req, res) => {
   const { email } = req.body;
 
-  // Almacena el código de verificación en la base de datos del cliente
+  // Buscar al cliente por su correo electrónico
   const existingClient = await Client.findOne({ email });
 
   if (!existingClient) {
     const error = ErrorApp('Tus datos no son válidos, por favor vuelve a intentarlo', 404);
     throw error;
   }
+
+  if (!existingClient.isActive) {
+    const error = ErrorApp('El cliente no está activo', 401);
+    throw error;
+  }
+
+  // El cliente está activo, procedemos a enviar el código de verificación
 
   // Lee la plantilla HTML desde el archivo
   const templatePath = 'public/mails/templates/verification_email.html';
