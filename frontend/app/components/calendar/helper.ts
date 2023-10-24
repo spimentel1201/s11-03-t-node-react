@@ -70,9 +70,14 @@ export function agregarDiasAlPrincipio(
   return days
 }
 
-export function verificarDisponibilidad(dia: number, mes: number, año: number, inicioCita: string | number | Date) {
-  const fecha = new Date(año, mes - 1, dia)  
-  const start_time = new Date(inicioCita)  
+export function verificarDisponibilidad(
+  dia: number,
+  mes: number,
+  año: number,
+  inicioCita: string | number | Date,
+) {
+  const fecha = new Date(año, mes - 1, dia)
+  const start_time = new Date(inicioCita)
 
   const mismoDiaMesHora =
     fecha.getDate() === start_time.getDate() &&
@@ -82,6 +87,27 @@ export function verificarDisponibilidad(dia: number, mes: number, año: number, 
   return mismoDiaMesHora
 }
 
+export function verificarDisponibilidadHorario(
+  dia: number,
+  mes: number,
+  año: number,
+  inicioCita: string | number | Date,
+  horas: number,
+  minutos: number,
+) {
+  const fecha = new Date(año, mes - 1, dia, horas, minutos)
+  const _inicioCita = new Date(inicioCita)
+  console.log(fecha, _inicioCita)
+  const mismoDiaMesHoraMinutos =
+    fecha.getDate() === _inicioCita.getDate() &&
+    fecha.getMonth() === _inicioCita.getMonth() &&
+    fecha.getFullYear() === _inicioCita.getFullYear() &&
+    fecha.getHours() === _inicioCita.getHours() &&
+    fecha.getMinutes() === _inicioCita.getMinutes()
+
+  return mismoDiaMesHoraMinutos
+}
+
 export function getHorario(inicioCita: string | number | Date) {
   const start_time = new Date(inicioCita)
   const horas = start_time.getHours().toString().padStart(2, '0')
@@ -89,7 +115,9 @@ export function getHorario(inicioCita: string | number | Date) {
   return horas + ':' + minutos
 }
 
-export const scrollToSection = (elementRef: { current: { offsetTop: any } }) => {
+export const scrollToSection = (elementRef: {
+  current: { offsetTop: any }
+}) => {
   setTimeout(
     () =>
       window.scrollTo({
@@ -98,6 +126,41 @@ export const scrollToSection = (elementRef: { current: { offsetTop: any } }) => 
       }),
     100,
   )
+}
+
+export function verificarCitasEnHorarios(
+  data: any,
+  dia: number,
+  mes: number,
+  año: number,
+) {
+  // Horarios a verificar
+  const horarios = ['08:00', '08:30', '09:00', '09:30']
+
+  // Convertir horarios a objetos de fecha para comparación
+  const horariosObj = horarios.map((horario) => {
+    const [hh, mm] = horario.split(':')
+    return new Date(año, mes - 1, dia, parseInt(hh), parseInt(mm))
+  })
+
+  // Verificar si hay citas en los horarios especificados para el día dado
+  for (const cita of data) {
+    const fechaCita = new Date(
+      cita.año,
+      cita.mes - 1,
+      cita.dia,
+      cita.horario,
+      cita.minuto,
+    )
+    // Comparar fecha de la cita con los horarios especificados
+    for (const horarioObj of horariosObj) {
+      if (fechaCita.getTime() === horarioObj.getTime()) {
+        return 'existe'
+      }
+    }
+  }
+
+  return 'no existe'
 }
 
 export default obtenerDiaInicioMes

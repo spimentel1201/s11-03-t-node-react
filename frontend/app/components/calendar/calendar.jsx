@@ -84,7 +84,7 @@ const Calendar = () => {
           <div className="flex flex-col justify-between font-medium text-sm pb-2 text-center">
             <div className="text-2xl mb-4">Citas Veterinario</div>
             <div className="text-2xl mb-4">{vetId}</div>
-            {appointments &&
+            {/* {appointments &&
             !appointments.some((a) =>
               verificarDisponibilidad(
                 dateFilter,
@@ -112,17 +112,16 @@ const Calendar = () => {
                         yearState}
                     </div>
                   </>
-                )}
+                )} */}
             {appointments &&
               appointments.map((a, index) => (
                 <div key={index}>
                   <div className="text-2xl" key={index}>
-                    {verificarDisponibilidad(
-                      dateFilter,
-                      monthState,
-                      yearState,
-                      a.start_time,
-                    ) && <>No disponible: {getHorario(a.start_time)}</>}
+                    {a.dia == dateFilter &&
+                      (a.mes+1) == monthState &&
+                      a.año == yearState && (
+                        <>No disponible: {a.hora + ":" + a.minuto}</>
+                      )}
                   </div>
                 </div>
               ))}
