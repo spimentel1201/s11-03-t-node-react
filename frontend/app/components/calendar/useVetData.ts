@@ -9,7 +9,7 @@ const useVetData = (vetId: string) => {
       try {
         if (id) {
           const response: any = await vetDataService(id)
-          const apps = response.data.data[0].activeAppointments
+          const apps = response.data.data.appointments
           setAppointments(apps)
         }
       } catch (error) {
