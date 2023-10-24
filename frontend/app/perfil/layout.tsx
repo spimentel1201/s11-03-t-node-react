@@ -1,6 +1,6 @@
 import { Metadata } from "next/types";
 import MisMascostas from "./MisMascotas";
-import Myperfil from "./MiPerfil";
+import MiPerfil from "./MiPerfil"
 import Page from "./[id]/page";
 
 export const metadata: Metadata = {
@@ -15,7 +15,7 @@ export default function PerfilLayout({
   return (
     <div>
       {children}
-      <Myperfil />
+      <MiPerfil />
       <MisMascostas />
       <Page
         params={{
