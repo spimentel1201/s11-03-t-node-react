@@ -11,5 +11,3 @@ export const sendResponse = (res, status, message, data) => {
 
   res.status(status).json(response);
 };
-
-// Otras funciones de respuesta si es necesario
