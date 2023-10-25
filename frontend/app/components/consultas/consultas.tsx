@@ -11,14 +11,14 @@ export function Consultas() {
     <form  onSubmit={handleSubmit} className="flex flex-col bg-primary md:w-[856px] md:h-[708px] md:p-12">
       <h1
         className="w-[292px] text-center md:text-left text-slate-700 text-xl md:text-3xl 
-      font-normal font-['Secular One'] mb-[47px]"
+      font-normal font-secular mb-[47px]"
       >
         <Toaster />
         Consultas
       </h1>
       <label
         htmlFor="nombreyapellido"
-        className="text-slate-800 text-base font-medium font-['Inter'] leading-none mb-[2px]"
+        className="text-slate-800 text-base font-medium font-inter leading-none mb-[2px] pb-2"
       >
         Nombre y Apellido
       </label>
@@ -34,7 +34,7 @@ export function Consultas() {
       <label
         htmlFor=""
         className="text-slate-800 text-base font-medium 
-      font-['Inter'] leading-none mb-[2px] mt-7"
+      font-inter leading-none mb-[2px] mt-7 pb-2"
       >
         Correo electrónico
       </label>
@@ -50,7 +50,7 @@ export function Consultas() {
       <label
         htmlFor=""
         className="text-slate-800 text-base font-medium 
-      font-['Inter'] leading-none mb-[2px] mt-7"
+      font-inter leading-none mb-[2px] mt-7 pb-2"
       >
         Mensaje
       </label>

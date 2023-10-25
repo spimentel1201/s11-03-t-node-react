@@ -4,7 +4,7 @@ import { SocialNetwork, SocialNetworkDesktop, Vet } from "./icons";
 export default function Footer() {
   return (
     <section className="bg-[#2F2D53] h-[102px] md:h-[230px] flex flex-col md:flex-row 
-    items-center md:justify-between mt-[54px] pt-[18px] md:px-[85px] md:py-[95px]">
+    items-center md:justify-between pt-[18px] md:px-[85px] md:py-[95px]">
         <span className="md:hidden">
           <Vet />
         </span>

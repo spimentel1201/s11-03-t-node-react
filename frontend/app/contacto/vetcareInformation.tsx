@@ -1,7 +1,9 @@
 import { Message, Phone, Location } from "../home/contacto/icons";
 export default function VetcareInformation() {
   return (
-    <section className=" bg-background md:py-[73px] h-[176px] md:w-[1440px] pt-[30px] mt-[92px] ">
+    <div className="flex flex-col-reverse items-center justify-center xl:flex-row px-10">
+      <div className="max-w-[90rem]">
+    <section className="md:py-[73px] h-[176px] md:w-[1440px] pt-[30px] mt-[92px] ">
       <div className="flex flex-col md:flex-row   md:justify-between md:px-[190px] pl-[64px] pb-[25px]">
         <div className="flex flex-row items-center gap-x-[11px]  mb-[9px]">
           <span
@@ -38,5 +40,6 @@ export default function VetcareInformation() {
         </div>
       </div>
     </section>
+    </div></div>
   );
 }
