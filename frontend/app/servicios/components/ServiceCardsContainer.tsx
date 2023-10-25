@@ -39,7 +39,7 @@ interface NuestrosServicios {
     },
   ];
 
-function ServicesCardsContainer() {
+function ServiceCardsContainer() {
   return (
     <div className="flex flex-col items-center gap-8">
       {data.map((item) => (
@@ -61,4 +61,4 @@ function ServicesCardsContainer() {
   );
 }
 
-export default ServicesCardsContainer;
+export default ServiceCardsContainer;

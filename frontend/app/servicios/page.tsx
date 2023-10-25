@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { Message, Phone, Location } from "../home/contacto/icons";
-import ServicesCardsContainer from "./components/ServicesCardsContainer";
+import ServiceCardsContainer from "./components/ServiceCardsContainer";
 
 export default function Servicios() {
   return (
@@ -13,7 +13,7 @@ export default function Servicios() {
         <h1 className="font-secular text-[20px] md:text-[40px] pb-12">
           Nuestros servicios
         </h1>
-        <ServicesCardsContainer />
+        <ServiceCardsContainer />
       </div>
       <section className="bg-background h-[320px] md:h-[186px] bg-cover mb-[76px] flex flex-col md:flex-row justify-center items-center gap-8 md:gap-14 lg:gap-36 font-medium text-[#475467] text-sm lg:text-xl ">
         <div className="flex gap-6 items-center">
