@@ -16,8 +16,7 @@ export default function useTokenHook(){
           setToken(Storedtoken)
         }
       }, [setToken]);
-      console.log(token)
-   
+     
     const handleUpdateToken = () => {
       if (typeof window !== 'undefined' && window.localStorage) {
       localStorage.removeItem('token')

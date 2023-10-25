@@ -8,7 +8,7 @@ import InputAuth from '../components/auth/inputAuth'
 import Link from 'next/link'
 import useErrors from './useErrors'
 import { useRouter } from 'next/navigation'
-import UseToken from '../hooks/useTokenHooks'
+import UseToken from '../hooks/useToken'
 import Calendar from '../components/calendar/calendar'
 
 
