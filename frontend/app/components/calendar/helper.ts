@@ -135,7 +135,7 @@ export function verificarCitasEnHorarios(
   año: number,
 ) {
   // Horarios a verificar
-  const horarios = [   
+  const horarios = [
     { hora: 8, minuto: 0 },
     { hora: 8, minuto: 30 },
     { hora: 9, minuto: 0 },
@@ -168,8 +168,8 @@ export function verificarCitasEnHorarios(
     let count = 0
 
     for (const cita of dataEspecifica) {
-      console.log(cita.hora, cita.minuto, cita.dia, cita.mes, cita.año)
-      console.log(item.hora, item.minuto, dia, mes, año)
+      // console.log(cita.hora, cita.minuto, cita.dia, cita.mes, cita.año)
+      // console.log(item.hora, item.minuto, dia, mes, año)
       if (
         cita.hora == item.hora &&
         cita.minuto == item.minuto &&
@@ -184,9 +184,48 @@ export function verificarCitasEnHorarios(
     if (count == 0) {
       array.push({ hora: item.hora, minuto: item.minuto, existe: false })
     }
+    count = 0
   }
 
   return array
+}
+
+export function sumarMediaHora(fecha: string) {
+  // Crear un objeto de fecha a partir de la cadena de fecha de entrada
+  var fechaObjeto = new Date(fecha)
+
+  // Sumar 30 minutos a la fecha
+  fechaObjeto.setMinutes(fechaObjeto.getMinutes() + 30)
+
+  // Formatear la nueva fecha como una cadena en el mismo formato de entrada
+  var nuevaFechaFormateada = fechaObjeto.toISOString()
+
+  return nuevaFechaFormateada
+}
+
+export function formatAppointment(
+  yearState: number,
+  monthState: number,
+  dateFilter: number,
+  horarioSelected: string,
+  vetId: string,
+) {
+  const date =
+    yearState.toString() +
+    '-' +
+    monthState.toString() +
+    '-' +
+    dateFilter.toString() // Fecha de la cita '2023-10-21'
+  const app = {
+    date: date, // Fecha de la cita '2023-10-21'
+    start_time: date + 'T' + horarioSelected + ':00.000Z', // Hora de inicio de la cita
+    end_time: sumarMediaHora(date + 'T' + horarioSelected + ':00.000Z'), // Hora de fin de la cita
+    reason: 'Consulta general', // Razón de la cita
+    notes: 'Ninguna nota adicional', // Notas adicionales
+    // petId: '652d6303482a138fed2d5bef', // ID de la mascota
+    veterinarianId: vetId, // ID del veterinario
+  }
+  return app
 }
 
 export default obtenerDiaInicioMes
