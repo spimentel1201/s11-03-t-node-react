@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import Image from "next/image";
 import { UploadImage } from "../icons";
 import DefaultImage from "./Image.png";
@@ -6,7 +6,7 @@ import { ChangeEvent, useRef, useState } from "react";
 import { uploadFile } from "@/app/_api/perfil/userImage";
 
 export default function MascotaImage() {
-    const [image, setImage] = useState<string | null>(null);
+  const [image, setImage] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleFileChange = async (event: ChangeEvent<HTMLInputElement>) => {
@@ -15,8 +15,9 @@ export default function MascotaImage() {
     if (selectFile) {
       try {
         const data = await uploadFile(selectFile);
-        setImage(data?.photo_url);
+        setImage(data?.data.photo_url);
         console.log(data);
+        console.log(data?.data.photo_url)
       } catch (error) {
         console.log(error);
       }
@@ -30,7 +31,7 @@ export default function MascotaImage() {
 
   return (
     <div className="mb-3">
-          <input
+      <input
         type="file"
         onChange={handleFileChange}
         ref={fileInputRef}
@@ -41,8 +42,17 @@ export default function MascotaImage() {
         <UploadImage />
       </span>
       <div className=" flex justify-center ">
-        {image ? <Image width={150} height={150} src={image} alt="DefaultImage" /> : <Image width={150} height={150} src={DefaultImage} alt="DefaultImage" />}
-</div>
+        {image ? (
+          <Image width={150} height={150} src={image} alt="DefaultImage" />
+        ) : (
+          <Image
+            width={150}
+            height={150}
+            src={DefaultImage}
+            alt="DefaultImage"
+          />
+        )}
       </div>
+    </div>
   );
 }

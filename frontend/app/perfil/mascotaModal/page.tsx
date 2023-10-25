@@ -16,9 +16,9 @@ export default function MascotaModal() {
             </span>
           </button>
         </form>
-        <form className="flex flex-col">
+        <div className="flex flex-col">
           <FormContent />
-        </form>
+        </div>
       </div>
       {/* <label className='text-error'>{state?.email}</label> */}
       <div className="modal-action"></div>
