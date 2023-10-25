@@ -2,7 +2,7 @@
 import { useRouter } from "next/navigation";
 import { Close } from "../icons";
 import FormContent from "./formContent";
-import SelectOption from "./selectoption";
+
 export default function MascotaModal() {
   const router = useRouter()
   return (
