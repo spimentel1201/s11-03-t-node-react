@@ -168,60 +168,46 @@ export const updateVeterinarianValidation = generateValidationRules('updateVeter
 export const createPetValidation = generateValidationRules('createPet', {
   name: {
     notEmpty: {},
-    isLength: { min: 5, max: 40 },
     OnlyLetters: {},
   },
   specie: {
     notEmpty: {},
-    isLength: { min: 5, max: 40 },
     OnlyLetters: {},
   },
   sex: {
     notEmpty: {},
-    isLength: { min: 8, max: 9 },
     OnlyLetters: {},
   },
   age: {
     notEmpty: {},
-    isLength: { min: 1, max: 2 },
     isFloat: {},
   },
   photo_url: {
-    isURL: {},
-  },
-  clientId: {
     notEmpty: {},
-    isMongoId: {},
+    isURL: {},
   },
 });
 
 export const updatePetValidation = generateValidationRules('updatePet', {
   name: {
     notEmpty: {},
-    isLength: { min: 5, max: 40 },
     OnlyLetters: {},
   },
   specie: {
     notEmpty: {},
-    isLength: { min: 5, max: 40 },
     OnlyLetters: {},
   },
   sex: {
     notEmpty: {},
-    isLength: { min: 8, max: 9 },
     OnlyLetters: {},
   },
   age: {
     notEmpty: {},
-    isLength: { min: 1, max: 2 },
     isFloat: {},
   },
   photo_url: {
-    isURL: {},
-  },
-  clientId: {
     notEmpty: {},
-    isMongoId: {},
+    isURL: {},
   },
 });
 

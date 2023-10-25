@@ -2016,11 +2016,7 @@
                   "photo_url": {
                     "type": "string",
                     "example": "https://res.cloudinary.com/dxq0pypxu/image/upload/v1697477142/psxmvsqipxsqv9vtkrld.png"
-                  },
-                  "clientId": {
-                    "type": "string",
-                    "example": "65230b075ea6e6c2d69cd529"
-                  }
+                  }      
                 }
               }
             }
