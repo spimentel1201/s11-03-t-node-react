@@ -59,16 +59,16 @@ export default function Servicios() {
                 <span>{item.svg && <item.svg />}</span>
               </div>
               <div className="flex flex-col justify-start items-start font-inter">
-                <h2 className="font-inter text-[24px] py-6 font-bold">
+                <h2 className="font-inter text-[18px] md:text-[24px] py-6 font-bold">
                   {item.title}
                 </h2>
-                <div className="pb-2 text-[16px]">{item.description}</div>
+                <div className="pb-2 text-[14px] md:text-[16px]">{item.description}</div>
               </div>
             </div>
           ))}
         </div>
       </div>
-      <section className="bg-background h-[149px] md:h-[186px] bg-cover mb-[76px] flex justify-center items-center gap-36 font-medium text-[#475467] text-xl">
+      <section className="bg-background h-[320px] md:h-[186px] bg-cover mb-[76px] flex flex-col md:flex-row justify-center items-center gap-8 md:gap-14 lg:gap-36 font-medium text-[#475467] text-sm lg:text-xl ">
         <div className="flex gap-6 items-center">
           <span className="w-10 h-10 bg-[#FF5B2E] rounded-full justify-center items-center inline-flex">
             <Phone />
