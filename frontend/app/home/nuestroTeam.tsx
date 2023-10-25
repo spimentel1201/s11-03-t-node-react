@@ -37,7 +37,7 @@ var settings = {
   ],
 }
 
-async function NuestroTeam() {
+async function NuestroTeam({ rows = 1 }) {
   const vets = await getData()
 
   return (
@@ -50,7 +50,7 @@ async function NuestroTeam() {
           Nuestro TEAM
         </h1>
         <div>
-          <MySlider settings={settings}>
+          <MySlider settings={{ rows: rows, ...settings }}>
             {vets &&
               vets.data &&
               vets.data.results &&
