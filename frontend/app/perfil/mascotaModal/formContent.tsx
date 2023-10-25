@@ -5,8 +5,11 @@ import RadioInput from "./radioInput";
 import SelectOption from "./selectoption";
 import SubmitButton from "./submitButton";
 import mascotaPost from "@/app/_api/mascota/mascotaPost";
+import { useImageMascota } from "@/app/store/mascota/ImageMascota";
 
 export default function FormContent() {
+  const imageMascota = useImageMascota((state) => state.imageMascota)
+  const setImageMascota = useImageMascota((state) => state.setImageMascota);
   const handleFormContent = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const form = event.currentTarget;
@@ -23,8 +26,10 @@ export default function FormContent() {
           age: +age,
           specie: specie as string,
           sex: sex as string,
+          photo_url: imageMascota
         });
         form.reset();
+        setImageMascota("")
         console.log(data)
       } catch (error) {
         console.log(error);

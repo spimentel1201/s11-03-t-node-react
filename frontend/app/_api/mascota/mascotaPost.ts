@@ -5,6 +5,7 @@ interface Mascota {
   age: number | null;
   sex: string | null;
   specie: string |null;
+  photo_url: string | null;
 }
 export default async function mascotaPost(mascota: Mascota) {
   try {

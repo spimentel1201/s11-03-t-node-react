@@ -4,10 +4,12 @@ import { UploadImage } from "../icons";
 import DefaultImage from "./Image.png";
 import { ChangeEvent, useRef, useState } from "react";
 import { uploadFile } from "@/app/_api/perfil/userImage";
+import { useImageMascota } from "@/app/store/mascota/ImageMascota";
 
 export default function MascotaImage() {
   const [image, setImage] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const setImageMascota = useImageMascota((state) => state.setImageMascota);
 
   const handleFileChange = async (event: ChangeEvent<HTMLInputElement>) => {
     const selectFile = event.target.files && event.target.files[0];
@@ -15,9 +17,10 @@ export default function MascotaImage() {
     if (selectFile) {
       try {
         const data = await uploadFile(selectFile);
-        setImage(data?.data.photo_url);
+        const imageUrl = URL.createObjectURL(selectFile)
+        setImageMascota(data?.data.photo_url)
+        setImage(imageUrl);
         console.log(data);
-        console.log(data?.data.photo_url)
       } catch (error) {
         console.log(error);
       }
