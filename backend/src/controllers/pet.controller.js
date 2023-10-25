@@ -5,6 +5,7 @@ import ErrorApp from '../utils/ErrorApp';
 import { tryCatch } from '../utils/tryCatch';
 import mongoose from 'mongoose';
 import { paginate } from '../utils/pagination';
+import disableEntity from '../utils/disableEntity';
 
 // Crear un nuevo mascota
 export const createPet = tryCatch(async (req, res) => {
@@ -50,7 +51,6 @@ export const getAllPets = tryCatch(async (req, res) => {
 // Obtener una mascota por ID junto a su historial de citas
 export const getPetById = tryCatch(async (req, res) => {
   const { petId } = req.params;
-  //const pet = await Pet.findById(petId);
   const pet = await Pet.aggregate([
     {
       $match: { _id: new mongoose.Types.ObjectId(petId) },
@@ -69,11 +69,16 @@ export const getPetById = tryCatch(async (req, res) => {
       },
     },
   ]).option({ lean: true });
-  if (!pet) {
+
+  if (!pet || pet.length === 0) {
     const error = ErrorApp(`Mascota no encontrada`, 404);
     throw error;
   }
-  sendResponse(res, 200, 'Mascota encontrada con éxito', pet);
+  // Calcula la cantidad de citas y agrega el campo al objeto de respuesta
+  pet[0].appointmentCount = pet[0].appointments.length;
+
+  // Si la consulta devuelve resultados, entonces la mascota se encontró con éxito
+  sendResponse(res, 200, 'Mascota encontrada con éxito', pet[0]);
 });
 
 // Actualizar datos de una mascota por ID
@@ -89,4 +94,14 @@ export const updatePet = tryCatch(async (req, res) => {
   }
   const updatedPet = await Pet.findByIdAndUpdate(petId, { $set: updateFields }, { new: true });
   sendResponse(res, 200, 'Datos de la mascota actualizados con éxito', updatedPet);
+});
+
+// Desactivar una mascota por ID
+export const deletePet = tryCatch(async (req, res) => {
+  const { petId } = req.params;
+
+  // Llama a la función útil disableEntity con los tres parametros
+  await disableEntity(Pet, petId, 'Pet');
+
+  sendResponse(res, 200, 'Mascota inhabilitada con éxito');
 });

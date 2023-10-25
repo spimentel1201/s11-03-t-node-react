@@ -5,7 +5,6 @@ import Veterinarian from '../schemas/veterinarian.schema';
 import disableEntity from '../utils/disableEntity';
 import ErrorApp from '../utils/ErrorApp';
 import mongoose from 'mongoose';
-import Appointment from '../schemas/appointment.schema';
 
 // Registrar un nuevo veterinario
 export const createVeterinarian = async (req, res) => {
@@ -35,37 +34,39 @@ export const getAllVeterinarians = tryCatch(async (req, res) => {
   sendResponse(res, 200, 'Veterinarios encontrados con éxito', response);
 });
 
-// Obtener un veterinario por ID
+// Obtener un veterinario por ID con su citas
 export const getVeterinarianById = tryCatch(async (req, res) => {
   const { veterinarianId } = req.params;
 
-  const veterinarianData = await Veterinarian.aggregate([
+  const veterinarian = await Veterinarian.aggregate([
     {
       $match: { _id: new mongoose.Types.ObjectId(veterinarianId) },
     },
-  ]);
+    {
+      $lookup: {
+        from: 'appointments',
+        localField: '_id',
+        foreignField: 'veterinarianId',
+        as: 'appointments',
+      },
+    },
+    {
+      $sort: {
+        'appointments.date': -1,
+      },
+    },
+  ]).option({ lean: true });
 
-  if (!veterinarianData || veterinarianData.length === 0) {
-    return sendResponse(res, 404, 'Veterinario no encontrado', []);
+  if (!veterinarian || veterinarian.length === 0) {
+    const error = ErrorApp('Veterinario no encontrado', 404);
+    throw error;
   }
 
-  const activeAppointments = await Appointment.find({
-    veterinarianId: veterinarianData[0]._id,
-    isActive: true,
-  });
+  // Calcula la cantidad de citas Y agrega el campo al objeto de respuesta
+  veterinarian[0].appointmentCount = veterinarian[0].appointments.length;
 
-  const response = {
-    _id: veterinarianData[0]._id,
-    speciality: veterinarianData[0].speciality,
-    phone: veterinarianData[0].phone,
-    license: veterinarianData[0].license,
-    photo_url: veterinarianData[0].photo_url,
-    isActive: veterinarianData[0].isActive,
-    fullname: veterinarianData[0].fullname,
-    activeAppointments: activeAppointments,
-  };
-
-  return sendResponse(res, 200, 'Veterinario encontrado con éxito', [response]);
+  // Si la consulta devuelve resultados, entonces el veterinario se encontró con éxito
+  sendResponse(res, '200', 'Veterinario encontrado con éxito', veterinarian[0]);
 });
 
 // Actualizar un veterinario por ID

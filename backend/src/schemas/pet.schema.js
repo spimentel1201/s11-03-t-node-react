@@ -51,6 +51,14 @@ const petSchemaDefinition = new mongoose.Schema({
       description: 'ID del cliente dueño de la mascota',
     },
   },
+  isActive: {
+    type: Boolean,
+    default: true,
+    swagger: {
+      type: 'boolean',
+      description: 'Indica si la mascota está activa o inactiva.',
+    },
+  },
 });
 
 // Crea el modelo Pet con el esquema definido
