@@ -1,4 +1,4 @@
-import { Consultas } from "../consultas/consultas";
+import { Consultas } from "../../components/consultas/consultas";
 import { Message, Phone, Location } from "./icons";
 
 export default function Contacto() {

@@ -43,8 +43,8 @@ export default function MiPerfil() {
             {/* <Image /> */}
           </div>
         </div>
-        <div className="md:pt-[118px] flex flex-col md:gap-y-[29px] gap-y-[14px]">
-          <h2 className="md:text-[32px] font-semibold">Nombre y Apellido</h2>
+        <div className="md:pt-[118px] flex flex-col  md:gap-y-[29px] gap-y-[14px]">
+          <h2 className="md:text-[32px] text-center md:text-left font-semibold">Nombre y Apellido</h2>
           <span className="md:text-3xl font-normal font-inter">
             vetcarefamily@gmail.com
           </span>

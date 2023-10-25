@@ -53,7 +53,7 @@ export default function NuestrosServicios() {
           {' '}
           <Services />{' '}
         </span>
-        <h1 className="text-accent text-base font-bold font-['Inter'] leading-relaxed">
+        <h1 className="text-accent text-base font-bold font-inter leading-relaxed">
           servicios
         </h1>
       </div>

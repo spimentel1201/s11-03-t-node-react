@@ -9,7 +9,7 @@ export default function SubmitButton() {
   
    
     return (
-      <div className="flex flex-col items-center mt-[28px]">
+      <div className="flex flex-col items-center md:items-start mt-[28px]">
           <button
             type="submit"
             className="w-[182px] h-[62px]  bg-accent 
