@@ -1,10 +1,11 @@
 import Image from "next/image";
 import ServiceCardsContainer from "./components/ServiceCardsContainer";
 import ContactSection from "../components/ContactInfo/ContactSection";
+import Footer from "../components/footer/footer";
 
 export default function Servicios() {
   return (
-    <div >
+    <>
       <div className="flex flex-col items-center bg-[#f8f0ee] py-5">
         <div className="flex gap-1 pt-12">
           <Image src="/foot.svg" width={19} height={16} alt="foot icon" />
@@ -16,6 +17,7 @@ export default function Servicios() {
         <ServiceCardsContainer />
       </div>
       <ContactSection />
-    </div>
+      <Footer />
+    </>
   );
 }
