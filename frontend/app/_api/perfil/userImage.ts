@@ -1,7 +1,9 @@
-import UseToken from "@/app/hooks/token";
 
-export function uploadFile(file: File) {
-  const {token} = UseToken()
+import useTokenHook from "@/app/hooks/useTokenHooks";
+
+
+export function UploadFile(file: File) {
+  const { token } = useTokenHook()
   const formData = new FormData();
   formData.append("file", file);
   return fetch(
@@ -17,7 +19,9 @@ export function uploadFile(file: File) {
   ).then((response) => {
     if (!response.ok) {
       throw new Error("we will be back soon ");
+
     }
+    console.log(response.json())
     return response.json();
   });
 }

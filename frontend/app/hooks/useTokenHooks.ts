@@ -3,17 +3,19 @@ import { useRouter } from "next/navigation"
 import { useToken } from "../store/token"
 import { useEffect } from "react"
 
-export default function UseToken(){
-    const router = useRouter()
+export default function useTokenHook(){
+    
     const token = useToken((state) => state.token)
     const setToken = useToken((state) => state.setToken)
+    const router = useRouter()
     
     useEffect(() => {
         if (typeof window !== 'undefined' && window.localStorage) {
-          const token = localStorage.getItem('token')
-          setToken(token)
+          const Storedtoken = localStorage.getItem('token')
+          setToken(Storedtoken)
         }
       }, [setToken]);
+      console.log(token)
    
     const handleUpdateToken = () => {
       if (typeof window !== 'undefined' && window.localStorage) {

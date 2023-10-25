@@ -25,7 +25,7 @@ export default function CardLink({
         {isSelected && <span className=""><CheckSqueaare/></span>}
         <span><UploadImage /></span>
       </div>
-      <Link href={`/perfil/${id}`} className="w-full h-full">
+      <Link href={`/perfil/${id}`} scroll={false} className="w-full h-full">
         {children}
       </Link>
     </div>
