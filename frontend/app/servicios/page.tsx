@@ -2,6 +2,7 @@ import Image from "next/image";
 import ServiceCardsContainer from "./components/ServiceCardsContainer";
 import ContactSection from "../components/ContactInfo/ContactSection";
 import Footer from "../components/footer/footer";
+import NuestroTeam from "../home/nuestroTeam";
 
 export default function Servicios() {
   return (
@@ -16,6 +17,7 @@ export default function Servicios() {
         </h1>
         <ServiceCardsContainer />
       </div>
+      <NuestroTeam />
       <ContactSection />
       <Footer />
     </>
