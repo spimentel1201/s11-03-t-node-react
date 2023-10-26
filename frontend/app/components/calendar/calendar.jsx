@@ -109,7 +109,7 @@ const Calendar = () => {
   }
 
   return (
-    <div className="max-w-[90rem] m-auto">
+    <div className="max-w-[60rem] m-auto">
       <Toaster />
       {token && (
         <ModalForm
@@ -134,13 +134,13 @@ const Calendar = () => {
               handleChangeYear={handleYearChange}
             />
           </div>
-          <div className="flex justify-between items-center font-small uppercase pt-20 pb-2 mb-8">
+          <div className="flex justify-between items-center font-small uppercase pt-8 mb-4">
             {days.map((w, index) => (
               <span
                 key={index}
                 className="w-full font-bold flex justify-center items-center"
               >
-                <span className="text-sm md:text-2xl text-accent">{w}</span>
+                <span className="text-sm md:text-lg text-accent">{w}</span>
               </span>
             ))}
           </div>
@@ -161,22 +161,22 @@ const Calendar = () => {
             </h2>
           )}
           {dateFilter && (
-            <div className="grid grid-cols-4 gap-4">
+            <div className="grid grid-cols-4 gap-2">
               <div className="p-1 m-1 flex items-center justify-center w-full">
-                <div className="p-2 w-40 text-xl">HORA</div>
-                <div className="w-40 text-xl">DISPONIBILIDAD</div>
+                <div className="pr-8 w-30 text-sm">HORA</div>
+                <div className="w-30 text-sm">DISPONIBILIDAD</div>
               </div>
               <div className="p-1 m-1 flex items-center justify-center w-full">
-                <div className="p-2 w-40 text-xl">HORA</div>
-                <div className="w-40 text-xl">DISPONIBILIDAD</div>
+                <div className="pr-8 w-30 text-sm">HORA</div>
+                <div className="w-30 text-sm">DISPONIBILIDAD</div>
               </div>
               <div className="p-1 m-1 flex items-center justify-center w-full">
-                <div className="p-2 w-40 text-xl">HORA</div>
-                <div className="w-40 text-xl">DISPONIBILIDAD</div>
+                <div className="pr-8 w-30 text-sm">HORA</div>
+                <div className="w-30 text-sm">DISPONIBILIDAD</div>
               </div>
               <div className="p-1 m-1 flex items-center justify-center w-full">
-                <div className="p-2 w-40 text-xl">HORA</div>
-                <div className="w-40 text-xl">DISPONIBILIDAD</div>
+                <div className="pr-8 w-30 text-sm">HORA</div>
+                <div className="w-30 text-sm">DISPONIBILIDAD</div>
               </div>
             </div>
           )}
@@ -185,28 +185,28 @@ const Calendar = () => {
               appointments &&
               appointments.map((a, index) => (
                 <div key={index} className="flex justify-center items-center">
-                  <div className="text-2xl w-80">
+                  <div className="text-lg w-60">
                     {a.existe ? (
                       <div className="p-1 m-1 flex items-center justify-center w-full">
-                        <div className="p-2 w-40">
+                        <div className="p-2 w-30">
                           {a.hora.toString().padStart(2, '0')}:
                           {a.minuto.toString().padStart(2, '0')}
                         </div>
-                        <div className="btn btn-secondary text-black border-2 border-black w-40 no-animation">
+                        <div className="btn btn-secondary text-black border-2 border-black w-30 no-animation">
                           NO DISPONIBLE
                         </div>
                       </div>
                     ) : (
                       <div className="p-1 m-1 flex items-center justify-center w-full">
-                        <div className="p-2 w-40">
+                        <div className="p-2 w-24">
                           {a.hora.toString().padStart(2, '0')}:
                           {a.minuto.toString().padStart(2, '0')}
                         </div>
                         <div
                           className={
                             token
-                              ? 'btn btn-accent w-40'
-                              : 'btn btn-disable w-40 no-animation'
+                              ? 'btn btn-accent w-30'
+                              : 'btn btn-disable w-30 no-animation'
                           }
                           onClick={() => {
                             setHorarioSelected(
