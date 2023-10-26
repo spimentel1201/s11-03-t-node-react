@@ -41,10 +41,13 @@ const Calendar = () => {
   const [updateAppointments, setUpdateAppointments] = useState(false)
   const [horarioSelected, setHorarioSelected] = useState('')
 
-  const handleCreateAppointment = async (appointment) => {
-    console.log('trying to create appointment')
+  const handleCreateAppointment = async (
+    petSelected,
+    setPetSelected,
+    motivoCita,
+    setMotivoCita,
+  ) => {
     if (token) {
-      console.log('token exist')
       const app = formatAppointment(
         yearState,
         monthState,
@@ -53,19 +56,29 @@ const Calendar = () => {
         vetId,
       )
       //console.log(app)
-      const response = await createAppointment(app, token)
-      console.log(response.data)
-      if (response.data?.status == 'success') {notifyOk(response.data?.message)}
-      else {        
-        notifyError("Error al intentar crear una cita. Prueba mas tarde")
+      const response = await createAppointment(
+        app,
+        token,
+        petSelected,
+        motivoCita,
+      )
+      if (response.data?.status == 'success') {
+        notifyOk(response.data?.message)
         setHorarioSelected('')
-      }      
+        setMotivoCita('')
+        setPetSelected('')
+      } else {
+        notifyError('Error al intentar crear una cita. Prueba mas tarde')
+        setHorarioSelected('')
+        setMotivoCita('')
+        setPetSelected('')
+      }
       setUpdateAppointments(!updateAppointments)
       setShowModal(false)
     }
   }
 
-  const { appointments } = useVetData(
+  const { appointments, veterinarioData } = useVetData(
     vetId,
     dateFilter,
     monthState,
@@ -98,16 +111,19 @@ const Calendar = () => {
   return (
     <div className="max-w-[90rem] m-auto">
       <Toaster />
-      <ModalForm
-        veterinario={vetId}
-        showModal={showModal}
-        setShowModal={setShowModal}
-        handleCreateAppointment={handleCreateAppointment}
-        horario={horarioSelected}
-        dia={dateFilter}
-        mes={monthState}
-        año={yearState}
-      />
+      {token && (
+        <ModalForm
+          token={token}
+          veterinarioData={veterinarioData}
+          showModal={showModal}
+          setShowModal={setShowModal}
+          handleCreateAppointment={handleCreateAppointment}
+          horario={horarioSelected}
+          dia={dateFilter}
+          mes={monthState}
+          año={yearState}
+        />
+      )}
       <div className="mt-4">
         <div className="flex flex-col mx-1 border-b-2">
           <div>
@@ -138,7 +154,7 @@ const Calendar = () => {
           </div>
         </div>
         <div ref={horariosRef} className="pt-14"></div>
-        <div className="flex flex-col justify-between font-medium text-sm pb-2 text-center">
+        <div className="flex flex-col justify-between font-medium text-sm text-center pb-20">
           {dateFilter && (
             <h2 className="text-3xl mb-4 font-bold">
               {dateFilter} de {months[monthState].mes}

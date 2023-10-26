@@ -219,8 +219,7 @@ export function formatAppointment(
   const app = {
     date: date, // Fecha de la cita '2023-10-21'
     start_time: date + 'T' + horarioSelected + ':00.000Z', // Hora de inicio de la cita
-    end_time: sumarMediaHora(date + 'T' + horarioSelected + ':00.000Z'), // Hora de fin de la cita
-    reason: 'Consulta general', // Razón de la cita
+    end_time: sumarMediaHora(date + 'T' + horarioSelected + ':00.000Z'), // Hora de fin de la cita    
     notes: 'Ninguna nota adicional', // Notas adicionales
     // petId: '652d6303482a138fed2d5bef', // ID de la mascota
     veterinarianId: vetId, // ID del veterinario

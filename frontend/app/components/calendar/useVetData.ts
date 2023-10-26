@@ -3,7 +3,7 @@ import { vetDataService } from '../../_api/vetData'
 import { verificarCitasEnHorarios } from './helper'
 
 function crearFechaSinAjuste(fechaguardada: string) {
-  const fechaOriginal = new Date(fechaguardada);
+  const fechaOriginal = new Date(fechaguardada)
 
   const nuevaFecha = new Date(
     fechaOriginal.getUTCFullYear(),
@@ -12,20 +12,28 @@ function crearFechaSinAjuste(fechaguardada: string) {
     fechaOriginal.getUTCHours(),
     fechaOriginal.getUTCMinutes(),
     fechaOriginal.getUTCSeconds(),
-    fechaOriginal.getUTCMilliseconds()
-  );
+    fechaOriginal.getUTCMilliseconds(),
+  )
 
-  return nuevaFecha;
+  return nuevaFecha
 }
 
-const useVetData = (vetId: string, dia: number, mes: number, año: number, updateAppointments: boolean) => {
+const useVetData = (
+  vetId: string,
+  dia: number,
+  mes: number,
+  año: number,
+  updateAppointments: boolean,
+) => {
   const [appointments, setAppointments] = useState(null)
+  const [veterinarioData, setVeterinarioData] = useState<
+    { fullname: string; speciality: string } | undefined
+  >(undefined)
 
   function transformarCita(cita: {
     start_time: string | number | Date
     reason: any
   }) {
-    
     const fecha = crearFechaSinAjuste(cita.start_time.toString())
     // console.log(fecha)
 
@@ -45,9 +53,7 @@ const useVetData = (vetId: string, dia: number, mes: number, año: number, updat
         if (id) {
           const response: any = await vetDataService(id)
           const apps = response.data.data.appointments
-          // console.log(apps)
           const citasTransformed = apps.map(transformarCita)
-          // console.log(citasTransformed)
           const resp: any = verificarCitasEnHorarios(
             citasTransformed,
             dia,
@@ -55,6 +61,10 @@ const useVetData = (vetId: string, dia: number, mes: number, año: number, updat
             año,
           )
           setAppointments(resp)
+          setVeterinarioData({
+            fullname: response?.data?.data?.fullname,
+            speciality: response?.data?.data?.speciality,
+          })
         }
       } catch (error) {
         console.error('Error fetching data:', error)
@@ -66,7 +76,7 @@ const useVetData = (vetId: string, dia: number, mes: number, año: number, updat
 
   // console.log(appointments)
 
-  return { appointments }
+  return { appointments, veterinarioData }
 }
 
 export default useVetData
