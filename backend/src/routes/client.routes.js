@@ -2,6 +2,7 @@ import express from 'express';
 import {
   getAllClients,
   getClientById,
+  getMyClientInfo,
   updateClient,
   deleteClient,
   sendEmailToVet,
@@ -22,6 +23,7 @@ router.use(checkAuthentication);
 
 // Rutas CRUD para clientes
 router.get('/', getAllClients);
+router.get('/profile', getMyClientInfo);
 router.get('/:clientId', getClientById);
 router.put('/:clientId', updateClientValidation, updateClient);
 router.delete('/:clientId', deleteClient);

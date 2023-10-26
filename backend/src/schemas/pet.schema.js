@@ -36,7 +36,6 @@ const petSchemaDefinition = new mongoose.Schema({
   },
   photo_url: {
     type: String,
-    required: true,
     swagger: {
       type: 'string',
       description: 'URL de la imagen o foto de la mascota',
