@@ -136,6 +136,10 @@
         "type": "objectid",
         "description": "ID del cliente dueño de la mascota"
       },
+      "isActive": {
+        "type": "boolean",
+        "description": "Indica si la mascota está activa o inactiva."
+      },
       "_id": {
         "type": "objectid"
       },

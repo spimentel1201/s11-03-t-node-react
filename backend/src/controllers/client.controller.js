@@ -42,6 +42,47 @@ export const sendEmailToVet = tryCatch(async (req, res) => {
   sendResponse(res, 200, 'Correo enviado con éxito');
 });
 
+// Obtener el perfil detallado del cliente
+export const getMyClientInfo = tryCatch(async (req, res) => {
+  const clientId = req.client.clientId;
+
+  // Realiza una sola agregación para obtener el cliente con sus mascotas.
+  const clientData = await Client.aggregate([
+    {
+      $match: { _id: new mongoose.Types.ObjectId(clientId) },
+    },
+    {
+      $lookup: {
+        from: 'pets',
+        localField: '_id',
+        foreignField: 'clientId',
+        as: 'pets',
+      },
+    },
+  ]).option({ lean: true });
+
+  if (!clientData || clientData.length === 0) {
+    const error = ErrorApp(`Cliente no encontrado`, 404);
+    throw error;
+  }
+
+  // Filtra las mascotas cuyo campo "isActive" sea true
+  const pets = clientData[0].pets.filter((pet) => pet.isActive);
+
+  // Excluye los campos "password", "verificationCode" y "verificationCodeExpires" del resultado
+  const excludedFields = ['password', 'verificationCode', 'verificationCodeExpires', 'isActive'];
+  const clientDataWithoutExcludedFields = { ...clientData[0] };
+  excludedFields.forEach((field) => {
+    delete clientDataWithoutExcludedFields[field];
+  });
+
+  // Reemplaza el arreglo de todas las mascotas con el arreglo de mascotas activas
+  clientDataWithoutExcludedFields.pets = pets;
+
+  // Devuelve el resultado con la información del cliente, sus citas y mascotas activas.
+  sendResponse(res, 200, 'Perfil del usuario obtenido con éxito', clientDataWithoutExcludedFields);
+});
+
 // Obtener un cliente por ID
 export const getClientById = tryCatch(async (req, res) => {
   const { clientId } = req.params;
