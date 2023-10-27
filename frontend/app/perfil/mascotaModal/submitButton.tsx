@@ -2,10 +2,15 @@
 import { useRouter } from "next/navigation";
 export default function SubmitButton() {
     const router = useRouter();
+    const handleMascotaCreada = () =>{
+      const modal = document.getElementById("my_modal_7") as HTMLDialogElement;
+      modal?.showModal();
+      router.push("/perfil/mascotaCreada", { scroll: false });
+    }
   return (
     <section className="mt-[26px]">
       <div className="w-full h-[67px] px-[31px] py-[17px] bg-orange-500 rounded-md border border-orange-500 flex-col justify-center items-center inline-flex">
-        <button type="submit" className="text-center text-white text-base font-medium font-['Inter'] leading-7">
+        <button onClick={handleMascotaCreada} type="submit" className="text-center text-white text-base font-medium font-['Inter'] leading-7">
           Agregar Mascota
         </button>
       </div>

@@ -3,9 +3,11 @@ import Image from "next/image";
 import ButtonLogic from "./buttonLogic";
 import { useEffect, useState } from "react";
 import CardLink from "./card";
+import { useRouter } from "next/navigation";
+import { useUpdateMutations } from "@/app/store/mascota/updateMutation";
 
 async function getClientById() {
-  
+
     try {
     
        const response = await fetch(
@@ -17,30 +19,39 @@ async function getClientById() {
          }
        );
        const data = response.json();
-       console.log(data)
        return data;
      } catch (error) {
        console.error("Error fetching client data:", error);
-       throw error; // Optional: rethrow the error to propagate it further
+       throw error;
      }
    }
 
    export default function CardContent(){
      const [data, setData] = useState<any | null>(null);
+     const updateMutation = useUpdateMutations((state) => state.updateMutations)
+     const setUpdateMutation = useUpdateMutations((state) => state.setUpdateMutations)
 
-    useEffect(() => {
+     useEffect(() => {
       const fetchData = async () => {
         try {
           const result = await getClientById();
-          setData(result);
+          setData(result)
+          console.log(result)
         } catch (error) {
           console.error('Error fetching data:', error);
         }
       };
-  
       fetchData();
-    }, []);
-    console.log(data?.data?.pets)
+     
+     if(updateMutation){
+        setUpdateMutation(false)
+      fetchData(); 
+    }
+    
+    }, [updateMutation,setUpdateMutation]); 
+    
+
+    
     return (
       <div className="flex md:flex-row flex-col justify-center items-center md:justify-start mt-8 pt-8 pb-[104px] md:px-[104px] gap-x-[66px]">
         {data?.data?.pets?.map((pet:any) => ( 

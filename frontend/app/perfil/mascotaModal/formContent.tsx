@@ -6,10 +6,15 @@ import SelectOption from "./selectoption";
 import SubmitButton from "./submitButton";
 import mascotaPost from "@/app/_api/mascota/mascotaPost";
 import { useImageMascota } from "@/app/store/mascota/ImageMascota";
+import { useRouter } from "next/navigation"; 
+import { useUpdateMutations } from "@/app/store/mascota/updateMutation";
+
 
 export default function FormContent() {
   const imageMascota = useImageMascota((state) => state.imageMascota)
-  const setImageMascota = useImageMascota((state) => state.setImageMascota);
+  const setUpdateMutations = useUpdateMutations((state) => state.setUpdateMutations)
+  console.log(imageMascota)
+  const router = useRouter();
   const handleFormContent = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const form = event.currentTarget;
@@ -29,11 +34,12 @@ export default function FormContent() {
           photo_url: imageMascota
         });
         form.reset();
-        console.log(data)
+        console.log(data);
+        setUpdateMutations(true)
       } catch (error) {
         console.log(error);
       }
-    } 
+    }
   };
   return (
     <form onSubmit={handleFormContent}>

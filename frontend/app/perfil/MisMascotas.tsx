@@ -1,30 +1,31 @@
 "use client";
-import Link from "next/link";
 import { AddIcon, DeleteIcon } from "./icons";
 import { useRouter } from "next/navigation";
-import { useParams } from 'next/navigation'
-
+import { useParams } from "next/navigation";
+import { usePetId } from "../store/mascota/petId";
 
 export default function MisMascostas() {
   const router = useRouter();
-  const params = useParams()
-  console.log(params.id)
+  const params = useParams();
+  const setPetId = usePetId((state) => state.setPetId)
 
   const handleClickAddMascota = () => {
-    const modal = document.getElementById('my_modal_5') as HTMLDialogElement;
+    const modal = document.getElementById("my_modal_5") as HTMLDialogElement;
     modal?.showModal();
-  
-    router.push("/perfil/mascotaModal", {scroll:false});
+
+    router.push("/perfil/mascotaModal", { scroll: false });
   };
-const handleClickDeleteMascota = () => {
-  if(!params.id) {
-    return <h1>no has seleccionado ninguna mascota</h1>
-  } else{
-  const modal = document.getElementById('my_modal_6') as HTMLDialogElement;
-  modal?.showModal();
-   router.push(`/perfil/${params.id}/deleteMascota`, {scroll:false});
-  }
-}
+  const handleClickDeleteMascota = () => {
+    if (!params.id) {
+      return <h1>no has seleccionado ninguna mascota</h1>;
+    } else {
+      const modal = document.getElementById("my_modal_6") as HTMLDialogElement;
+      modal?.showModal();
+      router.push(`/perfil/${params.id}/deleteMascota`, { scroll: false });
+      setPetId(params.id)      
+    }
+    
+  };
   return (
     <section
       className=" flex justify-between pl-[119px] 
@@ -34,10 +35,7 @@ const handleClickDeleteMascota = () => {
         <h1 className="md:text-[32px] text-xl">Mis Mascostas</h1>
       </div>
       <div className="flex justify-end gap-x-[7px] ">
-        <span
-          onClick={handleClickAddMascota}
-          className="cursor-pointer"
-        >
+        <span onClick={handleClickAddMascota} className="cursor-pointer">
           <AddIcon />
         </span>
         <span className="cursor-pointer" onClick={handleClickDeleteMascota}>
