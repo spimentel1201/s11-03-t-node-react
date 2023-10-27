@@ -40,6 +40,7 @@ const Calendar = () => {
   const [showModal, setShowModal] = useState(false)
   const [updateAppointments, setUpdateAppointments] = useState(false)
   const [horarioSelected, setHorarioSelected] = useState('')
+  const horarioSelectedPlus30 = useRef(0)
 
   const handleCreateAppointment = async (
     petSelected,
@@ -53,28 +54,36 @@ const Calendar = () => {
         monthState,
         dateFilter,
         horarioSelected,
+        horarioSelectedPlus30,
         vetId,
       )
       //console.log(app)
-      const response = await createAppointment(
-        app,
-        token,
-        petSelected,
-        motivoCita,
-      )
-      if (response.data?.status == 'success') {
-        notifyOk(response.data?.message)
-        setHorarioSelected('')
-        setMotivoCita('')
-        setPetSelected('')
-      } else {
-        notifyError('Error al intentar crear una cita. Prueba mas tarde')
+      try {
+        const response = await createAppointment(
+          app,
+          token,
+          petSelected,
+          motivoCita,
+        )
+        if (response.data?.status == 'success') {
+          notifyOk(response.data?.message)
+          setHorarioSelected('')
+          setMotivoCita('')
+          setPetSelected('')
+        } else {
+          notifyError('Error al intentar crear una cita. Prueba mas tarde')
+          setHorarioSelected('')
+          setMotivoCita('')
+          setPetSelected('')
+        }
+        setUpdateAppointments(!updateAppointments)
+        setShowModal(false)
+      } catch (error) {
+        notifyError(error?.data?.errors[0])
         setHorarioSelected('')
         setMotivoCita('')
         setPetSelected('')
       }
-      setUpdateAppointments(!updateAppointments)
-      setShowModal(false)
     }
   }
 
@@ -188,7 +197,7 @@ const Calendar = () => {
                   <div className="text-lg w-60">
                     {a.existe ? (
                       <div className="p-1 m-1 flex items-center justify-center w-full">
-                        <div className="p-2 w-30">
+                        <div className="p-2 w-24">
                           {a.hora.toString().padStart(2, '0')}:
                           {a.minuto.toString().padStart(2, '0')}
                         </div>
@@ -214,6 +223,9 @@ const Calendar = () => {
                                 ':' +
                                 a.minuto.toString().padStart(2, '0'),
                             )
+                            horarioSelectedPlus30.current =
+                              parseInt(a.minuto.toString().padStart(2, '0')) +
+                              30
                             if (token) setShowModal(true)
                           }}
                         >

@@ -1,5 +1,5 @@
 'use client'
-import { useState, useRef, useEffect, ChangeEvent } from 'react'
+import { useState, useRef, useEffect, ChangeEvent, useMemo } from 'react'
 import useClientPets from './useClientPets'
 import { months } from './helper'
 import './modalForm.module.css'
@@ -38,7 +38,6 @@ const ModalForm = ({
   const [motivoCita, setMotivoCita] = useState('')
   const myModal = useRef<HTMLDialogElement>(null)
   const { clientPets, clientData } = useClientPets(token)
-  console.log(clientData)
 
   const handlePetChange = (event: ChangeEvent<HTMLSelectElement>) => {
     const selectedPet = event.target.value
@@ -95,8 +94,9 @@ const ModalForm = ({
                     required
                     className="select select-bordered w-full text-xl select-style"
                     onChange={handlePetChange}
+                    defaultValue=""
                   >
-                    <option value="" disabled selected>
+                    <option value="" disabled>
                       Seleccionar Mascota
                     </option>
                     {clientPets &&
