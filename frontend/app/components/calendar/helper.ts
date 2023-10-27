@@ -238,9 +238,12 @@ export function formatAppointment(
         ':00.000Z'
       : date +
         'T' +
-        (parseInt(horarioSelected.slice(0, 2)) + 1).toString().padStart(2, '0') +
+        (parseInt(horarioSelected.slice(0, 2)) + 1)
+          .toString()
+          .padStart(2, '0') +
         ':00:00.000Z'
 
+  console.log(date + 'T' + horarioSelected + ':00.000Z')
   console.log(end_time)
 
   const app = {
@@ -253,5 +256,8 @@ export function formatAppointment(
   }
   return app
 }
+
+export const format00 = (hora: number, minuto: number) =>
+  hora.toString().padStart(2, '0') + ':' + minuto.toString().padStart(2, '0')
 
 export default obtenerDiaInicioMes

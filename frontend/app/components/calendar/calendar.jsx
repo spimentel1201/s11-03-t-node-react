@@ -9,6 +9,7 @@ import {
   scrollToSection,
   sumarMediaHora,
   formatAppointment,
+  format00,
 } from './helper'
 import useDate from './useDate'
 import useVetData from './useVetData'
@@ -198,8 +199,7 @@ const Calendar = () => {
                     {a.existe ? (
                       <div className="p-1 m-1 flex items-center justify-center w-full">
                         <div className="p-2 w-24">
-                          {a.hora.toString().padStart(2, '0')}:
-                          {a.minuto.toString().padStart(2, '0')}
+                          {format00(a.hora, a.minuto)}
                         </div>
                         <div className="btn btn-secondary text-black border-2 border-black w-30 no-animation">
                           NO DISPONIBLE
@@ -208,8 +208,7 @@ const Calendar = () => {
                     ) : (
                       <div className="p-1 m-1 flex items-center justify-center w-full">
                         <div className="p-2 w-24">
-                          {a.hora.toString().padStart(2, '0')}:
-                          {a.minuto.toString().padStart(2, '0')}
+                          {format00(a.hora, a.minuto)}
                         </div>
                         <div
                           className={
@@ -218,14 +217,8 @@ const Calendar = () => {
                               : 'btn btn-disable w-30 no-animation'
                           }
                           onClick={() => {
-                            setHorarioSelected(
-                              a.hora.toString().padStart(2, '0') +
-                                ':' +
-                                a.minuto.toString().padStart(2, '0'),
-                            )
-                            horarioSelectedPlus30.current =
-                              parseInt(a.minuto.toString().padStart(2, '0')) +
-                              30
+                            setHorarioSelected(format00(a.hora, a.minuto))
+                            horarioSelectedPlus30.current = a.minuto + 30
                             if (token) setShowModal(true)
                           }}
                         >
