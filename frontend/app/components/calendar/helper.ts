@@ -229,7 +229,7 @@ export function formatAppointment(
     dateFilter.toString().padStart(2, '0') // Fecha de la cita '2023-10-21'
 
   const end_time =
-    horarioSelectedPlus30.current == 0
+    horarioSelectedPlus30.current == 30
       ? date +
         'T' +
         horarioSelected.slice(0, 2) +

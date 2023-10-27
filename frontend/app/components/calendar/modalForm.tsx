@@ -31,8 +31,7 @@ const ModalForm = ({
   año,
   veterinarioData,
   token,
-}: Props) => {
-  console.log(token)
+}: Props) => {  
 
   const [petSelected, setPetSelected] = useState('')
   const [motivoCita, setMotivoCita] = useState('')

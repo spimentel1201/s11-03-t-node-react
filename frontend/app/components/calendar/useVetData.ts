@@ -34,7 +34,7 @@ const useVetData = (
     start_time: string | number | Date
     reason: any
   }) {
-    const fecha = crearFechaSinAjuste(cita.start_time.toString())    
+    const fecha = crearFechaSinAjuste(cita.start_time.toString())
 
     return {
       dia: fecha.getDate(),
@@ -51,6 +51,7 @@ const useVetData = (
       try {
         if (id) {
           const response: any = await vetDataService(id)
+          // console.log(response)
           const apps = response.data.data.appointments
           const citasTransformed = apps.map(transformarCita)
           const resp: any = verificarCitasEnHorarios(
@@ -71,7 +72,7 @@ const useVetData = (
     }
 
     fetchData(vetId)
-  }, [vetId, dia, año, mes, updateAppointments])  
+  }, [vetId, dia, año, mes, updateAppointments])
 
   return { appointments, veterinarioData }
 }

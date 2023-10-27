@@ -43,6 +43,8 @@ const Calendar = () => {
   const [horarioSelected, setHorarioSelected] = useState('')
   const horarioSelectedPlus30 = useRef(0)
 
+  let intentos = 0  
+
   const handleCreateAppointment = async (
     petSelected,
     setPetSelected,
@@ -58,7 +60,8 @@ const Calendar = () => {
         horarioSelectedPlus30,
         vetId,
       )
-      //console.log(app)
+      intentos++
+      console.log(intentos)      
       try {
         const response = await createAppointment(
           app,
@@ -94,7 +97,7 @@ const Calendar = () => {
     monthState,
     yearState,
     updateAppointments,
-  )
+  )  
 
   const handleDateFilter = (date) => {
     setDateFilter(date)
@@ -121,7 +124,7 @@ const Calendar = () => {
   return (
     <div className="max-w-[60rem] m-auto">
       <Toaster />
-      {token && (
+      {token && showModal && (
         <ModalForm
           token={token}
           veterinarioData={veterinarioData}
