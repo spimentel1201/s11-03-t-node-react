@@ -2,18 +2,29 @@
 import Link from "next/link";
 import { AddIcon, DeleteIcon } from "./icons";
 import { useRouter } from "next/navigation";
+import { useParams } from 'next/navigation'
 
 
 export default function MisMascostas() {
   const router = useRouter();
+  const params = useParams()
+  console.log(params.id)
 
-  const handleClick = () => {
+  const handleClickAddMascota = () => {
     const modal = document.getElementById('my_modal_5') as HTMLDialogElement;
     modal?.showModal();
   
     router.push("/perfil/mascotaModal", {scroll:false});
   };
-
+const handleClickDeleteMascota = () => {
+  if(!params.id) {
+    return <h1>no has seleccionado ninguna mascota</h1>
+  } else{
+  const modal = document.getElementById('my_modal_6') as HTMLDialogElement;
+  modal?.showModal();
+   router.push(`/perfil/${params.id}/deleteMascota`, {scroll:false});
+  }
+}
   return (
     <section
       className=" flex justify-between pl-[119px] 
@@ -24,12 +35,12 @@ export default function MisMascostas() {
       </div>
       <div className="flex justify-end gap-x-[7px] ">
         <span
-          onClick={handleClick}
+          onClick={handleClickAddMascota}
           className="cursor-pointer"
         >
           <AddIcon />
         </span>
-        <span className="cursor-pointer">
+        <span className="cursor-pointer" onClick={handleClickDeleteMascota}>
           <DeleteIcon />
         </span>
       </div>

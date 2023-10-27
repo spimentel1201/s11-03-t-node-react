@@ -29,7 +29,6 @@ export default function FormContent() {
           photo_url: imageMascota
         });
         form.reset();
-        setImageMascota("")
         console.log(data)
       } catch (error) {
         console.log(error);

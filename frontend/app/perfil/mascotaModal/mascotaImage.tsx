@@ -13,13 +13,15 @@ export default function MascotaImage() {
 
   const handleFileChange = async (event: ChangeEvent<HTMLInputElement>) => {
     const selectFile = event.target.files && event.target.files[0];
+    if (selectFile) {
+    const imageUrl = URL.createObjectURL(selectFile)
+    setImage(imageUrl);
+    }
     console.log(selectFile);
     if (selectFile) {
       try {
         const data = await uploadFile(selectFile);
-        const imageUrl = URL.createObjectURL(selectFile)
         setImageMascota(data?.data.photo_url)
-        setImage(imageUrl);
         console.log(data);
       } catch (error) {
         console.log(error);
@@ -46,7 +48,7 @@ export default function MascotaImage() {
       </span>
       <div className=" flex justify-center ">
         {image ? (
-          <Image width={150} height={150} src={image} alt="DefaultImage" />
+          <Image width={150} height={150} src={image} alt="dogImage" className="rounded-full bg-cover bg-center"/>
         ) : (
           <Image
             width={150}

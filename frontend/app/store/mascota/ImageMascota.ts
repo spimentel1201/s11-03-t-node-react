@@ -4,7 +4,7 @@ type State = {
     imageMascota: string|null
 }
 type Action = {
-    setImageMascota: (image: string) => void
+    setImageMascota: (image: string | null) => void
 }
 
 export const useImageMascota = create<State & Action>((set) => ({
