@@ -1,21 +1,27 @@
-"use client"
+"use client";
 import Image from "next/image";
 import { UploadImage } from "../icons";
 import DefaultImage from "./Image.png";
 import { ChangeEvent, useRef, useState } from "react";
 import { uploadFile } from "@/app/_api/perfil/userImage";
+import { useImageMascota } from "@/app/store/mascota/ImageMascota";
 
 export default function MascotaImage() {
-    const [image, setImage] = useState<string | null>(null);
+  const [image, setImage] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const setImageMascota = useImageMascota((state) => state.setImageMascota);
 
   const handleFileChange = async (event: ChangeEvent<HTMLInputElement>) => {
     const selectFile = event.target.files && event.target.files[0];
+    if (selectFile) {
+    const imageUrl = URL.createObjectURL(selectFile)
+    setImage(imageUrl);
+    }
     console.log(selectFile);
     if (selectFile) {
       try {
         const data = await uploadFile(selectFile);
-        setImage(data?.photo_url);
+        setImageMascota(data?.data.photo_url)
         console.log(data);
       } catch (error) {
         console.log(error);
@@ -30,7 +36,7 @@ export default function MascotaImage() {
 
   return (
     <div className="mb-3">
-          <input
+      <input
         type="file"
         onChange={handleFileChange}
         ref={fileInputRef}
@@ -41,8 +47,17 @@ export default function MascotaImage() {
         <UploadImage />
       </span>
       <div className=" flex justify-center ">
-        {image ? <Image width={150} height={150} src={image} alt="DefaultImage" /> : <Image width={150} height={150} src={DefaultImage} alt="DefaultImage" />}
-</div>
+        {image ? (
+          <Image width={150} height={150} src={image} alt="dogImage" className="rounded-full bg-cover bg-center"/>
+        ) : (
+          <Image
+            width={150}
+            height={150}
+            src={DefaultImage}
+            alt="DefaultImage"
+          />
+        )}
       </div>
+    </div>
   );
 }

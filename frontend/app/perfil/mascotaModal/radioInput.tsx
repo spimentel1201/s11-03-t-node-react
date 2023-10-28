@@ -1,4 +1,5 @@
 export default function RadioInput() {
+
   return (
     <div className="flex-col mt-[19px]">
       <label
@@ -9,7 +10,7 @@ export default function RadioInput() {
       </label>
       <div className="flex justify-between">
         <div>
-          <input type="radio" className="" name="radio-group" />
+          <input type="radio" className="" name="sex" value="Macho" />
           <label
             htmlFor="ingrese el nombre"
             className="text-slate-800 text-base font-medium font-inter leading-none ml-[3px]"
@@ -18,7 +19,7 @@ export default function RadioInput() {
           </label>
         </div>
         <div>
-          <input type="radio" className="" name="radio-group" />
+          <input type="radio" className="" name="sex" value="Hembra"/>
           <label
             htmlFor="ingrese el nombre"
             className="text-slate-800 text-base font-medium font-inter leading-none ml-[3px]"
@@ -27,7 +28,7 @@ export default function RadioInput() {
           </label>
         </div>
         <div>
-          <input type="radio" className="" name="radio-group" />
+          <input type="radio" className="" name="sex" value="Indeterminado" />
           <label
             htmlFor="ingrese el nombre"
             className="text-slate-800 text-base font-medium font-inter leading-none ml-[3px]"

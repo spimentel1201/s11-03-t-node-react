@@ -4,7 +4,7 @@ import { useToken } from "../store/token"
 import {useEffect} from "react"
 
 
-export default function useTokenHook(){
+export default function UseToken(){
     
     const token = useToken((state) => state.token)
     const setToken = useToken((state) => state.setToken)
