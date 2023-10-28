@@ -1,8 +1,15 @@
 import Image from "next/image";
-import fake from "../../perfil/fake.svg";
 import HistoryCardsContainer from "./components/HistoryCardsContainer";
+import { getPetById } from "../services/getPetById";
 
-export default function Historial() {
+async function fetchPet(id:string) {
+  return await getPetById(id);
+}
+
+export default async function Historial({ params }: { params: { petId: string } }) {
+
+  const pet = await fetchPet(params.petId);
+
   return (
     <>
       <div className="flex flex-col items-center py-4 md:py-8 gap-2 md:gap-6">
@@ -11,9 +18,9 @@ export default function Historial() {
         </div>
         <h3 className="text-[24px] md:text-[32px] text-[#062D3E]">HISTORIAL</h3>
         <div className="flex items-center px-4 py-2 gap-4 shadow-[1px_1px_8px_0px_rgba(102,102,102,0.1)]">
-          <Image src={fake} width={63} height={60} alt="pet picture" />
+          <Image src={pet.data.photo_url} width={63} height={60} alt="pet picture" />
           <span className="text-[20px] md:text-[28px] font-medium font-inter text-[#2F2D53]">
-            Felix
+            {pet.data.name}
           </span>
         </div>
       </div>
