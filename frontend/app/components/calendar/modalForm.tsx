@@ -38,6 +38,8 @@ const ModalForm = ({
   const myModal = useRef<HTMLDialogElement>(null)
   const { clientPets, clientData } = useClientPets(token)
 
+  console.log(clientData)
+
   const handlePetChange = (event: ChangeEvent<HTMLSelectElement>) => {
     const selectedPet = event.target.value
     setPetSelected(selectedPet)
