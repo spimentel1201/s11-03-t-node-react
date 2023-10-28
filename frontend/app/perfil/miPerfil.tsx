@@ -3,33 +3,28 @@ import { useState, useRef, ChangeEvent } from "react";
 import { uploadFile } from "../_api/perfil/userImage";
 
 export default function MiPerfil() {
-  const [image, setImage] = useState<string | null>(null);
-  const fileInputRef = useRef<HTMLInputElement>(null);
+  // const [image, setImage] = useState<string | null>(null);
+  // const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const selectFile = event.target.files && event.target.files[0];
+  // const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
+  //   const selectFile = event.target.files && event.target.files[0];
 
-    if (selectFile) {
-      uploadFile(selectFile)
-      .then((data) => {
-        setImage(data.photo_url);
-      });
-    }
-  };
-  const handleIconClick = () => {
-    if (fileInputRef.current) {
-      fileInputRef.current.click();
-    }
-  };
+  //   if (selectFile) {
+  //     uploadFile(selectFile)
+  //     .then((data) => {
+  //       setImage(data.photo_url);
+  //     });
+  //   }
+  // };
+  // const handleIconClick = () => {
+  //   if (fileInputRef.current) {
+  //     fileInputRef.current.click();
+  //   }
+  // };
 
   return (
     <section className="md:px-[82px] px-[19px]">
-      <input
-        type="file"
-        onChange={handleFileChange}
-        ref={fileInputRef}
-        style={{ display: "none" }}
-      />
+    
       <h1 className="md:mt-[68px] mt-[27px] mb-4 md:text-[32px] text-xl font-normal text-center">
         MI PERFIL
       </h1>

@@ -8,7 +8,7 @@ import toast from 'react-hot-toast'
 import { verificar } from './verificar'
 import Link from 'next/link'
 import useErrors from './useErrors'
-import UseToken from '../hooks/token'
+import UseToken from '../hooks/useToken'
 
 const notifyOk = (msg) => toast.success(msg)
 const notifyError = (msg) => toast.error(msg)

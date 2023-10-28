@@ -17,7 +17,7 @@ import { useEffect, useState, useRef } from 'react'
 import Selectors from './calendarSelectors'
 import ModalForm from './modalForm'
 import { createAppointment } from '../../_api/appointment'
-import UseToken from '@/app/hooks/token'
+import UseToken from '@/app/hooks/useToken'
 import toast, { Toaster } from 'react-hot-toast'
 
 const notifyOk = (msg) => toast.success(msg)
