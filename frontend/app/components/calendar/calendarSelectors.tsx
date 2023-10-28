@@ -15,7 +15,8 @@ const Selectors = ({
   yearState,  
   handleMonthChange,
   handleYearChange,
-}: Props) => {
+}: Props) => { 
+
   return (
     <>
       <h1 className="font-secular text-center text-2xl mt-2 font-bold mb-10">

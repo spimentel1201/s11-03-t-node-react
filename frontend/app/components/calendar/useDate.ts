@@ -10,8 +10,11 @@ type Data = {
 }
 
 const useDate = () => {
-  const [monthState, setMonthState] = useState<number>(10)
-  const [yearState, setYearState] = useState<number>(2023)
+  const currentDate = new Date() // Obtiene la fecha actual
+  const currentMonth = currentDate.getMonth() + 1 // El mes es devuelto en base 0 (0-11), por lo que sumamos 1
+  const currentYear = currentDate.getFullYear() // Obtiene el año actual
+  const [monthState, setMonthState] = useState<number>(currentMonth)
+  const [yearState, setYearState] = useState<number>(currentYear)
   const [arrayMesActual, setArrayMesActual] = useState<Data[] | null>([])
 
   const handleChangeMonth = (month: number) => {

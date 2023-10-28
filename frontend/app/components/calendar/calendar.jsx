@@ -16,6 +16,7 @@ import useVetData from './useVetData'
 import { useEffect, useState, useRef } from 'react'
 import Selectors from './calendarSelectors'
 import ModalForm from './modalForm'
+import HorarioTitle from './calendarHorarioTitle'
 import { createAppointment } from '../../_api/appointment'
 import UseToken from '@/app/hooks/useToken'
 import toast, { Toaster } from 'react-hot-toast'
@@ -25,7 +26,7 @@ const notifyError = (msg) => toast.error(msg)
 
 const Calendar = () => {
   const { token } = UseToken()
-  console.log(token)
+  // console.log(token)
 
   const {
     monthState,
@@ -43,7 +44,7 @@ const Calendar = () => {
   const [horarioSelected, setHorarioSelected] = useState('')
   const horarioSelectedPlus30 = useRef(0)
 
-  let intentos = 0  
+  let intentos = 0
 
   const handleCreateAppointment = async (
     petSelected,
@@ -61,7 +62,7 @@ const Calendar = () => {
         vetId,
       )
       intentos++
-      console.log(intentos)      
+      console.log(intentos)
       try {
         const response = await createAppointment(
           app,
@@ -97,7 +98,7 @@ const Calendar = () => {
     monthState,
     yearState,
     updateAppointments,
-  )  
+  )
 
   const handleDateFilter = (date) => {
     setDateFilter(date)
@@ -144,7 +145,7 @@ const Calendar = () => {
               monthState={monthState}
               yearState={yearState}
               handleMonthChange={handleMonthChange}
-              handleChangeYear={handleYearChange}
+              handleYearChange={handleYearChange}
             />
           </div>
           <div className="flex justify-between items-center font-small uppercase pt-8 mb-4">
@@ -173,26 +174,7 @@ const Calendar = () => {
               {dateFilter} de {months[monthState].mes}
             </h2>
           )}
-          {dateFilter && (
-            <div className="grid grid-cols-4 gap-2">
-              <div className="p-1 m-1 flex items-center justify-center w-full">
-                <div className="pr-8 w-30 text-sm">HORA</div>
-                <div className="w-30 text-sm">DISPONIBILIDAD</div>
-              </div>
-              <div className="p-1 m-1 flex items-center justify-center w-full">
-                <div className="pr-8 w-30 text-sm">HORA</div>
-                <div className="w-30 text-sm">DISPONIBILIDAD</div>
-              </div>
-              <div className="p-1 m-1 flex items-center justify-center w-full">
-                <div className="pr-8 w-30 text-sm">HORA</div>
-                <div className="w-30 text-sm">DISPONIBILIDAD</div>
-              </div>
-              <div className="p-1 m-1 flex items-center justify-center w-full">
-                <div className="pr-8 w-30 text-sm">HORA</div>
-                <div className="w-30 text-sm">DISPONIBILIDAD</div>
-              </div>
-            </div>
-          )}
+          {dateFilter && <HorarioTitle />}
           <div className="grid grid-cols-4 gap-4">
             {dateFilter &&
               appointments &&

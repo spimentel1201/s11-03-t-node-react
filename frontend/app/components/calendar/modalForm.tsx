@@ -129,11 +129,11 @@ const ModalForm = ({
               >
                 CONFIRMAR
               </div>
-              <div className="flex flex-col">
+              {/* <div className="flex flex-col">
                 <div>Horario Recibido: {horario}</div>
                 <div>Pet ID: {petSelected}</div>
                 <div>Motivo de la Cita Escrito: {motivoCita}</div>
-              </div>
+              </div> */}
             </div>
           </dialog>
         </>
