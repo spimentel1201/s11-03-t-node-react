@@ -35,7 +35,7 @@ const ListItemType2 = ({start, end}:{start: number, end: number}) => (
     {data.slice(start, end).map((item, index) => (
       <div key={index} className="md:flex-row md:flex">
         <span className="mr-6">{Tick && <Tick />}</span>
-        <h3 className="text-slate-700 text-base font-medium font-['Inter'] leading-relaxed mb-7">
+        <h3 className="text-slate-700 text-base font-medium font-inter leading-relaxed mb-7">
           {item.title}
         </h3>
       </div>
@@ -45,7 +45,7 @@ const ListItemType2 = ({start, end}:{start: number, end: number}) => (
 
 export default function SobreNosotros() {
   return (
-    <section className="flex flex-col items-center justify-center gap-4 md:flex-row md:items-start md:gap-x-[200px] ">
+    <section className="flex flex-col items-center justify-center gap-4 md:flex-row md:items-start md:gap-x-[200px] pt-24">
       <div className="relative ">
         <Image
           src={aboutDot}
@@ -79,19 +79,19 @@ export default function SobreNosotros() {
       <div className="md:order-1 text-center md:text-left ">
         <h1
           className="w-80 text-accent text-base 
-       font-bold font-['Inter'] leading-relaxed mb-6"
+       font-bold font-inter leading-relaxed mb-6"
         >
           Sobre nosotros
         </h1>
         <h2
           className="w-[318px] md:w-[609px]  md:text-[40px] text-slate-700 
-text-xl font-normal font-['Secular One'] mb-[33px] leading-normal"
+text-xl font-normal font-secular mb-[33px] leading-normal"
         >
           Cuidamos tu mascota con mucho amor
         </h2>
         <p
           className="w-80  md:w-[624px] md:h-[78px] text-gray-500 text-sm md:text-xl font-normal 
-      font-['Inter'] leading-relaxed mb-8 "
+      font-inter leading-relaxed mb-8 "
         >
           En última instancia, el cuidado de mascotas y los servicios
           veterinarios son críticos para asegurar que nuestros amigos peludos,

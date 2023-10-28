@@ -9,6 +9,7 @@ import {
   scrollToSection,
   sumarMediaHora,
   formatAppointment,
+  format00,
 } from './helper'
 import useDate from './useDate'
 import useVetData from './useVetData'
@@ -40,38 +41,63 @@ const Calendar = () => {
   const [showModal, setShowModal] = useState(false)
   const [updateAppointments, setUpdateAppointments] = useState(false)
   const [horarioSelected, setHorarioSelected] = useState('')
+  const horarioSelectedPlus30 = useRef(0)
 
-  const handleCreateAppointment = async (appointment) => {
-    console.log('trying to create appointment')
+  let intentos = 0  
+
+  const handleCreateAppointment = async (
+    petSelected,
+    setPetSelected,
+    motivoCita,
+    setMotivoCita,
+  ) => {
     if (token) {
-      console.log('token exist')
       const app = formatAppointment(
         yearState,
         monthState,
         dateFilter,
         horarioSelected,
+        horarioSelectedPlus30,
         vetId,
       )
-      //console.log(app)
-      const response = await createAppointment(app, token)
-      console.log(response.data)
-      if (response.data?.status == 'success') {notifyOk(response.data?.message)}
-      else {        
-        notifyError("Error al intentar crear una cita. Prueba mas tarde")
+      intentos++
+      console.log(intentos)      
+      try {
+        const response = await createAppointment(
+          app,
+          token,
+          petSelected,
+          motivoCita,
+        )
+        if (response.data?.status == 'success') {
+          notifyOk(response.data?.message)
+          setHorarioSelected('')
+          setMotivoCita('')
+          setPetSelected('')
+        } else {
+          notifyError('Error al intentar crear una cita. Prueba mas tarde')
+          setHorarioSelected('')
+          setMotivoCita('')
+          setPetSelected('')
+        }
+        setUpdateAppointments(!updateAppointments)
+        setShowModal(false)
+      } catch (error) {
+        notifyError(error?.data?.errors[0])
         setHorarioSelected('')
-      }      
-      setUpdateAppointments(!updateAppointments)
-      setShowModal(false)
+        setMotivoCita('')
+        setPetSelected('')
+      }
     }
   }
 
-  const { appointments } = useVetData(
+  const { appointments, veterinarioData } = useVetData(
     vetId,
     dateFilter,
     monthState,
     yearState,
     updateAppointments,
-  )
+  )  
 
   const handleDateFilter = (date) => {
     setDateFilter(date)
@@ -96,18 +122,21 @@ const Calendar = () => {
   }
 
   return (
-    <div className="max-w-[90rem] m-auto">
+    <div className="max-w-[60rem] m-auto">
       <Toaster />
-      <ModalForm
-        veterinario={vetId}
-        showModal={showModal}
-        setShowModal={setShowModal}
-        handleCreateAppointment={handleCreateAppointment}
-        horario={horarioSelected}
-        dia={dateFilter}
-        mes={monthState}
-        año={yearState}
-      />
+      {token && showModal && (
+        <ModalForm
+          token={token}
+          veterinarioData={veterinarioData}
+          showModal={showModal}
+          setShowModal={setShowModal}
+          handleCreateAppointment={handleCreateAppointment}
+          horario={horarioSelected}
+          dia={dateFilter}
+          mes={monthState}
+          año={yearState}
+        />
+      )}
       <div className="mt-4">
         <div className="flex flex-col mx-1 border-b-2">
           <div>
@@ -118,13 +147,13 @@ const Calendar = () => {
               handleChangeYear={handleYearChange}
             />
           </div>
-          <div className="flex justify-between items-center font-small uppercase pt-20 pb-2 mb-8">
+          <div className="flex justify-between items-center font-small uppercase pt-8 mb-4">
             {days.map((w, index) => (
               <span
                 key={index}
                 className="w-full font-bold flex justify-center items-center"
               >
-                <span className="text-sm md:text-2xl text-accent">{w}</span>
+                <span className="text-sm md:text-lg text-accent">{w}</span>
               </span>
             ))}
           </div>
@@ -138,29 +167,29 @@ const Calendar = () => {
           </div>
         </div>
         <div ref={horariosRef} className="pt-14"></div>
-        <div className="flex flex-col justify-between font-medium text-sm pb-2 text-center">
+        <div className="flex flex-col justify-between font-medium text-sm text-center pb-20">
           {dateFilter && (
             <h2 className="text-3xl mb-4 font-bold">
               {dateFilter} de {months[monthState].mes}
             </h2>
           )}
           {dateFilter && (
-            <div className="grid grid-cols-4 gap-4">
+            <div className="grid grid-cols-4 gap-2">
               <div className="p-1 m-1 flex items-center justify-center w-full">
-                <div className="p-2 w-40 text-xl">HORA</div>
-                <div className="w-40 text-xl">DISPONIBILIDAD</div>
+                <div className="pr-8 w-30 text-sm">HORA</div>
+                <div className="w-30 text-sm">DISPONIBILIDAD</div>
               </div>
               <div className="p-1 m-1 flex items-center justify-center w-full">
-                <div className="p-2 w-40 text-xl">HORA</div>
-                <div className="w-40 text-xl">DISPONIBILIDAD</div>
+                <div className="pr-8 w-30 text-sm">HORA</div>
+                <div className="w-30 text-sm">DISPONIBILIDAD</div>
               </div>
               <div className="p-1 m-1 flex items-center justify-center w-full">
-                <div className="p-2 w-40 text-xl">HORA</div>
-                <div className="w-40 text-xl">DISPONIBILIDAD</div>
+                <div className="pr-8 w-30 text-sm">HORA</div>
+                <div className="w-30 text-sm">DISPONIBILIDAD</div>
               </div>
               <div className="p-1 m-1 flex items-center justify-center w-full">
-                <div className="p-2 w-40 text-xl">HORA</div>
-                <div className="w-40 text-xl">DISPONIBILIDAD</div>
+                <div className="pr-8 w-30 text-sm">HORA</div>
+                <div className="w-30 text-sm">DISPONIBILIDAD</div>
               </div>
             </div>
           )}
@@ -169,35 +198,30 @@ const Calendar = () => {
               appointments &&
               appointments.map((a, index) => (
                 <div key={index} className="flex justify-center items-center">
-                  <div className="text-2xl w-80">
+                  <div className="text-lg w-60">
                     {a.existe ? (
                       <div className="p-1 m-1 flex items-center justify-center w-full">
-                        <div className="p-2 w-40">
-                          {a.hora.toString().padStart(2, '0')}:
-                          {a.minuto.toString().padStart(2, '0')}
+                        <div className="p-2 w-24">
+                          {format00(a.hora, a.minuto)}
                         </div>
-                        <div className="btn btn-secondary text-black border-2 border-black w-40 no-animation">
+                        <div className="btn btn-secondary text-black border-2 border-black w-30 no-animation">
                           NO DISPONIBLE
                         </div>
                       </div>
                     ) : (
                       <div className="p-1 m-1 flex items-center justify-center w-full">
-                        <div className="p-2 w-40">
-                          {a.hora.toString().padStart(2, '0')}:
-                          {a.minuto.toString().padStart(2, '0')}
+                        <div className="p-2 w-24">
+                          {format00(a.hora, a.minuto)}
                         </div>
                         <div
                           className={
                             token
-                              ? 'btn btn-accent w-40'
-                              : 'btn btn-disable w-40 no-animation'
+                              ? 'btn btn-accent w-30'
+                              : 'btn btn-disable w-30 no-animation'
                           }
                           onClick={() => {
-                            setHorarioSelected(
-                              a.hora.toString().padStart(2, '0') +
-                                ':' +
-                                a.minuto.toString().padStart(2, '0'),
-                            )
+                            setHorarioSelected(format00(a.hora, a.minuto))
+                            horarioSelectedPlus30.current = a.minuto + 30
                             if (token) setShowModal(true)
                           }}
                         >

@@ -24,13 +24,16 @@ type Data = {
 export const createAppointment = async (
   appointment: Appointment,
   token: string,
+  petSelected: string,
+  motivoCita: string,
 ) => {
   try {
     const res = await api.post(
       '/appointments',
       {
-        ...appointment,        
-        petId: '652d6303482a138fed2d5bef', // ID de la mascota
+        ...appointment,
+        petId: petSelected, // ID de la mascota
+        reason: motivoCita, // Motivo de la cita
       },
       {
         headers: {
@@ -40,7 +43,7 @@ export const createAppointment = async (
     )
     return res
   } catch (error: any) {
-    console.log(error?.message)
+    console.log(error)
     return error
   }
 }

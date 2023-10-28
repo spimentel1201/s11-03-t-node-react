@@ -17,7 +17,7 @@ const Card = ({ id, title, text, src }: Props) => (
       <h2 className="card-title">{title}</h2>
       <p className="hidden xl:flex">{text}</p>
       <div className="card-actions w-4/6 items-center justify-center">
-        {id && <Link href={`/turnos/${id}`} className="btn btn-accent text-base w-full max-w-sm">Pedir Cita</Link>}
+        {id && <Link href={`/turnos/${id}`} className="btn btn-accent text-base w-full max-w-sm capitalize">Pedir Cita</Link>}
       </div>
     </div>
   </div>

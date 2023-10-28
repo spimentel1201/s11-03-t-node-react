@@ -208,24 +208,56 @@ export function formatAppointment(
   monthState: number,
   dateFilter: number,
   horarioSelected: string,
+  horarioSelectedPlus30: { current: number },
   vetId: string,
 ) {
+  console.log('yearState: ', yearState)
+  console.log('monthState: ', monthState)
+  console.log('dateFilter: ', dateFilter)
+  console.log('horarioSelected: ', horarioSelected)
+  console.log('horarioSelectedPlus30', horarioSelectedPlus30.current)
+  console.log(
+    horarioSelected.slice(0, 2) +
+      ':' +
+      horarioSelectedPlus30.current.toString(),
+  )
   const date =
     yearState.toString() +
     '-' +
-    monthState.toString() +
+    monthState.toString().padStart(2, '0') +
     '-' +
-    dateFilter.toString() // Fecha de la cita '2023-10-21'
+    dateFilter.toString().padStart(2, '0') // Fecha de la cita '2023-10-21'
+
+  const end_time =
+    horarioSelectedPlus30.current == 30
+      ? date +
+        'T' +
+        horarioSelected.slice(0, 2) +
+        ':' +
+        horarioSelectedPlus30.current.toString() +
+        ':00.000Z'
+      : date +
+        'T' +
+        (parseInt(horarioSelected.slice(0, 2)) + 1)
+          .toString()
+          .padStart(2, '0') +
+        ':00:00.000Z'
+
+  console.log(date + 'T' + horarioSelected + ':00.000Z')
+  console.log(end_time)
+
   const app = {
     date: date, // Fecha de la cita '2023-10-21'
     start_time: date + 'T' + horarioSelected + ':00.000Z', // Hora de inicio de la cita
-    end_time: sumarMediaHora(date + 'T' + horarioSelected + ':00.000Z'), // Hora de fin de la cita
-    reason: 'Consulta general', // Razón de la cita
+    end_time: end_time, // Hora de inicio de la cita
     notes: 'Ninguna nota adicional', // Notas adicionales
     // petId: '652d6303482a138fed2d5bef', // ID de la mascota
     veterinarianId: vetId, // ID del veterinario
   }
   return app
 }
+
+export const format00 = (hora: number, minuto: number) =>
+  hora.toString().padStart(2, '0') + ':' + minuto.toString().padStart(2, '0')
 
 export default obtenerDiaInicioMes

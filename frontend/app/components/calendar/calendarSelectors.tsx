@@ -18,13 +18,13 @@ const Selectors = ({
 }: Props) => {
   return (
     <>
-      <h1 className="font-secular text-center text-3xl mt-2 font-bold mb-10">
+      <h1 className="font-secular text-center text-2xl mt-2 font-bold mb-10">
         Horarios disponibles
       </h1>
       <div className="flex justify-center pb-4 gap-8 mx-2">
         <select
           defaultValue={monthState}
-          className="select select-bordered w-full max-w-xs text-3xl"
+          className="select select-bordered w-full max-w-[15rem] text-xl"
           onChange={handleMonthChange}
         >
           {months &&
@@ -36,7 +36,7 @@ const Selectors = ({
         </select>
         <select
           defaultValue={yearState}
-          className="select select-bordered w-full max-w-xs text-3xl"
+          className="select select-bordered w-full max-w-[15rem] text-xl"
           onChange={handleYearChange}
         >
           {years &&

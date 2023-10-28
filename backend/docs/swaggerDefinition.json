@@ -143,6 +143,10 @@
             "type": "objectid",
             "description": "ID del cliente dueño de la mascota"
           },
+          "isActive": {
+            "type": "boolean",
+            "description": "Indica si la mascota está activa o inactiva."
+          },
           "_id": {
             "type": "objectid"
           },
@@ -421,7 +425,7 @@
           "content": {
             "application/json": {
               "example": {
-                "email": "vetcare@gmail.com",
+                "email": "vetcarefamily@gmail.com",
                 "password": "Admin123$"
               }
             }
@@ -875,6 +879,107 @@
           },
           "400": {
             "$ref": "#/components/responses/BadRequestError"
+          },
+          "500": {
+            "$ref": "#/components/responses/ServerError"
+          }
+        }
+      }
+    },
+    "/clients/profile": {
+      "get": {
+        "summary": "Obtiene el perfil del usuario en sesión",
+        "description": "Obtiene el perfil detallado del usuario y sus mascotas registradas.",
+        "tags": ["Clients"],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Perfil del usuario obtenido con éxito",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "success"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Perfil del usuario obtenido con éxito"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "_id": {
+                          "type": "string",
+                          "example": "6531b5fd687f4cd9ab2db81b"
+                        },
+                        "email": {
+                          "type": "string",
+                          "example": "vetcarefamily@gmail.com"
+                        },
+                        "fullname": {
+                          "type": "string",
+                          "example": "vet care family"
+                        },
+                        "photo_url": {
+                          "type": "string",
+                          "example": "https://res.cloudinary.com/dxq0pypxu/image/upload/v1696476957/nn12qmebo7v6qhbwbkdf.png"
+                        },
+                        "pets": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "_id": {
+                                "type": "string",
+                                "example": "6531b85c687f4cd9ab2db821"
+                              },
+                              "name": {
+                                "type": "string",
+                                "example": "Alan"
+                              },
+                              "specie": {
+                                "type": "string",
+                                "example": "Perro"
+                              },
+                              "sex": {
+                                "type": "string",
+                                "example": "Macho"
+                              },
+                              "age": {
+                                "type": "integer",
+                                "example": 2
+                              },
+                              "photo_url": {
+                                "type": "string",
+                                "example": "https://res.cloudinary.com/dxq0pypxu/image/upload/v1697760338/5_ddoxkd.png"
+                              },
+                              "clientId": {
+                                "type": "string",
+                                "example": "6531b5fd687f4cd9ab2db81b"
+                              },
+                              "__v": {
+                                "type": "integer",
+                                "example": 0
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
           },
           "500": {
             "$ref": "#/components/responses/ServerError"
@@ -2016,10 +2121,6 @@
                   "photo_url": {
                     "type": "string",
                     "example": "https://res.cloudinary.com/dxq0pypxu/image/upload/v1697477142/psxmvsqipxsqv9vtkrld.png"
-                  },
-                  "clientId": {
-                    "type": "string",
-                    "example": "65230b075ea6e6c2d69cd529"
                   }
                 }
               }
