@@ -33,12 +33,13 @@ const NuestrasCaracteristicas = () => (
         text="Limpiezas rutinarias y exámenes dentales para mantener la de tu mascota salud bucal."
       />
     </div>
-    <div className="xl:ml-20 xl:mt-32 relative">
+    <div className="xl:ml-20 xl:mt-0 relative">
       <Image
-        className="rounded-br-3xl"
+        className="rounded-br-3xl w-[30rem] h-auto"
         src="/veterinario-trabajando.png"
-        width={585}
-        height={585}
+        width={0}
+        height={0}
+        sizes="100vw"
         alt="veterinario trabajando"
       />
       <div className="absolute -right-6 -bottom-16 -z-10">
