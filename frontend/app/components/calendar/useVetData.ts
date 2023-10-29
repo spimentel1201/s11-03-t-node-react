@@ -33,6 +33,7 @@ const useVetData = (
   function transformarCita(cita: {
     start_time: string | number | Date
     reason: any
+    isActive: boolean
   }) {
     const fecha = crearFechaSinAjuste(cita.start_time.toString())
 
@@ -43,6 +44,7 @@ const useVetData = (
       hora: fecha.getHours(),
       minuto: fecha.getMinutes(),
       razon: cita.reason,
+      isActive: cita.isActive,
     }
   }
 
@@ -50,8 +52,8 @@ const useVetData = (
     const fetchData = async (id: string | null) => {
       try {
         if (id) {
-          const response: any = await vetDataService(id)          
-          const apps = response.data.data.appointments
+          const response: any = await vetDataService(id)
+          const apps = response.data.data.appointments          
           const citasTransformed = apps.map(transformarCita)
           const resp: any = verificarCitasEnHorarios(
             citasTransformed,

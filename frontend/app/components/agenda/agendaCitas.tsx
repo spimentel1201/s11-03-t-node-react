@@ -1,17 +1,18 @@
 import { useState, useEffect } from 'react'
-import Image from 'next/image'
-import useClientPets from './useClientPets'
-import useClientById from './useClientById'
-import CalendarUserCitas from './calendarUserCitas'
+import useClientPets from '../calendar/useClientPets'
+import useClientById from '../calendar/useClientById'
+import CalendarUserCitas from './agendaCitasListado'
 
 type Props = {
   token: string
+  filtro: undefined | boolean
 }
 
-const CalendarUser = ({ token }: Props) => {
+const AgendaCitas = ({ token, filtro }: Props) => {
   const [id, setId] = useState<string>('')
   const { clientData } = useClientPets(token)
-  const { appointmentsByPets } = useClientById(token, id)
+  const [updateAppointments, setUpdateAppointments] = useState<boolean>(false)
+  const { appointmentsByPets } = useClientById(token, id, updateAppointments)
 
   useEffect(() => {
     if (clientData) setId(clientData.data._id)
@@ -20,7 +21,7 @@ const CalendarUser = ({ token }: Props) => {
   return (
     <div>
       <h1 className="text-3xl font-bold text-center mt-20">
-        {' '}
+       
         Turnos Agendados
       </h1>
       <h2 className="text-sm text-center">
@@ -35,9 +36,13 @@ const CalendarUser = ({ token }: Props) => {
         appointmentsByPets.map((p: any, index: number) => (
           <div key={index}>
             <CalendarUserCitas
+              token={token}
               image={p.pet.photo_url}
               name={p.pet.name}
               appointments={p.appointments}
+              updateAppointments={updateAppointments}
+              setUpdateAppointments={setUpdateAppointments}
+              filtro={filtro}
             />
           </div>
         ))}
@@ -48,4 +53,4 @@ const CalendarUser = ({ token }: Props) => {
   )
 }
 
-export default CalendarUser
+export default AgendaCitas

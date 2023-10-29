@@ -14,7 +14,6 @@ import { useEffect, useState, useRef, ChangeEvent, SetStateAction } from 'react'
 import Selectors from './calendarSelectors'
 import ModalForm from './modalForm'
 import HorarioTitle from './calendarHorarioTitle'
-import CalendarUser from './calendarUser'
 import { createAppointment } from '../../_api/appointment'
 import UseToken from '@/app/hooks/useToken'
 import toast, { Toaster } from 'react-hot-toast'
@@ -23,7 +22,7 @@ const notifyOk = (msg: string) => toast.success(msg)
 const notifyError = (msg: string) => toast.error(msg)
 
 const Calendar = () => {
-  const { token } = UseToken()  
+  const { token } = UseToken()
 
   const {
     monthState,
@@ -37,7 +36,7 @@ const Calendar = () => {
   const [dateFilter, setDateFilter] = useState<null | number>(null)
   const horariosRef = useRef<HTMLDivElement>(null)
   const [showModal, setShowModal] = useState(false)
-  const [updateAppointments, setUpdateAppointments] = useState(false)
+  const [updateAppointments, setUpdateAppointments] = useState<boolean>(false)
   const [horarioSelected, setHorarioSelected] = useState('')
   const horarioSelectedPlus30 = useRef<number>(0)
 
@@ -55,7 +54,7 @@ const Calendar = () => {
         horarioSelected,
         horarioSelectedPlus30,
         vetId,
-      )      
+      )
       try {
         const response = await createAppointment(
           app,
@@ -168,12 +167,17 @@ const Calendar = () => {
             </h2>
           )}
           {dateFilter && <HorarioTitle />}
-          <div className="grid grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10 md:grid-cols-4">
             {dateFilter &&
               appointments &&
               appointments.map(
                 (
-                  a: { hora: number; minuto: number; existe: boolean },
+                  a: {
+                    isActive: boolean
+                    hora: number
+                    minuto: number
+                    existe: boolean
+                  },
                   index: number,
                 ) => (
                   <div key={index} className="flex justify-center items-center">
@@ -183,8 +187,19 @@ const Calendar = () => {
                           <div className="p-2 w-24">
                             {format00(a.hora, a.minuto)}
                           </div>
-                          <div className="btn btn-secondary text-black border-2 border-black w-30 no-animation">
-                            NO DISPONIBLE
+                          <div className="btn btn-secondary text-black border-2 border-black w-30 no-animation"
+                          onClick={() => {
+                            setHorarioSelected(format00(a.hora, a.minuto))
+                            horarioSelectedPlus30.current = a.minuto + 30
+                            if (token) setShowModal(true)
+                          }}                          
+                          >
+                            <div className="flex flex-col">
+                              <div>NO DISPONIBLE</div>
+                              <div>
+                                {a.isActive ? '(Activa)' : '(Cancelado)'}
+                              </div>
+                            </div>
                           </div>
                         </div>
                       ) : (
@@ -215,7 +230,6 @@ const Calendar = () => {
           </div>
         </div>
       </div>
-      {token && <CalendarUser token={token} />}
     </div>
   )
 }

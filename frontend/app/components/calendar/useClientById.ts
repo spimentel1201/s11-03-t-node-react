@@ -1,7 +1,12 @@
 import { useState, useEffect } from 'react'
 import { clientByIdService } from '../../_api/clientById'
 
-const useClientById = (token: string, id: string) => {
+interface Fecha {
+  date: string; // o cualquier tipo que tenga la propiedad 'date'
+  // otras propiedades de la cita
+}
+
+const useClientById = (token: string, id: string, updateAppointments: boolean) => {
   const [clientAppointments, setClientAppointments] = useState<null | any>(null)
   const [clientPetsFromClient, setClientPetsFromClient] = useState<null | any>(
     null,
@@ -25,7 +30,7 @@ const useClientById = (token: string, id: string) => {
       }
     }
     fetchData(token)
-  }, [token, id])
+  }, [token, id, updateAppointments])
 
   useEffect(() => {
     if (clientAppointments) {
@@ -33,9 +38,15 @@ const useClientById = (token: string, id: string) => {
       clientPetsFromClient.forEach((pet: { _id: string }) => {
         array.push({
           pet: pet,
-          appointments: clientAppointments.filter(
-            (appointment: { petId: string }) => appointment.petId == pet._id,
-          ),
+          appointments: clientAppointments
+            .filter(
+              (appointment: { petId: string }) => appointment.petId == pet._id,
+            )
+            .sort((a: Fecha, b: Fecha) => {
+              const dateA = new Date(a.date)
+              const dateB = new Date(b.date)
+              return dateB.getTime() - dateA.getTime()
+            }),
         })
       })
       setAppointmentsByPets(array)

@@ -1,6 +1,5 @@
 import Footer from '../components/footer/footer'
-import Calendar from '../components/calendar/calendar'
-import CalendarHeader from '../components/calendar/calendarHeader'
+import AgendarTurnoSection from '../home/agendarTurno/agendarTurnoSmall'
 
 export default function RootLayout({
   children,
@@ -9,9 +8,8 @@ export default function RootLayout({
 }) {
   return (
     <div>
-      <CalendarHeader />
       {children}
-      <Calendar />
+      <AgendarTurnoSection />
       <Footer />
     </div>
   )

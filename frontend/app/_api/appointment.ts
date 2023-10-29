@@ -40,37 +40,23 @@ export const createAppointment = async (
           Authorization: `Bearer ${token}`,
         },
       },
-    )
+    )    
     return res
   } catch (error: any) {    
     return error
   }
 }
 
-// export const createAppointment = async (
-//   appointment: Appointment,
-//   token: string,
-// ) => {
-//   try {
-//     const res = await api.post(
-//       '/appointments',
-//       {
-//         date: appointment.date,
-//         start_time: appointment.start_time,
-//         end_time: appointment.end_time,
-//         reason: appointment.reason,
-//         notes: appointment.notes,
-//         petId: appointment.petId,
-//         veterinarianId: appointment.veterinarianId,
-//       },
-//       {
-//         headers: {
-//           Authorization: `Bearer ${token}`,
-//         },
-//       },
-//     )
-//     return res
-//   } catch (error) {
-//     return error
-//   }
-// }
+export const deleteAppointment = async (id: string, token: string) => {
+  try {
+    const res = await api.delete(`/appointments/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    console.log(res)
+    return res
+  } catch (error) {
+    return error
+  }
+}

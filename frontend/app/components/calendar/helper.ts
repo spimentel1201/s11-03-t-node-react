@@ -170,14 +170,15 @@ export function verificarCitasEnHorarios(
         cita.minuto == item.minuto &&
         cita.mes == mes &&
         cita.año == año &&
-        cita.dia == dia
+        cita.dia == dia &&
+        cita.isActive == true
       ) {
-        array.push({ hora: cita.hora, minuto: cita.minuto, existe: true })
+        array.push({ hora: cita.hora, minuto: cita.minuto, existe: true, isActive: true  })
         count++
       }
     }
     if (count == 0) {
-      array.push({ hora: item.hora, minuto: item.minuto, existe: false })
+      array.push({ hora: item.hora, minuto: item.minuto, existe: false, isActive: true })
     }
     count = 0
   }
