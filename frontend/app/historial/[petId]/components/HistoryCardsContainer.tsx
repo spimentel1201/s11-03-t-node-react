@@ -1,9 +1,14 @@
 import HistoryCard from "./HisoryCard";
+import { AppointmentData } from '../../models/appointmentData.model'
 
-export default function HistoryCardsContainer() {
+interface Props {
+  appointments: AppointmentData[];
+}
+
+export default function HistoryCardsContainer({ appointments }: Props) {
   return (
-    <div className="flex flex-col items-center gap-12">
-      <HistoryCard />
+    <div className="flex flex-col items-center gap-12 pt-22 pb-32">
+      {appointments.map(appointment => <HistoryCard appointment={appointment}/>)}
     </div>
   );
 }
