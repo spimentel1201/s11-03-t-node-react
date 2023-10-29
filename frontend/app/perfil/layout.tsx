@@ -5,6 +5,7 @@ import Page from "./[id]/page";
 import MascotaModal from "./mascotaModal/page";
 import CardContent from "./[id]/CardContent";
 import DeleteMascota from "./[id]/deleteMascota/page";
+import MascotaCreada from "./mascotaModal/mascotaCreada/page";
 
 export const metadata: Metadata = {
   title: "Mi perfil",
@@ -22,6 +23,7 @@ export default function PerfilLayout({
       <MisMascostas />
       <MascotaModal />
       <CardContent />
+      {/* <MascotaCreada /> */}
       <DeleteMascota/>
       
     </div>

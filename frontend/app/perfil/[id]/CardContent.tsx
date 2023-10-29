@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import CardLink from "./card";
 import { useRouter } from "next/navigation";
 import { useUpdateMutations } from "@/app/store/mascota/updateMutation";
+import { useImageMascota } from "@/app/store/mascota/ImageMascota";
 
 async function getClientById() {
 
@@ -30,7 +31,7 @@ async function getClientById() {
      const [data, setData] = useState<any | null>(null);
      const updateMutation = useUpdateMutations((state) => state.updateMutations)
      const setUpdateMutation = useUpdateMutations((state) => state.setUpdateMutations)
-
+     
      useEffect(() => {
       const fetchData = async () => {
         try {
@@ -41,10 +42,11 @@ async function getClientById() {
           console.error('Error fetching data:', error);
         }
       };
-      fetchData();
      
      if(updateMutation){
-        setUpdateMutation(false)
+      setUpdateMutation(false)
+        fetchData(); 
+    } else {
       fetchData(); 
     }
     

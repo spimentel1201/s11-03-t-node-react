@@ -1,24 +1,59 @@
-"use client"
+"use client";
+import { useUpdateMutations } from "@/app/store/mascota/updateMutation";
+import { error } from "console";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 export default function SubmitButton() {
-    const router = useRouter();
-    const handleMascotaCreada = () =>{
-      const modal = document.getElementById("my_modal_7") as HTMLDialogElement;
-      modal?.showModal();
-      router.push("/perfil/mascotaCreada", { scroll: false });
-    }
+
+  const updateMutations = useUpdateMutations((state) => state.updateMutations)
+  const router = useRouter();
+  const handleMascotaCreada = () => {
+    
+        const modal = document.getElementById("my_modal_7") as HTMLDialogElement;
+        modal?.showModal();
+        
+    
+      
+  };
+  // const handleMascotaCreada = async () => {
+  //   try {
+  //     // Assuming updateMutations is set to true when the data is successfully sent
+  //     if (updateMutations) {
+  //       console.log("Data submitted successfully");
+
+  //       // Move the navigation inside the try block
+  //       await router.push("/perfil/mascotaModal/mascotaCreada", { scroll: false });
+
+  //       // Show the modal after navigation
+  //       const modal = document.getElementById("my_modal_7") as HTMLDialogElement;
+  //       modal?.showModal();
+  //     } else {
+  //       // Handle the case where data submission fails
+  //       console.error("Data submission failed", error);
+  //     }
+  //   } catch (error) {
+  //     console.error("Error while processing data submission", error);
+  //   }
+  // };
+  
   return (
     <section className="mt-[26px]">
-      <div className="w-full h-[67px] px-[31px] py-[17px] bg-orange-500 rounded-md border border-orange-500 flex-col justify-center items-center inline-flex">
-        <button onClick={handleMascotaCreada} type="submit" className="text-center text-white text-base font-medium font-['Inter'] leading-7">
+      <div className="w-full h-[67px] mb-[23px] bg-orange-500 rounded-md border border-orange-500 flex-col justify-center items-center inline-flex">
+        <button
+          onClick={handleMascotaCreada}
+          type="submit"
+          className="text-center text-white  leading-7"
+        >
           Agregar Mascota
         </button>
       </div>
-      <div className="w-full mt-[23px] h-[67px] pl-[30.88px] pr-[30.51px] py-[17px] bg-amber-300 rounded-md border border-amber-300 flex-col justify-center items-center inline-flex">
-        <button onClick={() => router.push("/perfil")} className="text-center text-slate-800 text-base font-medium font-inter leading-7">
+      
+        <button
+          className=" w-full h-[67px] bg-amber-300 rounded-md border border-amber-300 text-slate-800 text-base  font-medium font-inter"
+          onClick={() => router.push("/perfil")}
+        >
           Cancelar
         </button>
-      </div>
     </section>
   );
 }
