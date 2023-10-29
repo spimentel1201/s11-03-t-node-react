@@ -12,17 +12,11 @@ const Container = ({ children }: Props) => (
       <Image
         src="/auth-image.png"
         alt="Imagen de perritos"
-        width="591"
-        height="761"
-        className="hidden lg:flex"
-      />
-      <Image
-        src="/auth-image.png"
-        alt="Imagen de perritos"
-        width="146"
-        height="213"
-        className="flex justify-center items-center lg:hidden"
-      />
+        width={0}
+        height={0}
+        sizes={"100vw"}
+        className="w-[14rem] lg:flex lg:w-[26rem] h-auto self-start mt-4 m-auto"
+      />     
       {children}
     </div>
   </div>
