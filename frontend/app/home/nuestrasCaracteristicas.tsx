@@ -35,7 +35,7 @@ const NuestrasCaracteristicas = () => (
     </div>
     <div className="xl:ml-20 xl:mt-0 relative">
       <Image
-        className="rounded-br-3xl w-[30rem] h-auto"
+        className="rounded-br-3xl w-[20rem] lg:w-[30rem] h-auto"
         src="/veterinario-trabajando.png"
         width={0}
         height={0}

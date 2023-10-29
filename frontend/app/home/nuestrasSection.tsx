@@ -14,7 +14,7 @@ const Section = ({ src, text, title }: Props) => (
       height={0}
       sizes={'100vw'}
       alt="veterinario trabajando"
-      className="w-[5rem] h-auto"
+      className="w-[5rem] h-[5rem]"
     />
     <div className="ml-4">
       <h3 className="font-bold"> {title}</h3>

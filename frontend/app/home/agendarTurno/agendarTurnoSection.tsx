@@ -2,6 +2,7 @@ import Image from 'next/image'
 import petsHome from '../../assets/petsHome-big.png'
 import Link from 'next/link'
 import { FingerPrint, BiggerFingerprint } from '../icons'
+import Balancer from 'react-wrap-balancer'
 
 export default function agendarTurnoSection() {
   return (
@@ -27,15 +28,12 @@ export default function agendarTurnoSection() {
             height={0}
             sizes='100vw'
             priority={true}
-            className="w-[25rem] md:w-[25rem] lg:w-[40rem] h-auto md:absolute md:bottom-[-8px] md:right-[70px] bg-cover"
+            className="w-[25rem] md:w-[25rem] lg:w-[40rem] 2xl:w-[50rem] h-auto md:absolute md:bottom-[-8px] md:right-[70px] bg-cover"
           />
           <h1
             className="text-[#062D3E] text-[20px] leading-[26px] 
-      font-normal text-center mt-5 md:text-6xl md:text-left"
-          >
-            No hay nada más <br />
-            importante para nosotros que
-            <br /> tu mascota
+      font-normal text-center mt-5 md:text-6xl md:text-left max-w-3xl"
+          ><Balancer> No hay nada más importante para nosotros que tu mascota</Balancer>
           </h1>
           <p
             className="text-center text-gray-500 
