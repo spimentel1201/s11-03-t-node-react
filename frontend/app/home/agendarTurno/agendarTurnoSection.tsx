@@ -5,7 +5,7 @@ import { FingerPrint, BiggerFingerprint } from '../icons'
 
 export default function agendarTurnoSection() {
   return (
-    <div className="flex flex-col-reverse items-center justify-center xl:flex-row px-10 bg-secondary-content">
+    <div className="flex items-center justify-center px-10 bg-secondary-content">
       <div className="relative w-full max-w-[90rem]">
         <section
           className="relative bg-secondary-content flex flex-col 
@@ -23,9 +23,11 @@ export default function agendarTurnoSection() {
           <Image
             src={petsHome}
             alt="Pets Home"
-            width={817}
-            height={400}
-            className="md:absolute md:bottom-[-8px] md:right-[70px] md:w-[750px] bg-cover"
+            width={0}
+            height={0}
+            sizes='100vw'
+            priority={true}
+            className="w-[25rem] md:w-[25rem] lg:w-[40rem] h-auto md:absolute md:bottom-[-8px] md:right-[70px] bg-cover"
           />
           <h1
             className="text-[#062D3E] text-[20px] leading-[26px] 
