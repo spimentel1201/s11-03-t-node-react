@@ -16,8 +16,7 @@ export const clientByIdService = async (token: string, id: string) => {
       return res
     }
     return null
-  } catch (error) {
-    console.log(error)
+  } catch (error) {    
     return error
   }
 }

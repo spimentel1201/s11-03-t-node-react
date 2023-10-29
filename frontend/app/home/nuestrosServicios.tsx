@@ -50,11 +50,10 @@ export default function NuestrosServicios() {
     <section className="bg-secondary-content flex flex-col items-center justify-center mb-[19px] pt-14">
       <div className="flex flex-row justify-center items-center gap-x-2 mb-[18px]">
         <span>
-          {' '}
-          <Services />{' '}
+          <Services />
         </span>
         <h1 className="text-accent text-base font-bold font-inter leading-relaxed">
-          servicios
+          Servicios
         </h1>
       </div>
       <h2 className=" text-center text-slate-700 text-xl font-normal font-secular mb-[26px]">

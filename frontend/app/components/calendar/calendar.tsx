@@ -23,8 +23,7 @@ const notifyOk = (msg: string) => toast.success(msg)
 const notifyError = (msg: string) => toast.error(msg)
 
 const Calendar = () => {
-  const { token } = UseToken()
-  // console.log(token)
+  const { token } = UseToken()  
 
   const {
     monthState,
@@ -42,8 +41,6 @@ const Calendar = () => {
   const [horarioSelected, setHorarioSelected] = useState('')
   const horarioSelectedPlus30 = useRef<number>(0)
 
-  let intentos = 0
-
   const handleCreateAppointment = async (
     petSelected: string,
     setPetSelected: (arg0: string) => void,
@@ -58,9 +55,7 @@ const Calendar = () => {
         horarioSelected,
         horarioSelectedPlus30,
         vetId,
-      )
-      intentos++
-      console.log(intentos)
+      )      
       try {
         const response = await createAppointment(
           app,

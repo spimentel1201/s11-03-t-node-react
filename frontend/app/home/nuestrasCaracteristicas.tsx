@@ -45,10 +45,11 @@ const NuestrasCaracteristicas = () => (
       <div className="absolute -right-6 -bottom-16 -z-10">
         {' '}
         <Image
-          className="rounded-br-3xl"
+          className="rounded-br-3xl w-[12rem] h-auto"
           src="/yellow-pointed-circle.png"
-          width={200}
-          height={200}
+          width={0}
+          height={0}
+          sizes="100vw"
           alt="puntillado amarillo"
         />
       </div>

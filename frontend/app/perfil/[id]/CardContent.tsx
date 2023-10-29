@@ -35,8 +35,7 @@ async function getClientById() {
       const fetchData = async () => {
         try {
           const result = await getClientById();
-          setData(result)
-          console.log(result)
+          setData(result)          
         } catch (error) {
           console.error('Error fetching data:', error);
         }

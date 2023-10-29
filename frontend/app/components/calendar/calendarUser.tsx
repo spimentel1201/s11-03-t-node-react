@@ -13,8 +13,6 @@ const CalendarUser = ({ token }: Props) => {
   const { clientData } = useClientPets(token)
   const { appointmentsByPets } = useClientById(token, id)
 
-  console.log(appointmentsByPets)
-
   useEffect(() => {
     if (clientData) setId(clientData.data._id)
   }, [clientData])

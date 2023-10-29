@@ -42,8 +42,7 @@ export const createAppointment = async (
       },
     )
     return res
-  } catch (error: any) {
-    console.log(error)
+  } catch (error: any) {    
     return error
   }
 }

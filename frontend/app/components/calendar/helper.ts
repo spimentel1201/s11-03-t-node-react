@@ -96,8 +96,7 @@ export function verificarDisponibilidadHorario(
   minutos: number,
 ) {
   const fecha = new Date(año, mes - 1, dia, horas, minutos)
-  const _inicioCita = new Date(inicioCita)
-  console.log(fecha, _inicioCita)
+  const _inicioCita = new Date(inicioCita)  
   const mismoDiaMesHoraMinutos =
     fecha.getDate() === _inicioCita.getDate() &&
     fecha.getMonth() === _inicioCita.getMonth() &&
@@ -166,8 +165,6 @@ export function verificarCitasEnHorarios(
     let count = 0
 
     for (const cita of dataEspecifica) {
-      // console.log(cita.hora, cita.minuto, cita.dia, cita.mes, cita.año)
-      // console.log(item.hora, item.minuto, dia, mes, año)
       if (
         cita.hora == item.hora &&
         cita.minuto == item.minuto &&
@@ -208,17 +205,7 @@ export function formatAppointment(
   horarioSelected: string,
   horarioSelectedPlus30: { current: number },
   vetId: null | string,
-) {
-  console.log('yearState: ', yearState)
-  console.log('monthState: ', monthState)
-  console.log('dateFilter: ', dateFilter)
-  console.log('horarioSelected: ', horarioSelected)
-  console.log('horarioSelectedPlus30', horarioSelectedPlus30.current)
-  console.log(
-    horarioSelected.slice(0, 2) +
-      ':' +
-      horarioSelectedPlus30.current.toString(),
-  )
+) {  
   const date =
     yearState.toString() +
     '-' +
@@ -240,10 +227,7 @@ export function formatAppointment(
           .toString()
           .padStart(2, '0') +
         ':00:00.000Z'
-
-  console.log(date + 'T' + horarioSelected + ':00.000Z')
-  console.log(end_time)
-
+  
   const app = {
     date: date, // Fecha de la cita '2023-10-21'
     start_time: date + 'T' + horarioSelected + ':00.000Z', // Hora de inicio de la cita
