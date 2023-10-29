@@ -19,13 +19,13 @@ function crearFechaSinAjuste(fechaguardada: string) {
 }
 
 const useVetData = (
-  vetId: string,
-  dia: number,
+  vetId: string | null,
+  dia: number | null,
   mes: number,
   año: number,
   updateAppointments: boolean,
 ) => {
-  const [appointments, setAppointments] = useState(null)
+  const [appointments, setAppointments] = useState<any>(null)
   const [veterinarioData, setVeterinarioData] = useState<
     { fullname: string; speciality: string } | undefined
   >(undefined)
@@ -47,7 +47,7 @@ const useVetData = (
   }
 
   useEffect(() => {
-    const fetchData = async (id: string) => {
+    const fetchData = async (id: string | null) => {
       try {
         if (id) {
           const response: any = await vetDataService(id)

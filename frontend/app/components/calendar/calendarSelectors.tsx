@@ -3,9 +3,7 @@ import { months, years } from './helper'
 
 type Props = {
   monthState: number
-  yearState: number
-  months: { numero: number; mes: string }[]
-  years: number[]
+  yearState: number  
   handleMonthChange: (e: ChangeEvent<HTMLSelectElement>) => void
   handleYearChange: (e: ChangeEvent<HTMLSelectElement>) => void
 }

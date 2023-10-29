@@ -7,13 +7,13 @@ const api = axios.create({
 })
 
 type Appointment = {
-  date: Date
-  start_time: Date
-  end_time: Date
-  reason: string
+  date: string
+  start_time: string
+  end_time: string
+  reason?: string
   notes: string
-  petId: string
-  veterinarianId: string
+  petId?: string
+  veterinarianId: string | null
 }
 
 type Data = {

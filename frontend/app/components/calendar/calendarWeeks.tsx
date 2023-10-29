@@ -1,4 +1,4 @@
-import { MouseEventHandler } from 'react'
+import React from 'react'
 
 type Props = {
   desde: number | undefined
@@ -9,9 +9,7 @@ type Props = {
         day: number
         status: boolean
       }[]
-  setDateFilter: (
-    day: number,
-  ) => MouseEventHandler<HTMLDivElement> | undefined
+  setDateFilter: (date: React.SetStateAction<number | null>) => void
 }
 
 const Weeks = ({ desde, hasta, data, setDateFilter }: Props) => {

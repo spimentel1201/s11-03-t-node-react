@@ -115,13 +115,11 @@ export function getHorario(inicioCita: string | number | Date) {
   return horas + ':' + minutos
 }
 
-export const scrollToSection = (elementRef: {
-  current: { offsetTop: any }
-}) => {
+export const scrollToSection = (elementRef: React.RefObject<HTMLDivElement>): void => {
   setTimeout(
     () =>
       window.scrollTo({
-        top: elementRef.current.offsetTop,
+        top: elementRef.current!.offsetTop,
         behavior: 'smooth',
       }),
     100,
@@ -130,7 +128,7 @@ export const scrollToSection = (elementRef: {
 
 export function verificarCitasEnHorarios(
   data: any,
-  dia: number,
+  dia: number | null,
   mes: number,
   año: number,
 ) {
@@ -206,10 +204,10 @@ export function sumarMediaHora(fecha: string) {
 export function formatAppointment(
   yearState: number,
   monthState: number,
-  dateFilter: number,
+  dateFilter: null | number,
   horarioSelected: string,
   horarioSelectedPlus30: { current: number },
-  vetId: string,
+  vetId: null | string,
 ) {
   console.log('yearState: ', yearState)
   console.log('monthState: ', monthState)
@@ -226,7 +224,7 @@ export function formatAppointment(
     '-' +
     monthState.toString().padStart(2, '0') +
     '-' +
-    dateFilter.toString().padStart(2, '0') // Fecha de la cita '2023-10-21'
+    dateFilter?.toString().padStart(2, '0') // Fecha de la cita '2023-10-21'
 
   const end_time =
     horarioSelectedPlus30.current == 30

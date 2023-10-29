@@ -14,9 +14,9 @@ type Props = {
     setMotivoCita: (value: string) => void,
   ) => void
   horario: string
-  dia: string
-  mes: string
-  año: string
+  dia: string | undefined
+  mes: string 
+  año: string 
   veterinarioData: { fullname: string; speciality: string } | undefined
   token: string
 }
@@ -36,9 +36,7 @@ const ModalForm = ({
   const [petSelected, setPetSelected] = useState('')
   const [motivoCita, setMotivoCita] = useState('')
   const myModal = useRef<HTMLDialogElement>(null)
-  const { clientPets, clientData } = useClientPets(token)
-
-  console.log(clientData)
+  const { clientPets, clientData } = useClientPets(token)  
 
   const handlePetChange = (event: ChangeEvent<HTMLSelectElement>) => {
     const selectedPet = event.target.value
@@ -63,34 +61,34 @@ const ModalForm = ({
               <form method="dialog">
                 {/* if there is a button in form, it will close the modal */}
                 <button
-                  className="btn bg-primary border-none text-2xl absolute right-2 top-2"
+                  className="btn bg-primary border-none text-xl absolute right-2 top-2"
                   tabIndex={1}
                   onClick={() => setShowModal(false)}
                 >
                   ✕
                 </button>
               </form>
-              <h3 className="font-bold flex flex-col text-2xl py-8 text-center">
+              <h3 className="font-bold flex flex-col text-xl py-2 text-center">
                 SOLICITAR CITA
               </h3>
-              <div className="text-xl px-8 py-4 bg-secondary-content">
-                <p className="pb-4">
+              <div className="text-lg px-8 py-2 bg-secondary-content">
+                <p className="pb-2">
                   <span className="font-bold">VETERINARIO:</span>{' '}
                   {veterinarioData?.fullname}
                 </p>
-                <p className="pb-4">
+                <p className="pb-2">
                   <span className="font-bold">ESPECIALIDAD:</span>{' '}
                   {veterinarioData?.speciality}{' '}
                 </p>
-                <p className="pb-4">
+                <p className="pb-2">
                   <span className="font-bold">FECHA:</span> {dia}/{mes}/{año}
                 </p>
                 <p>
                   <span className="font-bold">HORA:</span> {horario}hs.
                 </p>
               </div>
-              <div className="text-xl pb-2">
-                <div className="py-4 gap-8">
+              <div className="text-lg">
+                <div className="py-2 gap-8">
                   <select
                     required
                     className="select select-bordered w-full text-xl select-style"
@@ -109,7 +107,7 @@ const ModalForm = ({
                   </select>
                 </div>
                 <textarea
-                  className="textarea textarea-bordered w-full text-xl h-30"
+                  className="textarea textarea-bordered w-full text-lg h-30"
                   placeholder="Motivo de la Cita"
                   onChange={handleTextareaChange}
                   value={motivoCita}
