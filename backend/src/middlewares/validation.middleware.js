@@ -26,8 +26,9 @@ export const updateClientValidation = generateValidationRules('updateClient', {
     notEmpty: {},
     isLength: { min: 1, max: 15 },
   },
-  address: {
+  email: {
     notEmpty: {},
+    isEmail: {},
   },
   photo_url: {
     notEmpty: {},
