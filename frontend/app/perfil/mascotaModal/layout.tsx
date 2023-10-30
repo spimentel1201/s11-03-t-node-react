@@ -1,9 +1,9 @@
-import MascotaCreada from "../mascotaCreada/page";
+import MascotaCreada from "./mascotaCreada/page";
 
 export default function MascotaModalLayout({children}:{children:React.ReactNode}){
     return(
         <div className="">
-            {/* <MascotaCreada /> */}
+            <MascotaCreada />
             {children}
         </div>
     )

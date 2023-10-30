@@ -14,12 +14,15 @@ export default async function mascotaPost(mascota: Mascota) {
       mascota,
       {
         headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`
-        }
-    }
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
     );
     return response;
-  } catch (error) {
+  } catch (error:any) {
     console.error(error);
+      return error.response;
+      
+    }
+
   }
-}

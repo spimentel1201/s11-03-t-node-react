@@ -3,8 +3,10 @@ import axios from "axios";
 import { Close } from "../../icons";
 import { usePetId } from "@/app/store/mascota/petId";
 import { useUpdateMutations } from "@/app/store/mascota/updateMutation";
+import { useRouter } from "next/navigation";
 
 export default function DeleteMascota() {
+  const route = useRouter()
   const setUpdateMutation = useUpdateMutations((state) => state.setUpdateMutations)
   const petId = usePetId((state) => state.petId);
 
@@ -18,7 +20,8 @@ export default function DeleteMascota() {
       }
     ).then(response => {
       
-      console.log('Pet deleted successfully', response);
+      const modal = document.getElementById("my_modal_8") as HTMLDialogElement;
+        modal?.showModal();
       setUpdateMutation(true)
     })
     .catch(error => {
@@ -42,14 +45,14 @@ export default function DeleteMascota() {
             <h3 className="text-xl font-normal text-center font-inter mb-[37px]">
               ¿Está seguro que desea eliminar la mascota?
             </h3>
-            <div className="flex flex-col">
+            <form method="dialog"  className="flex flex-col">
               <button onClick={handleDeleteMascota} className="py-4 rounded-md border border-accent bg-accent text-center text-white text-base font-medium mb-[27px]">
                 Si, eliminar.
               </button>
-              <button className="py-4 bg-amber-300 rounded-md border border-amber-300 text-center text-slate-800 text-base font-medium font-inter">
+              <button onClick={() => route.back()} className="py-4 w-full bg-amber-300 rounded-md border border-amber-300 text-center text-slate-800 text-base font-medium font-inter">
                 No, Cancelar.
               </button>
-            </div>
+            </form>
           </div>
           <div className="modal-action"></div>
         </div>

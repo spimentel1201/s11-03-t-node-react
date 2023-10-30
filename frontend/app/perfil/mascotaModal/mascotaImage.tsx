@@ -2,13 +2,15 @@
 import Image from "next/image";
 import { UploadImage } from "../icons";
 import DefaultImage from "./Image.png";
-import { ChangeEvent, useRef, useState } from "react";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
 import { uploadFile } from "@/app/_api/perfil/userImage";
 import { useImageMascota } from "@/app/store/mascota/ImageMascota";
+import { useUpdateMutations } from "@/app/store/mascota/updateMutation";
 
 export default function MascotaImage() {
   const [image, setImage] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const updateMutations = useUpdateMutations((state) => state.updateMutations)
   const setImageMascota = useImageMascota((state) => state.setImageMascota);
 
   const handleFileChange = async (event: ChangeEvent<HTMLInputElement>) => {
@@ -17,12 +19,10 @@ export default function MascotaImage() {
     const imageUrl = URL.createObjectURL(selectFile)
     setImage(imageUrl);
     }
-    console.log(selectFile);
     if (selectFile) {
       try {
         const data = await uploadFile(selectFile);
         setImageMascota(data?.data.photo_url)
-        console.log(data);
       } catch (error) {
         console.log(error);
       }
@@ -33,7 +33,12 @@ export default function MascotaImage() {
       fileInputRef.current.click();
     }
   };
-
+  
+  useEffect(() => {
+    if (updateMutations === true) {
+      setImage(null);
+    }
+  }, [updateMutations]);
   return (
     <div className="mb-3">
       <input

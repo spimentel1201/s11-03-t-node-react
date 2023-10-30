@@ -1,6 +1,5 @@
 "use client"
 
-import { ChangeEvent, useState } from "react";
 
 export default function SelectOption() {
   
@@ -10,8 +9,9 @@ export default function SelectOption() {
       h-[62px]   bg-gray-100  border
        border-gray-200  md:w-full select text-gray-500"
        name="specie"
+       defaultValue=""
       >
-        <option  disabled >Seleccione tipo de mascota</option>
+        <option  disabled value="">Seleccione tipo de mascota</option>
         <option value="conejo">conejo</option>
         <option value="Cobayo">Cobayo</option>
         <option value="Gato">Gato</option>
