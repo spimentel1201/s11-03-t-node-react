@@ -20,17 +20,12 @@ const AgendaCitas = ({ token, filtro }: Props) => {
 
   return (
     <div>
-      <h1 className="text-3xl font-bold text-center mt-20">
-       
-        Turnos Agendados
-      </h1>
-      <h2 className="text-sm text-center">
-        cliente: {clientData && clientData?.data && clientData?.data?._id}
-      </h2>
+      <h1 className="text-3xl font-bold text-center mt-20">       
+        Citas Agendados
+      </h1>      
       <h2 className="text-sm mb-4 text-center">
-        cliente: {clientData && clientData?.data && clientData?.data?.fullname}
+        {clientData && clientData?.data && clientData?.data?.fullname}
       </h2>
-
       {appointmentsByPets &&
         appointmentsByPets?.length > 0 &&
         appointmentsByPets.map((p: any, index: number) => (
