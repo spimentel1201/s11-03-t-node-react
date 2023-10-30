@@ -187,13 +187,7 @@ const Calendar = () => {
                           <div className="p-2 w-24">
                             {format00(a.hora, a.minuto)}
                           </div>
-                          <div className="btn btn-secondary text-black border-2 border-black w-30 no-animation"
-                          onClick={() => {
-                            setHorarioSelected(format00(a.hora, a.minuto))
-                            horarioSelectedPlus30.current = a.minuto + 30
-                            if (token) setShowModal(true)
-                          }}                          
-                          >
+                          <div className="btn btn-secondary text-black border-2 border-black w-30 no-animation">
                             <div className="flex flex-col">
                               <div>NO DISPONIBLE</div>
                               {/* <div>
