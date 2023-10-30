@@ -52,7 +52,7 @@ const useClientById = (token: string, id: string, updateAppointments: boolean) =
       setAppointmentsByPets(array)
     }
   }, [clientAppointments, clientPetsFromClient])
-
+  console.log(appointmentsByPets)
   return { appointmentsByPets }
 }
 

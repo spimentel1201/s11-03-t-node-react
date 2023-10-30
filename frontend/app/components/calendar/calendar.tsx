@@ -196,9 +196,9 @@ const Calendar = () => {
                           >
                             <div className="flex flex-col">
                               <div>NO DISPONIBLE</div>
-                              <div>
+                              {/* <div>
                                 {a.isActive ? '(Activa)' : '(Cancelado)'}
-                              </div>
+                              </div> */}
                             </div>
                           </div>
                         </div>
