@@ -7,13 +7,13 @@ const api = axios.create({
 })
 
 type Appointment = {
-  date: Date
-  start_time: Date
-  end_time: Date
-  reason: string
+  date: string
+  start_time: string
+  end_time: string
+  reason?: string
   notes: string
-  petId: string
-  veterinarianId: string
+  petId?: string
+  veterinarianId: string | null
 }
 
 type Data = {
@@ -24,51 +24,39 @@ type Data = {
 export const createAppointment = async (
   appointment: Appointment,
   token: string,
+  petSelected: string,
+  motivoCita: string,
 ) => {
   try {
     const res = await api.post(
       '/appointments',
       {
-        ...appointment,        
-        petId: '652d6303482a138fed2d5bef', // ID de la mascota
+        ...appointment,
+        petId: petSelected, // ID de la mascota
+        reason: motivoCita, // Motivo de la cita
       },
       {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       },
-    )
+    )    
     return res
-  } catch (error: any) {
-    console.log(error?.message)
+  } catch (error: any) {    
     return error
   }
 }
 
-// export const createAppointment = async (
-//   appointment: Appointment,
-//   token: string,
-// ) => {
-//   try {
-//     const res = await api.post(
-//       '/appointments',
-//       {
-//         date: appointment.date,
-//         start_time: appointment.start_time,
-//         end_time: appointment.end_time,
-//         reason: appointment.reason,
-//         notes: appointment.notes,
-//         petId: appointment.petId,
-//         veterinarianId: appointment.veterinarianId,
-//       },
-//       {
-//         headers: {
-//           Authorization: `Bearer ${token}`,
-//         },
-//       },
-//     )
-//     return res
-//   } catch (error) {
-//     return error
-//   }
-// }
+export const deleteAppointment = async (id: string, token: string) => {
+  try {
+    const res = await api.delete(`/appointments/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    console.log(res)
+    return res
+  } catch (error) {
+    return error
+  }
+}

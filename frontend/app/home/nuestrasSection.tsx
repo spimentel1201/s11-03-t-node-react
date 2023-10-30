@@ -1,24 +1,24 @@
 import Image from 'next/image'
 
 type Props = {
-  src: string,
-  text: string,
+  src: string
+  text: string
   title: string
-  }
+}
 
-const Section = ({src, text, title}: Props) => (
+const Section = ({ src, text, title }: Props) => (
   <section className="mt-10 ml-3 flex">
     <Image
       src={src}
-      width={80}
-      height={25}
+      width={0}
+      height={0}
+      sizes={'100vw'}
       alt="veterinario trabajando"
+      className="w-[5rem] h-[5rem]"
     />
     <div className="ml-4">
       <h3 className="font-bold"> {title}</h3>
-      <p>
-        {text}
-      </p>
+      <p>{text}</p>
     </div>
   </section>
 )

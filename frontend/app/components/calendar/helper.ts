@@ -96,8 +96,7 @@ export function verificarDisponibilidadHorario(
   minutos: number,
 ) {
   const fecha = new Date(año, mes - 1, dia, horas, minutos)
-  const _inicioCita = new Date(inicioCita)
-  console.log(fecha, _inicioCita)
+  const _inicioCita = new Date(inicioCita)  
   const mismoDiaMesHoraMinutos =
     fecha.getDate() === _inicioCita.getDate() &&
     fecha.getMonth() === _inicioCita.getMonth() &&
@@ -115,13 +114,11 @@ export function getHorario(inicioCita: string | number | Date) {
   return horas + ':' + minutos
 }
 
-export const scrollToSection = (elementRef: {
-  current: { offsetTop: any }
-}) => {
+export const scrollToSection = (elementRef: React.RefObject<HTMLDivElement>): void => {
   setTimeout(
     () =>
       window.scrollTo({
-        top: elementRef.current.offsetTop,
+        top: elementRef.current!.offsetTop,
         behavior: 'smooth',
       }),
     100,
@@ -130,7 +127,7 @@ export const scrollToSection = (elementRef: {
 
 export function verificarCitasEnHorarios(
   data: any,
-  dia: number,
+  dia: number | null,
   mes: number,
   año: number,
 ) {
@@ -168,21 +165,20 @@ export function verificarCitasEnHorarios(
     let count = 0
 
     for (const cita of dataEspecifica) {
-      // console.log(cita.hora, cita.minuto, cita.dia, cita.mes, cita.año)
-      // console.log(item.hora, item.minuto, dia, mes, año)
       if (
         cita.hora == item.hora &&
         cita.minuto == item.minuto &&
         cita.mes == mes &&
         cita.año == año &&
-        cita.dia == dia
+        cita.dia == dia &&
+        cita.isActive == true
       ) {
-        array.push({ hora: cita.hora, minuto: cita.minuto, existe: true })
+        array.push({ hora: cita.hora, minuto: cita.minuto, existe: true, isActive: true  })
         count++
       }
     }
     if (count == 0) {
-      array.push({ hora: item.hora, minuto: item.minuto, existe: false })
+      array.push({ hora: item.hora, minuto: item.minuto, existe: false, isActive: true })
     }
     count = 0
   }
@@ -206,26 +202,45 @@ export function sumarMediaHora(fecha: string) {
 export function formatAppointment(
   yearState: number,
   monthState: number,
-  dateFilter: number,
+  dateFilter: null | number,
   horarioSelected: string,
-  vetId: string,
-) {
+  horarioSelectedPlus30: { current: number },
+  vetId: null | string,
+) {  
   const date =
     yearState.toString() +
     '-' +
-    monthState.toString() +
+    monthState.toString().padStart(2, '0') +
     '-' +
-    dateFilter.toString() // Fecha de la cita '2023-10-21'
+    dateFilter?.toString().padStart(2, '0') // Fecha de la cita '2023-10-21'
+
+  const end_time =
+    horarioSelectedPlus30.current == 30
+      ? date +
+        'T' +
+        horarioSelected.slice(0, 2) +
+        ':' +
+        horarioSelectedPlus30.current.toString() +
+        ':00.000Z'
+      : date +
+        'T' +
+        (parseInt(horarioSelected.slice(0, 2)) + 1)
+          .toString()
+          .padStart(2, '0') +
+        ':00:00.000Z'
+  
   const app = {
     date: date, // Fecha de la cita '2023-10-21'
     start_time: date + 'T' + horarioSelected + ':00.000Z', // Hora de inicio de la cita
-    end_time: sumarMediaHora(date + 'T' + horarioSelected + ':00.000Z'), // Hora de fin de la cita
-    reason: 'Consulta general', // Razón de la cita
+    end_time: end_time, // Hora de inicio de la cita
     notes: 'Ninguna nota adicional', // Notas adicionales
     // petId: '652d6303482a138fed2d5bef', // ID de la mascota
     veterinarianId: vetId, // ID del veterinario
   }
   return app
 }
+
+export const format00 = (hora: number, minuto: number) =>
+  hora.toString().padStart(2, '0') + ':' + minuto.toString().padStart(2, '0')
 
 export default obtenerDiaInicioMes

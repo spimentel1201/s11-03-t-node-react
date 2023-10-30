@@ -1,0 +1,5 @@
+/* CSS personalizado */
+.select-style:invalid,
+.select-style option[value=""] {
+  color: #999999;
+}

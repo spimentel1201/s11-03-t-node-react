@@ -17,15 +17,21 @@ export default function CardLink({
     <div
       className={`${
         isSelected
-          ? " rounded-[10px] shadow border border-slate-700 bg-white w-[260px] h-[367px]"
-          : "bg-white rounded-[10px] shadow w-[260px] h-[458px]"
+          ? " rounded-[10px] shadow border border-slate-700 bg-white h-[458px] pb-[18px] w-[270px]"
+          : "bg-white rounded-[10px] pb-[18px] shadow h-[458px] w-[270px]"
       }`}
     >
-      <div className="flex items-end justify-between w-full pt-2 px-[6px]">
-        {isSelected && <span className=""><CheckSqueaare/></span>}
-        <span><UploadImage /></span>
-      </div>
-      <Link href={`/perfil/${id}`} className="w-full h-full">
+      <Link href={`/perfil/${id}`} scroll={false} className=" ">
+        <div className="flex  justify-between w-full pt-2 px-[6px]">
+          <span className="">
+            <UploadImage />
+          </span>
+          {isSelected && (
+            <span className="">
+              <CheckSqueaare />
+            </span>
+          )}
+        </div>
         {children}
       </Link>
     </div>

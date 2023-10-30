@@ -16,113 +16,113 @@ export default function Mascotas() {
                 2.350 mascotas
               </span>
             </h2>
-            <div className="carousel rounded-box md:mt-[50px] gap-x-[15px] ">
+            <div className="carousel rounded-box md:mt-[50px] gap-x-[15px]">
               <div className="carousel-item">
                 <Image
                   width={54}
                   height={54}
-                  src={petImage}
+                  src='/petImage-3.png'
                   alt="pet"
-                  className="bg-cover md:w-[95px] md:h-[95px]"
+                  className="bg-cover md:w-[95px] md:h-[95px] brightness-75"
                 />
               </div>
               <div className="carousel-item">
                 <Image
                   width={54}
                   height={54}
-                  src={petImage}
+                  src='/petImage-4.png'
                   alt="pet"
-                  className="bg-cover md:w-[95px] md:h-[95px]"
+                  className="bg-cover md:w-[95px] md:h-[95px] brightness-75"
                 />
               </div>
               <div className="carousel-item">
                 <Image
                   width={54}
                   height={54}
-                  src={petImage}
+                  src='/petImage-5.png'
                   alt="pet"
-                  className="bg-cover md:w-[95px] md:h-[95px]"
+                  className="bg-cover md:w-[95px] md:h-[95px] brightness-75"
                 />
               </div>
               <div className="carousel-item">
                 <Image
                   width={54}
                   height={54}
-                  src={petImage}
+                  src='/petImage-6.png'
                   alt="pet"
-                  className="bg-cover md:w-[95px] md:h-[95px]"
+                  className="bg-cover md:w-[95px] md:h-[95px] brightness-75"
                 />
               </div>
               <div className="carousel-item">
                 <Image
                   width={54}
                   height={54}
-                  src={petImage}
+                  src='/petImage-7.png'
                   alt="pet"
-                  className="bg-cover md:w-[95px] md:h-[95px]"
+                  className="bg-cover md:w-[95px] md:h-[95px] brightness-75"
                 />
               </div>
               <div className="carousel-item">
                 <Image
                   width={54}
                   height={54}
-                  src={petImage}
+                  src='/petImage-1.png'
                   alt="pet"
-                  className="bg-cover md:w-[95px] md:h-[95px]"
+                  className="bg-cover md:w-[95px] md:h-[95px] brightness-75"
                 />
               </div>
               <div className="carousel-item">
                 <Image
                   width={54}
                   height={54}
-                  src={petImage}
+                  src='/petImage-2.png'
                   alt="pet"
-                  className="bg-cover md:w-[95px] md:h-[95px]"
+                  className="bg-cover md:w-[95px] md:h-[95px] brightness-75"
                 />
               </div>
               <div className="carousel-item">
                 <Image
                   width={54}
                   height={54}
-                  src={petImage}
+                  src='/petImage-3.png'
                   alt="pet"
-                  className="bg-cover md:w-[95px] md:h-[95px]"
+                  className="bg-cover md:w-[95px] md:h-[95px] brightness-75"
                 />
               </div>
               <div className="carousel-item">
                 <Image
                   width={54}
                   height={54}
-                  src={petImage}
+                  src='/petImage-4.png'
                   alt="pet"
-                  className="bg-cover md:w-[95px] md:h-[95px]"
+                  className="bg-cover md:w-[95px] md:h-[95px] brightness-75"
                 />
               </div>
               <div className="carousel-item">
                 <Image
                   width={54}
                   height={54}
-                  src={petImage}
+                  src='/petImage-5.png'
                   alt="pet"
-                  className="bg-cover md:w-[95px] md:h-[95px]"
+                  className="bg-cover md:w-[95px] md:h-[95px] brightness-75"
                 />
               </div>
               <div className="carousel-item">
                 <Image
                   width={54}
                   height={54}
-                  src={petImage}
+                  src='/petImage-6.png'
                   alt="pet"
-                  className="bg-cover md:w-[95px] md:h-[95px]"
+                  className="bg-cover md:w-[95px] md:h-[95px] brightness-75"
                 />
               </div>
               <div className="carousel-item">
                 <Image
                   width={54}
                   height={54}
-                  src={petImage}
+                  src='/petImage-7.png'
                   alt="pet"
-                  className="bg-cover md:w-[95px] md:h-[95px]"
+                  className="bg-cover md:w-[95px] md:h-[95px] brightness-75"
                 />
               </div>
             </div>

@@ -1,4 +1,4 @@
-import { MouseEventHandler } from 'react'
+import React from 'react'
 
 type Props = {
   desde: number | undefined
@@ -9,9 +9,7 @@ type Props = {
         day: number
         status: boolean
       }[]
-  setDateFilter: (
-    day: number,
-  ) => MouseEventHandler<HTMLDivElement> | undefined
+  setDateFilter: (date: React.SetStateAction<number | null>) => void
 }
 
 const Weeks = ({ desde, hasta, data, setDateFilter }: Props) => {
@@ -42,14 +40,14 @@ export const Week = ({ desde, hasta, data, setDateFilter }: Props) => {
   }
 
   return (
-    <div className="flex justify-start font-medium text-sm pb-2 mb-9">
+    <div className="flex justify-start font-medium text-sm pb-2 mb-5">
       {data?.slice(desde, hasta).map((d, index) => (
         <span key={index} className="w-full flex justify-center items-center">
           {d.status === true && (
-            <div className="bg-white text-[#2F2D53] w-16 h-16 rounded-full border-4 border-[#2F2D53] hover:text-white hover:bg-[#2F2D53] cursor-pointer">
+            <div className="bg-white text-[#2F2D53] w-12 h-12 rounded-full border-4 border-[#2F2D53] hover:text-white hover:bg-[#2F2D53] cursor-pointer">
               <div
                 onClick={() => handleSetDay(d.day)}
-                className="flex text-2xl justify-center h-full text-center items-center"
+                className="flex text-xl justify-center h-full text-center items-center"
               >
                 {d.day}
               </div>
@@ -57,8 +55,8 @@ export const Week = ({ desde, hasta, data, setDateFilter }: Props) => {
           )}
           {data?.slice(desde, hasta).some((d) => d.status === true) &&
             d.status === false && (
-              <div className="bg-white text-base-300 w-16 h-16 rounded-full border-4 border-base-300">
-                <div className="flex text-2xl justify-center h-full text-center items-center">
+              <div className="bg-white text-base-300 w-12 h-12 rounded-full border-4 border-base-300">
+                <div className="flex text-xl justify-center h-full text-center items-center">
                   {d.day}
                 </div>
               </div>

@@ -1,23 +1,26 @@
-import UseToken from "@/app/hooks/token";
 
-export function uploadFile(file: File) {
-  const {token} = UseToken()
+import axios from "axios";
+
+
+export async function uploadFile(img: File) {
+  const token = localStorage.getItem("token");
   const formData = new FormData();
-  formData.append("file", file);
-  return fetch(
-    "https://s11-03-react-node-production.up.railway.app/api/v1/images/upload",
-    {
-      method: "POST",
-      body: formData,
-      headers: {
-        "Content-Type": "multipart/form-data",
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  ).then((response) => {
-    if (!response.ok) {
-      throw new Error("we will be back soon ");
-    }
-    return response.json();
-  });
+  formData.append("image", img);
+
+  try {
+    const response = await axios.post(
+      "https://s11-03-react-node-production.up.railway.app/api/v1/images/upload",
+      formData,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
 }
+

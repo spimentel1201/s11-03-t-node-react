@@ -2,6 +2,10 @@ import { Metadata } from "next/types";
 import MisMascostas from "./MisMascotas";
 import MiPerfil from "./miPerfil"
 import Page from "./[id]/page";
+import MascotaModal from "./mascotaModal/page";
+import CardContent from "./[id]/CardContent";
+import DeleteMascota from "./[id]/deleteMascota/page";
+import MascotaCreada from "./mascotaModal/mascotaCreada/page";
 
 export const metadata: Metadata = {
   title: "Mi perfil",
@@ -13,15 +17,14 @@ export default function PerfilLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div>
+    <div>  
       {children}
       <MiPerfil />
       <MisMascostas />
-      <Page
-        params={{
-          id: "",
-        }}
-      />
+      <MascotaModal />
+      <CardContent />
+      {/* <MascotaCreada /> */}
+      <DeleteMascota/>
       
     </div>
   );

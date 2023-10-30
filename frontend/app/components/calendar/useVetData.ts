@@ -3,7 +3,7 @@ import { vetDataService } from '../../_api/vetData'
 import { verificarCitasEnHorarios } from './helper'
 
 function crearFechaSinAjuste(fechaguardada: string) {
-  const fechaOriginal = new Date(fechaguardada);
+  const fechaOriginal = new Date(fechaguardada)
 
   const nuevaFecha = new Date(
     fechaOriginal.getUTCFullYear(),
@@ -12,22 +12,30 @@ function crearFechaSinAjuste(fechaguardada: string) {
     fechaOriginal.getUTCHours(),
     fechaOriginal.getUTCMinutes(),
     fechaOriginal.getUTCSeconds(),
-    fechaOriginal.getUTCMilliseconds()
-  );
+    fechaOriginal.getUTCMilliseconds(),
+  )
 
-  return nuevaFecha;
+  return nuevaFecha
 }
 
-const useVetData = (vetId: string, dia: number, mes: number, año: number, updateAppointments: boolean) => {
-  const [appointments, setAppointments] = useState(null)
+const useVetData = (
+  vetId: string | null,
+  dia: number | null,
+  mes: number,
+  año: number,
+  updateAppointments: boolean,
+) => {
+  const [appointments, setAppointments] = useState<any>(null)
+  const [veterinarioData, setVeterinarioData] = useState<
+    { fullname: string; speciality: string } | undefined
+  >(undefined)
 
   function transformarCita(cita: {
     start_time: string | number | Date
     reason: any
+    isActive: boolean
   }) {
-    
     const fecha = crearFechaSinAjuste(cita.start_time.toString())
-    // console.log(fecha)
 
     return {
       dia: fecha.getDate(),
@@ -36,18 +44,17 @@ const useVetData = (vetId: string, dia: number, mes: number, año: number, updat
       hora: fecha.getHours(),
       minuto: fecha.getMinutes(),
       razon: cita.reason,
+      isActive: cita.isActive,
     }
   }
 
   useEffect(() => {
-    const fetchData = async (id: string) => {
+    const fetchData = async (id: string | null) => {
       try {
         if (id) {
           const response: any = await vetDataService(id)
-          const apps = response.data.data.appointments
-          // console.log(apps)
+          const apps = response.data.data.appointments          
           const citasTransformed = apps.map(transformarCita)
-          // console.log(citasTransformed)
           const resp: any = verificarCitasEnHorarios(
             citasTransformed,
             dia,
@@ -55,6 +62,10 @@ const useVetData = (vetId: string, dia: number, mes: number, año: number, updat
             año,
           )
           setAppointments(resp)
+          setVeterinarioData({
+            fullname: response?.data?.data?.fullname,
+            speciality: response?.data?.data?.speciality,
+          })
         }
       } catch (error) {
         console.error('Error fetching data:', error)
@@ -64,9 +75,7 @@ const useVetData = (vetId: string, dia: number, mes: number, año: number, updat
     fetchData(vetId)
   }, [vetId, dia, año, mes, updateAppointments])
 
-  // console.log(appointments)
-
-  return { appointments }
+  return { appointments, veterinarioData }
 }
 
 export default useVetData

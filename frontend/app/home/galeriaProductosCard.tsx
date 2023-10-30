@@ -9,7 +9,7 @@ function GaleriaProductosCard({ src }: Props) {
   return (
     <div className="card gap-4">
       <figure>
-        <Image src={src} alt="Movie" width={450} height={200} />
+        <Image src={src} alt="Movie" width={0} height={0} sizes={"100vw"} className="w-[20rem]"/>
       </figure>
     </div>
   )

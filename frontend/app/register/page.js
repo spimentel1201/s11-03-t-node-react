@@ -8,17 +8,19 @@ import toast from 'react-hot-toast'
 import { verificar } from './verificar'
 import Link from 'next/link'
 import useErrors from './useErrors'
-import UseToken from '../hooks/token'
+import UseToken from '../hooks/useToken'
+import { useRouter } from 'next/navigation'
 
 const notifyOk = (msg) => toast.success(msg)
 const notifyError = (msg) => toast.error(msg)
 
 const Register = () => {
-  const [fullname, setFullname] = useState('John Doe Jr 2')
+  const [fullname, setFullname] = useState('John Doe Jr')
   const [email, setEmail] = useState('jhondoeJr@gmail.com')
   const [password, setPassword] = useState('Password123$')
   const [repeatPassword, setRepeatPassword] = useState('Password123$')
-  const { setToken} = UseToken()
+  const { setToken } = UseToken()
+  const router = useRouter()
 
   const {
     errors,
@@ -31,17 +33,15 @@ const Register = () => {
   } = useErrors()
 
   const resetTokenAndErrorRef = () => {
-    
     setToken(null)
     errorRef.current = false
   }
 
   const saveTokenAndResetData = (t) => {
-    
     setToken(t)
     setErrors('')
     errorRef.current = false
-  }  
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -49,12 +49,14 @@ const Register = () => {
     validarPassword(password)
     validarEmail(email)
     validarFullname(fullname)
-  
+
     if (errorRef.current != true) {
       const response = await registerService(fullname, email, password)
       if (response?.status === 201) {
         notifyOk('Register Exitoso')
         saveTokenAndResetData(response.data.data.token)
+        router.push('/')
+        router.refresh()
       } else {
         if (response.response.data.errors.message.includes('E11000')) {
           // notifyError('Prohibido hackear este sitio')

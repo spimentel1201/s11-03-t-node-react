@@ -1,43 +1,41 @@
-"use client";
+'use client'
 
-import { useState, useEffect } from "react";
-import Image from "next/image";
-import { getPetsService } from "@/app/_api/pets/pets";
+import { useState, useEffect } from 'react'
+import Image from 'next/image'
+import { getPetsService } from '@/app/_api/pets/pets'
 
 interface Pet {
-  _id: string;
-  name: string;
-  specie: string;
-  sex: string;
-  age: number;
-  photo_url: string;
+  _id: string
+  name: string
+  specie: string
+  sex: string
+  age: number
+  photo_url: string
 }
 
 interface ApiResponse {
   data: {
-    results: Pet[];
-  };
+    results: Pet[]
+  }
 }
 
 function PetsGallery() {
-  const [pets, setPets] = useState<Pet[]>([]);
+  const [pets, setPets] = useState<Pet[]>([])
 
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     async function fetchData() {
       try {
-        const data: ApiResponse = await getPetsService();
-        console.log("Datos de la API:", data.data.results);
-        setPets(data.data.results);
-        setLoading(false);
+        const data: ApiResponse = await getPetsService()
+        setPets(data.data.results)
+        setLoading(false)
       } catch (error) {
-        console.error("Error al obtener datos de la API: ", error);
-        setLoading(false);
+        setLoading(false)
       }
     }
-    fetchData();
-  }, []);
+    fetchData()
+  }, [])
 
   return (
     <div className="p-4">
@@ -67,7 +65,7 @@ function PetsGallery() {
                   <h2 className="text-xl font-semibold">{pet.name}</h2>
                   <p className="text-[#667085]">
                     {pet.sex},
-                    <span>{pet.age === 1 ? "Cachorro" : "Adulto"}</span>
+                    <span>{pet.age === 1 ? 'Cachorro' : 'Adulto'}</span>
                   </p>
                 </div>
               </div>
@@ -76,7 +74,7 @@ function PetsGallery() {
         </div>
       )}
     </div>
-  );
+  )
 }
 
-export default PetsGallery;
+export default PetsGallery
