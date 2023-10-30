@@ -3,7 +3,7 @@ import { FormEvent,  useState } from "react";
 import MascotaImage from "./mascotaImage";
 import RadioInput from "./radioInput";
 import SelectOption from "./selectoption";
-import SubmitButton from "./submitButton";
+import SubmitButton, { CancelarButton } from "./submitButton";
 import mascotaPost from "@/app/_api/mascota/mascotaPost";
 import { useImageMascota } from "@/app/store/mascota/ImageMascota";
 import { useRouter } from "next/navigation"; 
@@ -44,11 +44,11 @@ export default function FormContent() {
       });
       if (data?.data?.errors) {
         setState({
-          name: data?.data.errors.name ?data?.data.errors.name[0] : '',
+          name: data?.data.errors.name ? data?.data.errors.name[0] : '',
           age: data?.data.errors.age ? data?.data.errors.age[0] : '',
-          specie: data?.data.errors.specie ? data?.data.errorsspecie[0] : '',
+          specie: data?.data.errors.specie ? data?.data.errors.specie[0] : '',
           sex: data?.data.errors.sex ? data?.data.errors.sex[0] : '',
-          photo_url: data?.data.errors.photo_url ? data.data?.data.errors.photo_url[0] : '',
+          photo_url: data?.data.errors.photo_url ? data.data?.errors.photo_url[0] : '',
         });
         console.log(data, "success");
       } else {
@@ -56,6 +56,8 @@ export default function FormContent() {
         setUpdateMutations(true);
         form.reset();
         setState(initialState);
+        const modal = document.getElementById("my_modal_7") as HTMLDialogElement;
+        modal?.showModal();
         route.push("/perfil/mascotaModal/mascotaCreada", { scroll: false });
       }
     } catch (error) {
@@ -64,6 +66,7 @@ export default function FormContent() {
   }
   
   return (
+    <div>
     <form onSubmit={handleFormContent} className="flex flex-col">
       <MascotaImage />
       <label className='text-error'>{state?.photo_url}</label>
@@ -110,5 +113,7 @@ export default function FormContent() {
       <label className='text-error mt-1'>{state?.sex}</label>
       <SubmitButton />
     </form>
+    <CancelarButton />
+    </div>
   );
 }

@@ -34,13 +34,13 @@ export default function MisMascostas() {
       <div className="flex justify-center ">
         <h1 className="md:text-[32px] text-xl">Mis Mascostas</h1>
       </div>
-      <div className="flex justify-end gap-x-[7px] ">
-        <span onClick={handleClickAddMascota} className="cursor-pointer">
+      <div className="flex justify-end gap-x-[7px] items-center ">
+        <button onClick={handleClickAddMascota} className="cursor-pointer">
           <AddIcon />
-        </span>
-        <span className="cursor-pointer" onClick={handleClickDeleteMascota}>
+        </button>
+        <button className={`${params.id ? "cursor-pointer" : "opacity-40 cursor-not-allowed"}`} onClick={handleClickDeleteMascota}>
           <DeleteIcon />
-        </span>
+        </button>
       </div>
     </section>
   );

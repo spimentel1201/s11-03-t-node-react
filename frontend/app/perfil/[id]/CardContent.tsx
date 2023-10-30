@@ -3,57 +3,10 @@ import Image from "next/image";
 import ButtonLogic from "./buttonLogic";
 import { useEffect, useState } from "react";
 import CardLink from "./card";
-import { useRouter } from "next/navigation";
-import { useUpdateMutations } from "@/app/store/mascota/updateMutation";
-import { useImageMascota } from "@/app/store/mascota/ImageMascota";
-
-async function getClientById() {
-
-    try {
-    
-       const response = await fetch(
-         "https://s11-03-react-node-production.up.railway.app/api/v1/clients/profile",
-         {
-           headers: {
-             Authorization: `Bearer ${localStorage.getItem("token")}`,
-           },
-         }
-       );
-       const data = response.json();
-       return data;
-     } catch (error) {
-       console.error("Error fetching client data:", error);
-       throw error;
-     }
-   }
+import UserData from "@/app/hooks/perfil/userData";
 
    export default function CardContent(){
-     const [data, setData] = useState<any | null>(null);
-     const updateMutation = useUpdateMutations((state) => state.updateMutations)
-     const setUpdateMutation = useUpdateMutations((state) => state.setUpdateMutations)
-     
-     useEffect(() => {
-      const fetchData = async () => {
-        try {
-          const result = await getClientById();
-          setData(result)
-          console.log(result)
-        } catch (error) {
-          console.error('Error fetching data:', error);
-        }
-      };
-     
-     if(updateMutation){
-      setUpdateMutation(false)
-        fetchData(); 
-    } else {
-      fetchData(); 
-    }
-    
-    }, [updateMutation,setUpdateMutation]); 
-    
-
-    
+     const { data } =UserData()
     return (
       <div className="flex md:flex-row flex-col justify-center items-center md:justify-start mt-8 pt-8 pb-[104px] md:px-[104px] gap-x-[66px]">
         {data?.data?.pets?.map((pet:any) => ( 

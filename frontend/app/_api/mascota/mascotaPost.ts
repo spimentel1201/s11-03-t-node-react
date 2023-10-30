@@ -19,9 +19,10 @@ export default async function mascotaPost(mascota: Mascota) {
       }
     );
     return response;
-  } catch (error) {
-    
+  } catch (error:any) {
+    console.error(error);
       return error.response;
+      
     }
 
   }
