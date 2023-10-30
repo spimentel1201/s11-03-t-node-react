@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { useSelectedLayoutSegment } from "next/navigation";
+import { useRouter, useSelectedLayoutSegment } from "next/navigation";
 import { CheckSqueaare, UploadImage } from "../icons";
 
 export default function CardLink({
@@ -12,6 +12,7 @@ export default function CardLink({
 }) {
   const segment = useSelectedLayoutSegment();
   const isSelected = segment === id;
+  const route = useRouter()
 
   return (
     <div
@@ -27,7 +28,7 @@ export default function CardLink({
             <UploadImage />
           </span>
           {isSelected && (
-            <span className="">
+            <span className="" onClick={() => route.back()}>
               <CheckSqueaare />
             </span>
           )}

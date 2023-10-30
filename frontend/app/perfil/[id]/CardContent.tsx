@@ -41,7 +41,7 @@ import UserData from "@/app/hooks/perfil/userData";
                 {pet.sex}
               </span>
             </div>
-            <ButtonLogic />
+            <ButtonLogic petId={pet._id}/>
           </div>
         </CardLink>
         </div>
