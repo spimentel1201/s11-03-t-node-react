@@ -2,10 +2,11 @@ import Image from 'next/image'
 import petsHome from '../../assets/petsHome-big.png'
 import Link from 'next/link'
 import { FingerPrint, BiggerFingerprint } from '../icons'
+import Balancer from 'react-wrap-balancer'
 
 export default function agendarTurnoSection() {
   return (
-    <div className="flex flex-col-reverse items-center justify-center xl:flex-row px-10 bg-secondary-content">
+    <div className="flex items-center justify-center px-10 bg-secondary-content">
       <div className="relative w-full max-w-[90rem]">
         <section
           className="relative bg-secondary-content flex flex-col 
@@ -23,17 +24,16 @@ export default function agendarTurnoSection() {
           <Image
             src={petsHome}
             alt="Pets Home"
-            width={817}
-            height={400}
-            className="md:absolute md:bottom-[-8px] md:right-[70px] md:w-[750px] bg-cover"
+            width={0}
+            height={0}
+            sizes='100vw'
+            priority={true}
+            className="w-[25rem] md:w-[25rem] lg:w-[40rem] 2xl:w-[50rem] h-auto md:absolute md:bottom-[-8px] md:right-[70px] bg-cover"
           />
           <h1
             className="text-[#062D3E] text-[20px] leading-[26px] 
-      font-normal text-center mt-5 md:text-6xl md:text-left"
-          >
-            No hay nada más <br />
-            importante para nosotros que
-            <br /> tu mascota
+      font-normal text-center mt-5 md:text-6xl md:text-left max-w-3xl"
+          ><Balancer> No hay nada más importante para nosotros que tu mascota</Balancer>
           </h1>
           <p
             className="text-center text-gray-500 

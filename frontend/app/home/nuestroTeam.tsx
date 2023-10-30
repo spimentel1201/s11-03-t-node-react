@@ -41,8 +41,8 @@ async function NuestroTeam({ rows = 1 }) {
   const vets = await getData()
 
   return (
-    <div className="flex flex-col-reverse items-center justify-center xl:flex-row px-10 pb-24 bg-secondary">
-      <div className="max-w-[90rem]">
+    <div className="block px-10 pb-24 bg-secondary">
+      <div className="max-w-[90rem] m-auto">
         <h4 className="text-center mt-20 text-accent font-bold">
           Profesionales
         </h4>

@@ -20,7 +20,7 @@ export default function DropDownWithLogin(){
             <Link href={"/perfil"}>Mi Perfil</Link>
           </li>
           <li>
-            <Link href={"#"}>Historial de turnos</Link>
+            <Link href={"/agenda/activas"}>Ver Citas Solicitas</Link>
           </li>
           <li >
             <Link href={"#"} onClick={handleUpdateToken}>Cerrar sesion</Link>

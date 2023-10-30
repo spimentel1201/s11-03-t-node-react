@@ -17,7 +17,7 @@ const notifyOk = (msg) => toast.success(msg)
 const notifyError = (msg) => toast.error(msg)
 
 const Login = () => {
-  const [email, setEmail] = useState('jhondoe@gmail.com')
+  const [email, setEmail] = useState('julianalvarez@gmail.com')
   const [password, setPassword] = useState('Password123$')
   const { setToken } = UseToken()
   const router = useRouter()

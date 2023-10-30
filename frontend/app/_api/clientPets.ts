@@ -13,8 +13,7 @@ export const clientPetsService = async (token: string) => {
       },
     })
     return res
-  } catch (error) {
-    console.log(error)
+  } catch (error) {    
     return error
   }
 }

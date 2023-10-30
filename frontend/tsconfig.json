@@ -22,6 +22,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/home/navBar/navBar.tsx", "app/components/calendar/calendar.jsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/home/navBar/navBar.tsx", "app/components/calendar/calendar.tsx", "app/components/agenda/agendaCitasListado.jsx"],
   "exclude": ["node_modules"]
 }
