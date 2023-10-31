@@ -37,5 +37,3 @@ export default function UseToken(){
     
     return{token, data, setToken, handleUpdateToken}
 }
-
-

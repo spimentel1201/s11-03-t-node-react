@@ -41,9 +41,6 @@ const AgendaCitas = ({ token, filtro }: Props) => {
             />
           </div>
         ))}
-      {appointmentsByPets && appointmentsByPets?.length == 0 && (
-        <h2 className="text-sm mb-4 text-center">No hay citas agendadas</h2>
-      )}
     </div>
   )
 }

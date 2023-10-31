@@ -8,8 +8,7 @@ export default function RootLayout({
 }) {
   return (
     <div>
-      {children}
-      <AgendarTurnoSection />
+      {children}      
       <Footer />
     </div>
   )

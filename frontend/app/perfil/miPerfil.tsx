@@ -1,28 +1,22 @@
-"use client";
-import Image from "next/image";
-import UserData from "../hooks/perfil/userData";
+'use client'
+import Image from 'next/image'
+import UserData from '../hooks/perfil/userData'
+import { useRouter } from 'next/navigation'
+import UseToken from '@/app/hooks/useToken'
+import UseTokenValidity from '@/app/hooks/useTokenValidity'
+import { useEffect } from 'react'
 
 export default function MiPerfil() {
-  // const [image, setImage] = useState<string | null>(null);
-  // const fileInputRef = useRef<HTMLInputElement>(null);
+  const { token } = UseToken()
+  const router = useRouter()
+  UseTokenValidity(token)
+  useEffect(() => {
+    !token && router.push('/')
+  }, [token])
 
-  // const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
-  //   const selectFile = event.target.files && event.target.files[0];
+  const { data } = UserData()
 
-  //   if (selectFile) {
-  //     uploadFile(selectFile)
-  //     .then((data) => {
-  //       setImage(data.photo_url);
-  //     });
-  //   }
-  // };
-  // const handleIconClick = () => {
-  //   if (fileInputRef.current) {
-  //     fileInputRef.current.click();
-  //   }
-  // };
-  const { data } = UserData();
-  console.log(data);
+  console.log(data)
 
   return (
     <section className="md:px-[82px] px-[19px]">
@@ -35,7 +29,10 @@ export default function MiPerfil() {
       md:px-[264px] md:gap-x-[79px] py-[22px] "
       >
         <Image
-          src={data?.data.photo_url || "https://res.cloudinary.com/dxq0pypxu/image/upload/v1696476957/nn12qmebo7v6qhbwbkdf.png"}
+          src={
+            data?.data.photo_url ||
+            'https://res.cloudinary.com/dxq0pypxu/image/upload/v1696476957/nn12qmebo7v6qhbwbkdf.png'
+          }
           width={90}
           height={90}
           priority
@@ -56,5 +53,5 @@ export default function MiPerfil() {
         </div>
       </div>
     </section>
-  );
+  )
 }
