@@ -129,7 +129,7 @@ const AgendaCitasListado = ({
             <div className="w-full p-4">
               <div className="flex flex-col lg:flex-row justify-between">
                 <section className="flex flex-col w-full">
-                  <div className="font-inter text-xl font-bold w-full">                    
+                  <div className="font-inter text-xl font-bold w-full">
                     {formatearFecha(a.start_time).fecha}
                   </div>
                   <div className="p-2 lg:p-4">
@@ -152,7 +152,8 @@ const AgendaCitasListado = ({
                           {getInfoById(a.veterinarianId).speciality}
                         </h3>
                         <div className="font-bold mt-1">
-                          Motivo de la cita: <span className="font-normal">{a.reason}</span>
+                          Motivo de la cita:{' '}
+                          <span className="font-normal">{a.reason}</span>
                         </div>
                         {/*
                       <div className="font-bold">Notas: {a.notes}</div>
@@ -164,7 +165,10 @@ const AgendaCitasListado = ({
                   </div>
                 </section>
                 <section className="flex flex-col w-full sm:items-start justify-end gap-2 p-2 lg:p-4">
-                  <div className="self-center sm:self-stretch"> {formatearFecha(a.start_time).hora}</div>
+                  <div className="self-center sm:self-stretch">
+                    {' '}
+                    {formatearFecha(a.start_time).hora}
+                  </div>
                   <div
                     className={
                       a.isActive
@@ -181,6 +185,26 @@ const AgendaCitasListado = ({
           )}
         </div>
       ))}
+      {appointments.filter((a) => a.isActive == true).length == 0 && (
+        <>
+          <div className="p-2 lg:p-4">
+            <div className="flex items-center gap-4">
+              <Image
+                src={image}
+                width={0}
+                height={0}
+                sizes="100vw"
+                className="w-10 h-auto rounded-full"
+                alt="imagen de mascota"
+              />
+              <div className="font-bold top-6 capitalize">{name}</div>
+              <div className="text-sm top-6 text-center">
+                No tiene citas programadas                
+              </div>
+            </div>
+          </div>
+        </>
+      )}
     </>
   )
 }
