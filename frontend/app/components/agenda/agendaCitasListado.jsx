@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import { deleteAppointment } from '@/app/_api/appointment'
 import toast, { Toaster } from 'react-hot-toast'
+import Link from 'next/link'
 
 const notifyOk = (msg) => toast.success(msg)
 const notifyError = (msg) => toast.error(msg)
@@ -122,7 +123,7 @@ const AgendaCitasListado = ({
 
   return (
     <>
-      <Toaster />
+      <Toaster />      
       {appointments.map((a, index) => (
         <div key={index}>
           {a.isActive == filtro && (
@@ -155,25 +156,19 @@ const AgendaCitasListado = ({
                           Motivo de la cita:{' '}
                           <span className="font-normal">{a.reason}</span>
                         </div>
-                        {/*
-                      <div className="font-bold">Notas: {a.notes}</div>
-                      <div className="font-bold">
-                        Estado de la cita: {a.isActive ? 'Activa' : 'Cancelada'}
-                      </div> */}
                       </div>
                     </div>
                   </div>
                 </section>
                 <section className="flex flex-col w-full sm:items-start justify-end gap-2 p-2 lg:p-4">
                   <div className="self-center sm:self-stretch">
-                    {' '}
                     {formatearFecha(a.start_time).hora}
                   </div>
                   <div
                     className={
                       a.isActive
-                        ? 'btn btn-accent flex flex-col capitalize'
-                        : 'btn btn-disabled flex flex-col capitalize disabled'
+                        ? 'btn btn-accent flex flex-col capitalize w-36'
+                        : 'btn btn-disabled flex flex-col capitalize disabled w-36'
                     }
                     onClick={() => handleDeleteAppointment(a._id)}
                   >
@@ -185,26 +180,46 @@ const AgendaCitasListado = ({
           )}
         </div>
       ))}
-      {appointments.filter((a) => a.isActive == true).length == 0 && (
-        <>
-          <div className="p-2 lg:p-4">
-            <div className="flex items-center gap-4">
-              <Image
-                src={image}
-                width={0}
-                height={0}
-                sizes="100vw"
-                className="w-10 h-auto rounded-full"
-                alt="imagen de mascota"
-              />
-              <div className="font-bold top-6 capitalize">{name}</div>
-              <div className="text-sm top-6 text-center">
-                No tiene citas programadas                
+      {appointments.filter((a) => a.isActive == true).length == 0 &&
+       <div className="w-full p-4">
+        <div className="flex flex-col lg:flex-row justify-between">
+          <section className="flex flex-col w-full">
+            
+            <div className="p-2 lg:p-4">
+              <div className="flex items-center gap-4">
+                <Image
+                  src={image}
+                  width={0}
+                  height={0}
+                  sizes="100vw"
+                  className="w-10 h-auto rounded-full"
+                  alt="imagen de mascota"
+                />
+                <div className="font-bold top-6 capitalize">{name}</div>
+              </div>
+
+              <div className="flex">
+                <div className="flex flex-col w-[35rem] mt-2">
+                
+                No tiene citas programadas
+              
+                </div>
               </div>
             </div>
-          </div>
-        </>
-      )}
+          </section>
+          <section className="flex flex-col w-full sm:items-start justify-end gap-2 p-2 lg:p-4">
+            
+            <div
+              className={               
+                  'btn btn-accent flex flex-col capitalize w-36'                 
+              }              
+            >
+              <div>Pedir Cita</div>
+            </div>
+          </section>
+        </div>
+      </div>}   
+      <div className="divider"></div>
     </>
   )
 }
