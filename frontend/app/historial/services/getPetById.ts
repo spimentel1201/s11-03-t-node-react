@@ -5,6 +5,6 @@ export const getPetById = (id: string) => {
       .then((response) => response.json())
       .then((data) => data);
   } catch (err) {
-    console.log(err);
+    return err;
   }
 };

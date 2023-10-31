@@ -50,9 +50,9 @@ export default function FormContent() {
           sex: data?.data.errors.sex ? data?.data.errors.sex[0] : '',
           photo_url: data?.data.errors.photo_url ? data.data?.errors.photo_url[0] : '',
         });
-        console.log(data, "success");
+       
       } else {
-        console.log(data, "error");
+        
         setUpdateMutations(true);
         form.reset();
         setState(initialState);
@@ -111,7 +111,7 @@ export default function FormContent() {
        <label className='text-error mt-1'>{state?.age}</label>
       <RadioInput />
       <label className='text-error mt-1'>{state?.sex}</label>
-      <SubmitButton />
+      <SubmitButton text="Agregar Mascotas"/>
     </form>
     <CancelarButton />
     </div>

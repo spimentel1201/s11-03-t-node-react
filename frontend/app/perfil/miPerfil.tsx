@@ -1,28 +1,17 @@
 "use client";
 import Image from "next/image";
 import UserData from "../hooks/perfil/userData";
+import { useRouter } from "next/navigation";
 
 export default function MiPerfil() {
-  // const [image, setImage] = useState<string | null>(null);
-  // const fileInputRef = useRef<HTMLInputElement>(null);
-
-  // const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
-  //   const selectFile = event.target.files && event.target.files[0];
-
-  //   if (selectFile) {
-  //     uploadFile(selectFile)
-  //     .then((data) => {
-  //       setImage(data.photo_url);
-  //     });
-  //   }
-  // };
-  // const handleIconClick = () => {
-  //   if (fileInputRef.current) {
-  //     fileInputRef.current.click();
-  //   }
-  // };
   const { data } = UserData();
-  console.log(data);
+  const route = useRouter()
+
+  const handleClickGoToEditProfile = () =>{
+    const modal = document.getElementById("my_modal_9") as HTMLDialogElement;
+        modal?.showModal();
+        route.push('/perfil/editarPerfil',{scroll:false})
+  }  
 
   return (
     <section className="md:px-[82px] px-[19px]">
@@ -50,7 +39,7 @@ export default function MiPerfil() {
           <span className="md:text-3xl font-normal font-inter">
             {data?.data.email}
           </span>
-          <button className=" px-[31px] py-[17px]  text-primary rounded-md border bg-accent border-accent">
+          <button onClick={handleClickGoToEditProfile} className=" md:h-[62px] h-[33px] btn btn-accent capitalize text-primary rounded-md border bg-accent border-accent">
             Editar Perfil
           </button>
         </div>

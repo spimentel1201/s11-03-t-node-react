@@ -1,7 +1,6 @@
 'use client'
 import Image from 'next/image'
 import ButtonLogic from './buttonLogic'
-import { useEffect, useState } from 'react'
 import CardLink from './card'
 import UserData from '@/app/hooks/perfil/userData'
 
@@ -12,7 +11,7 @@ export default function CardContent() {
       {data?.data?.pets?.map((pet: any) => (
         <div key={pet._id} className="">
           <CardLink id={pet._id}>
-            <div className="flex flex-col items-center justify-center mt-3 ">
+            <div className="flex flex-col items-center justify-center mt-3 ">         
               <Image
                 src={pet.photo_url}
                 width={150}

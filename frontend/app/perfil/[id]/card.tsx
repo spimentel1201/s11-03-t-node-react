@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { useRouter, useSelectedLayoutSegment } from "next/navigation";
 import { CheckSqueaare, UploadImage } from "../icons";
+import { MouseEventHandler } from "react";
 
 export default function CardLink({
   id,
@@ -13,6 +14,11 @@ export default function CardLink({
   const segment = useSelectedLayoutSegment();
   const isSelected = segment === id;
   const route = useRouter()
+  const handleDeleteSelect:MouseEventHandler<HTMLSpanElement> = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    route.push("/perfil",{scroll:false})
+  }
 
   return (
     <div
@@ -28,7 +34,7 @@ export default function CardLink({
             <UploadImage />
           </span>
           {isSelected && (
-            <span className="" onClick={() => route.back()}>
+            <span className="" onClick={handleDeleteSelect}>
               <CheckSqueaare />
             </span>
           )}
