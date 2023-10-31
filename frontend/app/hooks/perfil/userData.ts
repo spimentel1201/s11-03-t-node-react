@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 
 export default function UserData(){
     const [data, setData] = useState<any | null>(null);
+    const [userId, setUserId] = useState<number | null>(null);
      const updateMutation = useUpdateMutations((state) => state.updateMutations)
      const setUpdateMutation = useUpdateMutations((state) => state.setUpdateMutations)
      
@@ -12,9 +13,9 @@ export default function UserData(){
         try {
           const result = await getClientById();
           setData(result)
-          console.log(result)
+          setUserId(result.data._id)
         } catch (error) {
-          console.error('Error fetching data:', error);
+          return error
         }
       };
      
@@ -27,6 +28,6 @@ export default function UserData(){
     
     }, [updateMutation,setUpdateMutation]); 
     
-    return {data}
+    return {data,userId}
 
 }
