@@ -40,7 +40,7 @@ export function Consultas() {
       </label>
       <input
         type="text"
-        placeholder="vetcare@gmail.com"
+        placeholder="vetcarefamily@gmail.com"
         className="w-[318px] 
       h-[62px] px-[23px] py-[21px] bg-gray-100 rounded-md border
        border-gray-200 md:w-full"

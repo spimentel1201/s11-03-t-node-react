@@ -23,13 +23,13 @@ export default function NavBar() {
           <span className="text-2xl font-[Poppins] cursor-pointer md:hidden">
             <VetcareIcon />
           </span>
-          <span className="hidden md:block text-accent text-2xl font-normal">
+          <span className="hidden md:block text-accent text-2xl leading-[38px] font-normal font-['Mochiy Pop One'] tracking-widest">
             Vet
           </span>
-          <span className="hidden md:block">
+          <span className="hidden md:block ">
             <VetcareIcon />
           </span>
-          <span className="hidden md:block text-accent text-2xl font-normal">
+          <span className="hidden md:block text-accent text-2xl font-normal leading-[38px] font-['Mochiy Pop One'] tracking-widest">
             care
           </span>
         </div>
