@@ -41,9 +41,9 @@ async function NuestroTeam({ rows = 1 }) {
   const vets = await getData()
 
   return (
-    <div className="block px-10 pb-24 bg-secondary">
+    <div className="block px-10 pb-24 bg-secondary pt-24">
       <div className="max-w-[90rem] m-auto">
-        <h4 className="text-center mt-20 text-accent font-bold">
+        <h4 className="text-center text-accent font-bold">
           Profesionales
         </h4>
         <h1 className="text-center text-xl xl:text-3xl mt-2 font-bold mb-10">

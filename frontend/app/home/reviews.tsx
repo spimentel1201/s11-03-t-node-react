@@ -1,9 +1,4 @@
 'use client'
-
-// import { MdOutlineArrowBackIos, MdOutlineArrowForwardIos } from 'react-icons/md'
-// import 'slick-carousel/slick/slick-theme.css'
-// import 'slick-carousel/slick/slick.css'
-// import { FaStar } from 'react-icons/fa'
 import Image from 'next/image'
 import React, { useRef } from 'react'
 import reviewsData from './reviews.json'
@@ -42,7 +37,16 @@ export default function Reviews() {
   const renderStars = (rating: number) => {
     const stars = []
     for (let i = 1; i <= rating; i++) {
-      stars.push(<div key={i} className="mr-1 text-warning text-[20px]" />)
+      stars.push(
+        <div key={i} className="mr-1 text-warning text-[20px]">
+          <Image
+            src="/icons/star.svg"
+            width={20}
+            height={20}
+            alt="Go back icon"
+          />
+        </div>,
+      )
     }
     return stars
   }
@@ -51,7 +55,7 @@ export default function Reviews() {
     <div className="w-full relative bg-[#F8F0EE] pt-24 pb-28">
       <section className="max-w-[90rem] m-auto">
         <section className="flex justify-between items-center mb-[45px]">
-          <h2 className="text-lg lg:text-4xl font-semibold font-title">
+          <h2 className="text-lg lg:text-4xl font-semibold font-title ml-2">
             Nuestros Clientes
           </h2>
           <div className="flex gap-3">
@@ -59,13 +63,23 @@ export default function Reviews() {
               className="text-white bg-accent rounded-full w-10 h-10 flex items-center justify-center"
               onClick={prevSlide}
             >
-              {/* {<MdOutlineArrowBackIos />} */}
+              <Image
+                src="/icons/left.svg"
+                width={7}
+                height={7}
+                alt="Go back icon"
+              />
             </button>
             <button
-              className="text-white bg-accent rounded-full w-10 h-10 flex items-center justify-center"
+              className="text-white bg-accent rounded-full w-10 h-10 flex items-center justify-center mr-2"
               onClick={nextSlide}
             >
-              {/* {<MdOutlineArrowForwardIos />} */}
+              <Image
+                src="/icons/right.svg"
+                width={7}
+                height={7}
+                alt="Go back icon"
+              />
             </button>
           </div>
         </section>
