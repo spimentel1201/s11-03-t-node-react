@@ -45,7 +45,7 @@ const ListItemType2 = ({start, end}:{start: number, end: number}) => (
 
 export default function SobreNosotros() {
   return (
-    <section className="flex flex-col items-center justify-center gap-4 md:flex-row md:items-start md:gap-x-[200px] pt-24">
+    <section className="flex flex-col items-center justify-center gap-4 md:flex-row md:items-start md:gap-x-[200px] pt-24 mb-24">
       <div className="relative">
         <Image
           src={aboutDot}

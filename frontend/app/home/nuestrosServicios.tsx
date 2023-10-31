@@ -47,8 +47,8 @@ const data: NuestrosServicios[] = [
 
 export default function NuestrosServicios() {
   return (
-    <section className="bg-secondary-content flex flex-col items-center justify-center mb-[19px] pt-14">
-      <div className="flex flex-row justify-center items-center gap-x-2 mb-[18px]">
+    <section className="bg-secondary-content flex flex-col items-center justify-center pt-24">
+      <div className="flex flex-row justify-center items-center gap-x-2">
         <span>
           <Services />
         </span>
@@ -56,10 +56,10 @@ export default function NuestrosServicios() {
           Servicios
         </h1>
       </div>
-      <h2 className=" text-center text-slate-700 text-xl font-normal font-secular mb-[26px]">
-        Nuestros Servicios
+      <h2 className=" text-center text-slate-700 text-3xl font-normal font-secular mb-[26px]">
+        Nuestros servicios
       </h2>
-      <div className="md:flex md:flex-row md:gap-x-[18px] md:pb-[124px]">
+      <div className="md:flex md:flex-row md:gap-x-[18px] md:pb-24">
         {data.map((item, index) => (
           <div key={index}>
             <div className="w-[306px] h-[286px] bg-amber-50 rounded-[15px] shadow px-[18px] py-[18px] mb-[18px]">

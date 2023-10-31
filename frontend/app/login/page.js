@@ -17,28 +17,28 @@ const Login = () => {
   const [email, setEmail] = useState('julianalvarez@gmail.com')
   const [password, setPassword] = useState('Password123$')
   const { setToken } = UseToken()
-  const router = useRouter() 
+  const router = useRouter()
 
   const { errors, setErrors, errorRef, validarEmail, validarPassword } =
     useErrors()
 
   const resetTokenAndErrorRef = () => {
     if (typeof window !== 'undefined' && window.localStorage) {
-      localStorage.removeItem('token');
+      localStorage.removeItem('token')
       setToken(null)
     }
-    
+
     errorRef.current = false
   }
 
   const saveTokenAndResetData = (t) => {
-    if (typeof window !== "undefined" && window.localStorage) {
-      localStorage.setItem("token",t)
+    if (typeof window !== 'undefined' && window.localStorage) {
+      localStorage.setItem('token', t)
       setToken(t)
       setErrors('')
-    errorRef.current = false
+      errorRef.current = false
+    }
   }
-}
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -64,7 +64,7 @@ const Login = () => {
   }
 
   return (
-    <>      
+    <>
       <Container>
         <form onSubmit={handleSubmit} className="min-w-[414px]">
           <div className="card flex-shrink-0 w-full min-w-sm bg-base-300">
@@ -80,7 +80,7 @@ const Login = () => {
               <InputAuth
                 title="E-mail"
                 type="text"
-                placeholder="vetcare@gmail"
+                placeholder="vetcarfamily@gmail.comgmail"
                 value={email}
                 changeValue={setEmail}
                 error={errors?.email}
