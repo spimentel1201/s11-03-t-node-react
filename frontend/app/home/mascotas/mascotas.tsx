@@ -6,10 +6,10 @@ export default function Mascotas() {
     <div className="bg-background bg-cover flex flex-col-reverse items-center justify-center xl:flex-row px-10 bg-secondary-content">
       <div className="relative max-w-[90rem]">
         <section className="h-[149px] md:h-[186px]">
-          <div className="flex flex-col md:flex-row ">
+          <div className="flex flex-col md:flex-row mt-2">
             <h2
               className=" text-slate-700 text-xl font-normal 
- font-secular text-center mt-[26px] mb-3 md:mt-[60px]"
+ font-secular text-center mt-6 mb-3 md:mt-16"
             >
               Más de{' '}
               <span className="md:text-slate-700 md:text-[26px]">

@@ -13,11 +13,11 @@ export default async function Historial({
 }: {
   params: { petId: string };
 }) {
-  const pet = await fetchPet(params.petId);
+  const response:any = await fetchPet(params.petId);
 
   return (
     <div className="relative flex flex-col h-[100vh]">
-      <HistorySection pet={pet?.data} />
+      <HistorySection pet={response?.data} />
       <Footer />
     </div>
   );

@@ -1,14 +1,17 @@
-"use client"
-import { addConsulta } from "@/app/_api/consulta";
-import SubmitButton from "./submitButton";
-import {Toaster}from 'react-hot-toast';
-import { useConsultas } from "@/app/hooks/home/consultas";
+'use client'
+import { addConsulta } from '@/app/_api/consulta'
+import SubmitButton from './submitButton'
+import { Toaster } from 'react-hot-toast'
+import { useConsultas } from '@/app/hooks/home/consultas'
 
 export function Consultas() {
-  const{handleSubmit,state} = useConsultas()
- 
+  const { handleSubmit, state } = useConsultas()
+
   return (
-    <form  onSubmit={handleSubmit} className="flex flex-col bg-primary md:w-[856px] md:h-[708px] md:p-12">
+    <form
+      onSubmit={handleSubmit}
+      className="flex flex-col bg-primary md:w-[856px] md:h-[708px] md:p-12"
+    >
       <h1
         className="w-[292px] text-center md:text-left text-slate-700 text-xl md:text-3xl 
       font-normal font-secular mb-[47px]"
@@ -28,9 +31,9 @@ export function Consultas() {
         className="w-[318px] 
       h-[62px] px-[23px] py-[21px] bg-gray-100 rounded-md border
        border-gray-200  md:w-full"
-       name="fullname"
+        name="fullname"
       />
-      <label className='text-error'>{state?.fullname}</label>
+      <label className="text-error">{state?.fullname}</label>
       <label
         htmlFor=""
         className="text-slate-800 text-base font-medium 
@@ -40,13 +43,13 @@ export function Consultas() {
       </label>
       <input
         type="text"
-        placeholder="vetcare@gmail.com"
+        placeholder="vetcarefamily@gmail.com"
         className="w-[318px] 
       h-[62px] px-[23px] py-[21px] bg-gray-100 rounded-md border
        border-gray-200 md:w-full"
         name="email"
       />
-      <label className='text-error'>{state?.email}</label>
+      <label className="text-error">{state?.email}</label>
       <label
         htmlFor=""
         className="text-slate-800 text-base font-medium 
@@ -59,8 +62,8 @@ export function Consultas() {
       border-gray-200 md:w-full"
         name="message"
       />
-      <label className='text-error'>{state?.message}</label>
-      <SubmitButton  />
+      <label className="text-error">{state?.message}</label>
+      <SubmitButton />
     </form>
-  );
+  )
 }

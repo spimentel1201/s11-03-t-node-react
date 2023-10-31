@@ -1,22 +1,28 @@
-'use client'
-import Image from 'next/image'
-import UserData from '../hooks/perfil/userData'
-import { useRouter } from 'next/navigation'
+"use client";
+import Image from "next/image";
+import UserData from "../hooks/perfil/userData";
+import { useRouter } from "next/navigation";
 import UseToken from '@/app/hooks/useToken'
 import UseTokenValidity from '@/app/hooks/useTokenValidity'
 import { useEffect } from 'react'
 
 export default function MiPerfil() {
+  const { data } = UserData();
+  const route = useRouter()
+  const handleClickGoToEditProfile = () =>{
+    const modal = document.getElementById("my_modal_9") as HTMLDialogElement;
+        modal?.showModal();
+        route.push('/perfil/editarPerfil',{scroll:false})
+  }  
   const { token } = UseToken()
-  const router = useRouter()
   UseTokenValidity(token)
   useEffect(() => {
-    !token && router.push('/')
+    !token && route.push('/')
   }, [token])
 
-  const { data } = UserData()
+ 
 
-  console.log(data)
+ 
 
   return (
     <section className="md:px-[82px] px-[19px]">
@@ -47,7 +53,7 @@ export default function MiPerfil() {
           <span className="md:text-3xl font-normal font-inter">
             {data?.data.email}
           </span>
-          <button className=" px-[31px] py-[17px]  text-primary rounded-md border bg-accent border-accent">
+          <button onClick={handleClickGoToEditProfile} className=" md:h-[62px] h-[33px] btn btn-accent capitalize text-primary rounded-md border bg-accent border-accent">
             Editar Perfil
           </button>
         </div>

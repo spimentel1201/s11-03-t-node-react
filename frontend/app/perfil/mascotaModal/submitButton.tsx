@@ -1,21 +1,19 @@
-"use client";
-import { useUpdateMutations } from "@/app/store/mascota/updateMutation";
-import { error } from "console";
+"use client"
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
-export default function SubmitButton() {
 
-  const updateMutations = useUpdateMutations((state) => state.updateMutations)
+export default function SubmitButton({text}: {text: string}) {
+
+  
   
   return (
     <section className="mt-[26px]">
-      <div className="w-full h-[67px] mb-[23px] bg-orange-500 rounded-md border border-orange-500 flex-col justify-center items-center inline-flex">
+      <div className="w-full h-[67px] mb-[23px] btn btn-accent bg-orange-500 rounded-md border border-orange-500 flex-col justify-center items-center inline-flex">
         <button
           
           type="submit"
           className="text-center text-white  leading-7"
         >
-          Agregar Mascota
+         {text}
         </button>
       </div>
     </section>

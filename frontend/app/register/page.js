@@ -90,7 +90,7 @@ const Register = () => {
             <InputAuth
               title="E-mail"
               type="text"
-              placeholder="vetcare@gmail"
+              placeholder="vetcarfamily@gmail.comgmail"
               value={email}
               changeValue={setEmail}
               error={errors?.email}
