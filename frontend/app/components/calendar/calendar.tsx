@@ -130,6 +130,7 @@ const Calendar = () => {
           año={yearState.toString()}
         />
       )}
+
       <div className="mt-4">
         <div className="flex flex-col mx-1 border-b-2">
           <div>
@@ -159,8 +160,15 @@ const Calendar = () => {
             />
           </div>
         </div>
-        <div ref={horariosRef} className="pt-14"></div>
+        <div ref={horariosRef} className="pt-10"></div>
         <div className="flex flex-col justify-between font-medium text-sm text-center">
+          <div>
+            {!token && (
+              <div className="text-inter text-xl text-center p-2 bg-accent text-accent-content mb-4">
+                Tienes que loguearte para poder agendar un cita
+              </div>
+            )}
+          </div>
           {dateFilter && (
             <h2 className="text-3xl mb-4 font-bold">
               {dateFilter} de {months[monthState].mes}
@@ -187,13 +195,7 @@ const Calendar = () => {
                           <div className="p-2 w-24">
                             {format00(a.hora, a.minuto)}
                           </div>
-                          <div className="btn btn-secondary text-black border-2 border-black w-30 no-animation"
-                          onClick={() => {
-                            setHorarioSelected(format00(a.hora, a.minuto))
-                            horarioSelectedPlus30.current = a.minuto + 30
-                            if (token) setShowModal(true)
-                          }}                          
-                          >
+                          <div className="btn btn-secondary text-black border-2 border-black w-30 no-animation">
                             <div className="flex flex-col">
                               <div>NO DISPONIBLE</div>
                               {/* <div>

@@ -9,9 +9,6 @@ import Link from 'next/link'
 import useErrors from './useErrors'
 import { useRouter } from 'next/navigation'
 import UseToken from '../hooks/useToken'
-import Calendar from '../components/calendar/calendar'
-
-
 
 const notifyOk = (msg) => toast.success(msg)
 const notifyError = (msg) => toast.error(msg)
@@ -20,8 +17,7 @@ const Login = () => {
   const [email, setEmail] = useState('julianalvarez@gmail.com')
   const [password, setPassword] = useState('Password123$')
   const { setToken } = UseToken()
-  const router = useRouter()
- 
+  const router = useRouter() 
 
   const { errors, setErrors, errorRef, validarEmail, validarPassword } =
     useErrors()
