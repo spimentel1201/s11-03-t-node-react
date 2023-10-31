@@ -4,14 +4,18 @@ import UserData from '../hooks/perfil/userData'
 import { useRouter } from 'next/navigation'
 import UseToken from '@/app/hooks/useToken'
 import UseTokenValidity from '@/app/hooks/useTokenValidity'
+import { useEffect } from 'react'
 
 export default function MiPerfil() {
   const { token } = UseToken()
   const router = useRouter()
   UseTokenValidity(token)
-  !token && router.push('/')
+  useEffect(() => {
+    !token && router.push('/')
+  }, [token])
 
   const { data } = UserData()
+
   console.log(data)
 
   return (
