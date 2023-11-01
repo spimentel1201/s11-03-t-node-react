@@ -9,6 +9,8 @@ import Link from 'next/link'
 import useErrors from './useErrors'
 import { useRouter } from 'next/navigation'
 import UseToken from '../hooks/useToken'
+import { useLoader } from '../hooks/useLoader'
+import { Loader } from '../components/loader'
 
 const notifyOk = (msg) => toast.success(msg)
 const notifyError = (msg) => toast.error(msg)
@@ -18,6 +20,7 @@ const Login = () => {
   const [password, setPassword] = useState('Password123$')
   const { setToken } = UseToken()
   const router = useRouter()
+  const { isLoading, openLoader, closeLoader } = useLoader()
 
   const { errors, setErrors, errorRef, validarEmail, validarPassword } =
     useErrors()
@@ -46,17 +49,19 @@ const Login = () => {
     validarPassword(password)
 
     if (errorRef.current != true) {
+      openLoader()
       const response = await loginService(email, password)
       if (response?.status === 200) {
         notifyOk('Login Exitoso')
         saveTokenAndResetData(response.data.data.token)
-        router.push('/')
-
+        setTimeout(() => router.push('/'), 2000)
+        // closeLoader()
         router.refresh()
       } else {
         notifyError('Las credenciales son incorrectas')
         setErrors('')
         resetTokenAndErrorRef()
+        // closeLoader()
       }
     } else {
       resetTokenAndErrorRef()
@@ -94,17 +99,20 @@ const Login = () => {
                 error={errors?.password}
               />
               <div className="flex justify-end">¿Olvidaste la contraseña?</div>
-              <div className="form-control mt-6">
-                <button className="btn btn-accent text-accent-content hover:bg-[#FF7E5B]">
-                  Iniciar Sesión
-                </button>
-                <Link
-                  href="/register"
-                  className="btn btn-outline mt-2 border-accent text-accent hover:bg-primary hover:border-[#FF7E5B] hover:text-[#FF7E5B]"
-                >
-                  Registrarse
-                </Link>
-              </div>
+              <Loader isLoading={isLoading} />
+              {!isLoading && (
+                <div className="form-control mt-6">
+                  <button className="btn btn-accent text-accent-content hover:bg-[#FF7E5B]">
+                    Iniciar Sesión
+                  </button>
+                  <Link
+                    href="/register"
+                    className="btn btn-outline mt-2 border-accent text-accent hover:bg-primary hover:border-[#FF7E5B] hover:text-[#FF7E5B]"
+                  >
+                    Registrarse
+                  </Link>
+                </div>
+              )}
               <FooterAuth text="O iniciar sesión con" />
             </div>
           </div>

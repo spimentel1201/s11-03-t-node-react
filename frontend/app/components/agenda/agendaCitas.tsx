@@ -19,7 +19,7 @@ const AgendaCitas = ({ token, filtro }: Props) => {
   }, [clientData])
 
   return (
-    <div>
+    <div className='min-h-screen'>
       <h1 className="text-3xl font-bold text-center mt-20">       
         Citas Programadas
       </h1>      
