@@ -37,6 +37,7 @@ module.exports = {
       fontFamily: {
         inter: ['var(--font-inter)', 'sans-serif'],
         secular: ['var(--font-secular)', 'sans-serif'],
+        mochiy: ['var(--font-mochiy)', 'sans-serif'],
       },
     },
   },

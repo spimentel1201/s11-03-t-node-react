@@ -57,9 +57,9 @@ function PetsGallery() {
                     height={280}
                     className="object-contain w-full"
                   />
-                  <button className="bg-accent text-white absolute bottom-[15px] left-[11px] w-[102px] h-[38px]">
-                    {pet.specie}
-                  </button>
+                  <div className="flex justify-center align-center bg-accent text-white absolute bottom-[15px] left-[11px] w-[102px] h-[38px]">
+                    <div className="h-full my-2">{pet.specie}</div>
+                  </div>
                 </div>
                 <div className="text-left px-[23px] py-[18px]">
                   <h2 className="text-xl font-semibold">{pet.name}</h2>

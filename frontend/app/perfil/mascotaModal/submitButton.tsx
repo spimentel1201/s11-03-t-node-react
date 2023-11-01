@@ -3,13 +3,11 @@ import { useRouter } from "next/navigation";
 
 export default function SubmitButton({text}: {text: string}) {
 
-  
-  
   return (
     <section className="mt-[26px]">
       <div className="w-full h-[67px] mb-[23px] btn btn-accent bg-orange-500 rounded-md border border-orange-500 flex-col justify-center items-center inline-flex">
         <button
-          
+         
           type="submit"
           className="text-center text-white  leading-7"
         >
@@ -23,7 +21,7 @@ export default function SubmitButton({text}: {text: string}) {
   const router = useRouter();
 
   const handleGoBackPerfil =() => {
-    () => router.push("/perfil",{scroll:false}) 
+     router.push("/perfil",{scroll:false}) 
    
 
   }
