@@ -15,9 +15,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" data-theme="veterinaria">
-      <body
-        className={`${secular_one.variable} ${inter.variable} ${inter.className} ${mochy_pop_one.variable}`}
-      >
+      <body className={`relative min-h-screen ${secular_one.variable} ${inter.variable} ${inter.className} ${mochy_pop_one.variable}`}>
         <div className="sticky top-0 z-10 ">
           <NavBar />
         </div>
