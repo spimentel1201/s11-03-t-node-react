@@ -37,6 +37,24 @@ const data: NuestrosServicios[] = [
       'La medicina preventiva canina se centra en mantener la salud de los perros a través de exámenes regulares, vacunas, desparasitación y consejos de nutrición, peso y cuidado dental, previniendo enfermedades y mejorando su bienestar a lo largo de su vida.',
     svg: MedicinaPreventiva,
   },
+  {
+    title: 'Consultas médicas',
+    description:
+      'Las consultas médicas veterinarias son esenciales para evaluar la salud de los animales, identificar problemas y ofrecer orientación sobre nutrición, vacunación y bienestar en general, contribuyendo a una vida larga y feliz para los perros.',
+    svg: MedicinaPreventiva,
+  },
+  {
+    title: 'Cirugía',
+    description:
+      'La cirugía veterinaria es esencial para tratar diversas necesidades médicas en animales, desde esterilización hasta procedimientos complejos. Veterinarios especializados utilizan técnicas avanzadas para garantizar el bienestar de los pacientes, mejorando su calidad de vida y salud en general.',
+    svg: Hospitalizacion,
+  },
+  {
+    title: 'Nutrición',
+    description:
+      'El servicio de nutrición proporciona asesoramiento experto sobre la dieta de animales, considerando sus necesidades individuales basadas en edad, tamaño, raza y salud. Esto contribuye significativamente a su salud, bienestar y longevidad.',
+    svg: Vacunacion,
+  },
 ]
 
 function ServiceCardsContainer() {
