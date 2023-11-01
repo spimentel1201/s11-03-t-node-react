@@ -205,7 +205,7 @@ const AgendaCitasListado = ({
               </div>
             </section>
             <section className="flex flex-col w-full sm:items-start justify-end gap-2 p-2 lg:p-4">
-              <Link href="/servicios" className="">
+              <Link href="/team" className="">
                 <div
                   className="btn btn-accent flex flex-col capitalize w-36"
                 >

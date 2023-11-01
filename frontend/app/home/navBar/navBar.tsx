@@ -23,15 +23,17 @@ export default function NavBar() {
           <span className="text-2xl font-[Poppins] cursor-pointer md:hidden">
             <VetcareIcon />
           </span>
-          <span className="hidden md:block text-accent text-2xl leading-[38px] font-normal font-['Mochiy Pop One'] tracking-widest">
+          <div className="flex items-center">
+          <span className="hidden md:block text-accent text-2xl leading-[38px] font-normal font-mochiy tracking-widest">
             Vet
           </span>
           <span className="hidden md:block ">
             <VetcareIcon />
           </span>
-          <span className="hidden md:block text-accent text-2xl font-normal leading-[38px] font-['Mochiy Pop One'] tracking-widest">
+          <span className="hidden md:block text-accent text-2xl font-normal leading-[38px] font-mochiy tracking-widest">
             care
           </span>
+          </div>
         </div>
         <span className="text-3xl cursor-pointer mx-2 md:hidden">
           {!token ? <DropDownMobile /> : <DropdownMobileWithLogin />}
