@@ -17,7 +17,7 @@ export default function DeleteMascota() {
   const handleDeleteMascota = () => {
     axios
       .delete(
-        `https://s11-03-react-node-production.up.railway.app/api/v1/pets/${petId}`,
+        `https://vetcare-qwzz.onrender.com/api/v1/pets/${petId}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
