@@ -1,4 +1,4 @@
-import Icon from "@/app/utils/SvgIcon";
+import Icon from '@/app/utils/SvgIcon'
 
 function ContactInfo() {
   return (
@@ -17,7 +17,7 @@ function ContactInfo() {
         </div>
         <div className="flex items-center gap-[10px]">
           <Icon icon="email" />
-          <p>petcare@gmail.com</p>
+          <p>vetcarefamily@gmail.com</p>
         </div>
         <div className="flex items-center gap-[10px]">
           <Icon icon="location" />
@@ -25,7 +25,7 @@ function ContactInfo() {
         </div>
       </div>
     </div>
-  );
+  )
 }
 
-export default ContactInfo;
+export default ContactInfo
