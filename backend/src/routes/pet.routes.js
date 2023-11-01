@@ -14,7 +14,7 @@ router.post('/', checkAuthentication, createPetValidation, createPet);
 //Obtener todas las mascotas registradas
 router.get('/', getAllPets);
 //Obtener una mascota por Id
-router.get('/:petId', getPetById);
+router.get('/:petId', checkAuthentication, getPetById);
 //Actualizar la información de una mascota
 router.put('/:petId', checkAuthentication, updatePetValidation, updatePet);
 //Desactivar una mascota mascota
