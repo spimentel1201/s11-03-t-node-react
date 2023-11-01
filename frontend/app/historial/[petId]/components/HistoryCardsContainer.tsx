@@ -6,9 +6,12 @@ interface Props {
 }
 
 export default function HistoryCardsContainer({ appointments }: Props) {
+
+  const filterAppointments = appointments.filter((a) => a.isActive === true);
+
   return (
     <div className="flex flex-col items-center gap-12 pt-22 pb-32">
-      {appointments.map(appointment => <HistoryCard key={appointment._id} appointment={appointment}/>)}
+      {filterAppointments.map(appointment => <HistoryCard key={appointment._id} appointment={appointment}/>)}
     </div>
   );
 }

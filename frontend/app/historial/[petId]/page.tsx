@@ -1,5 +1,3 @@
-import Image from "next/image";
-import Link from "next/link";
 import Footer from "@/app/components/footer/footer";
 import HistorySection from "./components/HistorySection";
 import { getPetById } from "../services/getPetById";
@@ -16,7 +14,7 @@ export default async function Historial({
   const response:any = await fetchPet(params.petId);
 
   return (
-    <div className="relative flex flex-col h-[100vh]">
+    <div className="relative flex flex-col">
       <HistorySection pet={response?.data} />
       <Footer />
     </div>

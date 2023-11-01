@@ -60,7 +60,7 @@ const vets = [
 ]
 
 // Función para obtener fullname y speciality por _id
-function getInfoById(id) {
+export function getInfoById(id) {
   const veterinarian = vets.find((vet) => vet._id === id)
   if (veterinarian) {
     const { fullname, speciality } = veterinarian
