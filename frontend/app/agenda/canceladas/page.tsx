@@ -7,8 +7,15 @@ const Canceladas = () => {
   const { token } = UseToken()
   return (
     <div className="block">
-      <div className="max-w-[50rem] m-auto">
+       <div className="max-w-[50rem] m-auto min-h-screen">
         {token && <CalendarUser token={token} filtro={false} />}
+        <div>
+          {!token && (
+            <div className="m-20 text-inter text-xl text-center p-2 bg-accent text-accent-content mb-8">
+              Tienes que loguearte para ver tus citas canceladas
+            </div>
+          )}
+        </div>
       </div>
     </div>
   )

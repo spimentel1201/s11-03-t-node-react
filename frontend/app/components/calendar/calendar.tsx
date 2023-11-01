@@ -45,6 +45,8 @@ const Calendar = () => {
     setPetSelected: (arg0: string) => void,
     motivoCita: string,
     setMotivoCita: (arg0: string) => void,
+    openLoader: () => void,
+    closeLoader: () => void,
   ) => {
     if (token) {
       const app = formatAppointment(
@@ -56,6 +58,7 @@ const Calendar = () => {
         vetId,
       )
       try {
+        openLoader()
         const response = await createAppointment(
           app,
           token,
@@ -75,6 +78,7 @@ const Calendar = () => {
         }
         setUpdateAppointments(!updateAppointments)
         setShowModal(false)
+        closeLoader()
       } catch (error: any) {
         notifyError(error?.data?.errors[0])
         setHorarioSelected('')
@@ -164,7 +168,7 @@ const Calendar = () => {
         <div className="flex flex-col justify-between font-medium text-sm text-center">
           <div>
             {!token && (
-              <div className="text-inter text-xl text-center p-2 bg-accent text-accent-content mb-8">
+              <div className="text-inter text-xl text-center p-2 bg-accent text-accent-content mb-4">
                 Tienes que loguearte para poder agendar un cita
               </div>
             )}

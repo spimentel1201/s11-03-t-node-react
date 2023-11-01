@@ -3,6 +3,8 @@ import { useState, useRef, useEffect, ChangeEvent, useMemo } from 'react'
 import useClientPets from './useClientPets'
 import { months } from './helper'
 import './modalForm.module.css'
+import { useLoader } from '../../hooks/useLoader'
+import { Loader } from '../../components/loader'
 
 type Props = {
   showModal: boolean
@@ -12,11 +14,13 @@ type Props = {
     setPetSelected: (value: string) => void,
     motivoCita: string,
     setMotivoCita: (value: string) => void,
+    openLoader: () => void,
+    closeLoader: () => void,
   ) => void
   horario: string
   dia: string | undefined
-  mes: string 
-  año: string 
+  mes: string
+  año: string
   veterinarioData: { fullname: string; speciality: string } | undefined
   token: string
 }
@@ -31,12 +35,12 @@ const ModalForm = ({
   año,
   veterinarioData,
   token,
-}: Props) => {  
-
+}: Props) => {
   const [petSelected, setPetSelected] = useState('')
   const [motivoCita, setMotivoCita] = useState('')
   const myModal = useRef<HTMLDialogElement>(null)
-  const { clientPets, clientData } = useClientPets(token)  
+  const { clientPets, clientData } = useClientPets(token)
+  const { isLoading, openLoader, closeLoader } = useLoader()
 
   const handlePetChange = (event: ChangeEvent<HTMLSelectElement>) => {
     const selectedPet = event.target.value
@@ -113,20 +117,25 @@ const ModalForm = ({
                   value={motivoCita}
                 ></textarea>
               </div>
-              <div
-                className="btn btn-accent w-full"
-                tabIndex={0}
-                onClick={() =>
-                  handleCreateAppointment(
-                    petSelected,
-                    setPetSelected,
-                    motivoCita,
-                    setMotivoCita,
-                  )
-                }
-              >
-                CONFIRMAR
-              </div>
+              <Loader isLoading={isLoading} />
+              {!isLoading && (
+                <div
+                  className="btn btn-accent w-full"
+                  tabIndex={0}
+                  onClick={() => {
+                    handleCreateAppointment(
+                      petSelected,
+                      setPetSelected,
+                      motivoCita,
+                      setMotivoCita,
+                      openLoader,
+                      closeLoader,
+                    )
+                  }}
+                >
+                  CONFIRMAR
+                </div>
+              )}
               {/* <div className="flex flex-col">
                 <div>Horario Recibido: {horario}</div>
                 <div>Pet ID: {petSelected}</div>
