@@ -2,7 +2,7 @@
 
 # VetCare
 
-PetCare is a website designed to provide pet owners with a comprehensive and convenient experience in the care of their animals. This project is aimed at simplifying the lives of animal lovers by providing an online platform that combines the convenience of pet data management with veterinary care.
+VetCare is a website designed to provide pet owners with a comprehensive and convenient experience in the care of their animals. This project is aimed at simplifying the lives of animal lovers by providing an online platform that combines the convenience of pet data management with veterinary care.
 
 ## Video
 
