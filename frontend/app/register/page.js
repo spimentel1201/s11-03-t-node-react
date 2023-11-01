@@ -10,6 +10,8 @@ import Link from 'next/link'
 import useErrors from './useErrors'
 import UseToken from '../hooks/useToken'
 import { useRouter } from 'next/navigation'
+import { useLoader } from '../hooks/useLoader'
+import { Loader } from '../components/loader'
 
 const notifyOk = (msg) => toast.success(msg)
 const notifyError = (msg) => toast.error(msg)
@@ -21,6 +23,7 @@ const Register = () => {
   const [repeatPassword, setRepeatPassword] = useState('Password123$')
   const { setToken } = UseToken()
   const router = useRouter()
+  const { isLoading, openLoader, closeLoader } = useLoader()
 
   const {
     errors,
@@ -38,9 +41,12 @@ const Register = () => {
   }
 
   const saveTokenAndResetData = (t) => {
-    setToken(t)
-    setErrors('')
-    errorRef.current = false
+    if (typeof window !== 'undefined' && window.localStorage) {
+      localStorage.setItem('token', t)
+      setToken(t)
+      setErrors('')
+      errorRef.current = false
+    }
   }
 
   const handleSubmit = async (e) => {
@@ -51,12 +57,12 @@ const Register = () => {
     validarFullname(fullname)
 
     if (errorRef.current != true) {
+      openLoader()
       const response = await registerService(fullname, email, password)
       if (response?.status === 201) {
         notifyOk('Register Exitoso')
         saveTokenAndResetData(response.data.data.token)
-        router.push('/')
-        router.refresh()
+        setTimeout(() => router.push('/'), 2000)
       } else {
         if (response.response.data.errors.message.includes('E11000')) {
           // notifyError('Prohibido hackear este sitio')
@@ -65,6 +71,7 @@ const Register = () => {
         notifyError('Register Fallido')
         setErrors('')
         resetTokenAndErrorRef()
+        closeLoader()
       }
     } else {
       resetTokenAndErrorRef()
@@ -111,17 +118,20 @@ const Register = () => {
               changeValue={setRepeatPassword}
               error={errors?.repeatPassword}
             />
-            <div className="form-control mt-6">
-              <button className="btn btn-accent text-accent-content">
-                Registrarse
-              </button>
-              <Link
-                href="/login"
-                className="btn btn-outline mt-2 border-accent text-accent hover:bg-primary hover:border-[#FF7E5B] hover:text-[#FF7E5B]"
-              >
-                Iniciar Sesión
-              </Link>
-            </div>
+            <Loader isLoading={isLoading} />
+            {!isLoading && (
+              <div className="form-control mt-6">
+                <button className="btn btn-accent text-accent-content">
+                  Registrarse
+                </button>
+                <Link
+                  href="/login"
+                  className="btn btn-outline mt-2 border-accent text-accent hover:bg-primary hover:border-[#FF7E5B] hover:text-[#FF7E5B]"
+                >
+                  Iniciar Sesión
+                </Link>
+              </div>
+            )}
             <FooterAuth text="O registrarse con" />
           </div>
         </div>
