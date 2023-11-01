@@ -4,12 +4,16 @@ import MascotaImage from "../mascotaModal/mascotaImage";
 import SubmitButton, { CancelarButton } from "../mascotaModal/submitButton";
 import UserData from "@/app/hooks/perfil/userData";
 import UseToken from "@/app/hooks/useToken";
+import { useImageMascota } from "@/app/store/mascota/ImageMascota";
+import { useState } from "react";
+import { useUpdateMutations } from "@/app/store/mascota/updateMutation";
+import toast, { Toaster } from "react-hot-toast";
 
 
 export async function updateDtaUser({ id,token,data}: { id: number | null, token:string|null, data:any }) {
 
   return await axios.put(
-    `https://s11-03-react-node-production.up.railway.app/api/v1/clients/${id}`,
+    `https://vetcare-qwzz.onrender.com/api/v1/clients/${id}`,
     data,
     {
       headers: {
@@ -18,29 +22,63 @@ export async function updateDtaUser({ id,token,data}: { id: number | null, token
     }
   );
 }
-
-
+const notifyOk = (msg:string) => toast.success(msg)
 export default function FormContent(){
+  const initiaState = {
+    fullname: "",
+    phone: "",
+    email: "",
+    photo_url: ""
+  }
   const {userId} = UserData()
   const {token} = UseToken()
+  const ImageMascota = useImageMascota((state) => state.imageMascota)
+  const setUpdateMutations = useUpdateMutations((state) => state.setUpdateMutations)
+  const [state, setState] = useState(initiaState);
   
   const handleSubmit = async (e:any) => {
     e.preventDefault()
-    const formData = {
-      fullname: e.target.fullname?.value,
-      phone: e.target.phone?.value,
-      email: e.target.email?.value,
-      password: e.target.password?.value,
-    };
-  const data = await updateDtaUser({id:userId,token:token, data:formData})
-  console.log(data)
-  }
+    const form = e.currentTarget
+    const formDataa = new FormData(form);
+    const fullname = formDataa.get('fullname');
+    const phone = formDataa.get('phone');
+    const email = formDataa.get('email');
 
+    const formData = {
+      fullname: fullname,
+      phone: phone,
+      email: email,
+      photo_url: ImageMascota
+    };
+   try { const data = await updateDtaUser({id:userId,token:token, data:formData})
+   notifyOk("Datos actualizados")
+   form.reset()
+   setUpdateMutations(true)
+   const closeButton = document.querySelector('#my_modal_9 button') as HTMLButtonElement | null;;
+      if (closeButton) {
+        closeButton.click();
+      }
   
+   }catch(error:any){
+   
+    if(error.response.data?.errors) {
+      setState({
+        fullname: error.response.data?.errors?.fullname ?  error.response.data?.errors.fullname[0] : "",
+         phone: error.response.data?.errors?.phone ?  error.response.data?.errors.phone[0] : "",
+         email: error.response.data?.errors?.email ?  error.response.data?.errors.email[0] : "",
+         photo_url: error.response.data?.errors?.photo_url ?  error.response.data?.errors.photo_url[0] : "",
+      })
+
+    }
+   }
+  
+  }
     return(
-      <div>
-        <form onSubmit={handleSubmit}>
+      <div className="flex flex-col">
+        <Toaster />
+        <form onSubmit={handleSubmit} className="flex flex-col">
       <MascotaImage />
+      <label className='text-error'>{state?.photo_url}</label>
       <label
         htmlFor="ingrese el nombre"
         className="text-slate-800 text-base font-medium font-inter leading-none mb-[3px]"
@@ -52,14 +90,14 @@ export default function FormContent(){
         placeholder="Ingresa tu nombre y apellido"
         className="w-full
       h-[62px] px-[23px] py-[21px] bg-gray-100 rounded-md border
-       border-gray-200 text-gray-500  md:w-full mb-4"
+       border-gray-200 text-gray-500  md:w-full mb-1"
         name="fullname"
       />
-      {/* <label className='text-error'>{state?.fullname}</label> */}
+      <label className='text-error'>{state?.fullname}</label>
       <label
         htmlFor=""
         className="text-slate-800 text-base font-medium 
-      font-inter leading-none mb-[3px] mt-7"
+      font-inter leading-none mb-[3px] mt-3"
       >
         Telefono
       </label>
@@ -69,12 +107,13 @@ export default function FormContent(){
         placeholder="Ej: +54 9 11 1234-5678"
         className="w-full 
       h-[62px] px-[23px] py-[21px] bg-gray-100 rounded-md border
-       border-gray-200 text-gray-500  md:w-full mb-4"
+       border-gray-200 text-gray-500  md:w-full mb-1"
         name="phone"
       />
+      <label className='text-error'>{state?.phone}</label>
       <label
         htmlFor="ingrese el nombre"
-        className="text-slate-800 text-base font-medium font-inter leading-none mb-[3px]"
+        className="text-slate-800 text-base font-medium font-inter leading-none mt-3 mb-[3px]"
       >
         Correo Electronico
       </label>
@@ -83,26 +122,10 @@ export default function FormContent(){
         placeholder="vetcarefamily@gmail.com"
         className="w-full
       h-[62px] px-[23px] py-[21px] bg-gray-100 rounded-md border
-       border-gray-200 text-gray-500  md:w-full mb-4"
-        name="fullname"
+       border-gray-200 text-gray-500  md:w-full mb-1"
+        name="email"
       />
-      {/* <label className='text-error'>{state?.fullname}</label> */}
-      <label
-        htmlFor=""
-        className="text-slate-800 text-base font-medium 
-      font-inter leading-none mb-[3px] mt-7"
-      >
-       Contraseña
-      </label>
-    
-      <input
-        type="password"
-        placeholder="************"
-        className="w-full 
-      h-[62px] px-[23px] py-[21px] bg-gray-100 rounded-md border
-       border-gray-200 text-gray-500  md:w-full"
-        name="password"
-      />
+      <label className='text-error'>{state?.email}</label>
       <SubmitButton text="Confirmar cambios" />
     </form>
     <CancelarButton />
