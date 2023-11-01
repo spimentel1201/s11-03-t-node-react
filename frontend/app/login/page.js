@@ -61,7 +61,7 @@ const Login = () => {
         notifyError('Las credenciales son incorrectas')
         setErrors('')
         resetTokenAndErrorRef()
-        // closeLoader()
+        closeLoader()
       }
     } else {
       resetTokenAndErrorRef()
