@@ -6,7 +6,7 @@ VetCare is a website designed to provide pet owners with a comprehensive and con
 
 ## Video
 
-[![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=YouTube&logoColor=white)]()
+[![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=YouTube&logoColor=white)](https://youtu.be/qCVv0a_7ggY?si=rz1WQGZ8ZM7H4XkA)
 
 ## Deploy
 
