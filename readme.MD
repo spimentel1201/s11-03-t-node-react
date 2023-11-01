@@ -130,7 +130,7 @@ This will start the Node.js server on port 3000.
 | :--: | :--: |
 |**Vanina Restelli**|**María Belén Fernández**|
 |restellivanina@gmail.com|belenfernandzm@gmail.com|
-| [![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=GitHub&logoColor=white)](https://github.com/VaninaRestelli) [![LinkedIn](https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=LinkedIn&logoColor=white)](https://www.linkedin.com/in/vaninarestelli?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app) | [![Behance](https://img.shields.io/badge/Behance-1769FF?style=for-the-badge&logo=Behance&logoColor=white)](https://www.behance.net/belenfernandezm) [![LinkedIn](https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=LinkedIn&logoColor=white)](https://www.linkedin.com/in/vaninarestelli?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app) |
+| [![Behance](https://img.shields.io/badge/Behance-1769FF?style=for-the-badge&logo=Behance&logoColor=white)](https://www.behance.net/vaninarestelli) [![LinkedIn](https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=LinkedIn&logoColor=white)](https://www.linkedin.com/in/vaninarestelli?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app) | [![Behance](https://img.shields.io/badge/Behance-1769FF?style=for-the-badge&logo=Behance&logoColor=white)](https://www.behance.net/belenfernandezm) [![LinkedIn](https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=LinkedIn&logoColor=white)](https://www.linkedin.com/in/vaninarestelli?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app) |
 
 ### Backend
 

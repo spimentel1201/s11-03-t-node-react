@@ -5,11 +5,14 @@ import { Close, Tick } from "../../icons";
 export default function MascotaCreada() {
   
     const route = useRouter()
-    const handleGoBackProfile = () => { 
-      route.push("/perfil"); 
-      window.location.reload();
-    
+    const handleGoBackProfile = () => {
+      const closeButton = document.querySelector('#my_modal_5 button') as HTMLButtonElement | null;;
+      if (closeButton) {
+        closeButton.click();
+      }
+      route.push("/perfil",{scroll:false});
     }
+    
   return (
     <dialog id="my_modal_7" className="modal modal-bottom sm:modal-middle">
       <div className="modal-box ">
