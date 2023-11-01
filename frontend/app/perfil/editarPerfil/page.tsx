@@ -19,7 +19,6 @@ export default function EditarPerfilPage(){
           <FormContent />
         </div>
       </div>
-      {/* <label className='text-error'>{state?.email}</label> */}
       <div className="modal-action"></div>
     </dialog>
     )
