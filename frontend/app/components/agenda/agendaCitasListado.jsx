@@ -2,6 +2,8 @@ import Image from 'next/image'
 import { deleteAppointment } from '@/app/_api/appointment'
 import toast, { Toaster } from 'react-hot-toast'
 import Link from 'next/link'
+import { useLoader } from '../../hooks/useLoader'
+import { Loader } from '../../components/loader'
 
 const notifyOk = (msg) => toast.success(msg)
 const notifyError = (msg) => toast.error(msg)
@@ -108,11 +110,15 @@ const AgendaCitasListado = ({
     return { fecha: fechaF, hora: horaF }
   }
 
+  const { isLoading, openLoader, closeLoader } = useLoader()
+
   const handleDeleteAppointment = async (id) => {
     try {
+      openLoader()
       await deleteAppointment(id, token)
       notifyOk('Cita cancelada correctamente ')
       setUpdateAppointments(!updateAppointments)
+      setTimeout(() => closeLoader(), 2000)
     } catch (error) {
       console.log(error)
       notifyError('Error al cancelar cita')
@@ -123,7 +129,7 @@ const AgendaCitasListado = ({
 
   return (
     <>
-      <Toaster />
+      <Toaster />      
       {appointments.map((a, index) => (
         <div key={index}>
           {a.isActive == filtro && (
@@ -142,8 +148,9 @@ const AgendaCitasListado = ({
                         sizes="100vw"
                         className="w-10 h-auto rounded-full"
                         alt="imagen de mascota"
-                      />
+                      />                      
                       <div className="font-bold top-6 capitalize">{name}</div>
+                      <Loader isLoading={isLoading} />
                     </div>
 
                     <div className="flex">
@@ -164,16 +171,27 @@ const AgendaCitasListado = ({
                   <div className="self-center sm:self-stretch">
                     {formatearFecha(a.start_time).hora}
                   </div>
-                  <div
-                    className={
-                      a.isActive
-                        ? 'btn btn-accent flex flex-col capitalize w-36'
-                        : 'btn btn-disabled flex flex-col capitalize disabled w-36'
-                    }
-                    onClick={() => handleDeleteAppointment(a._id)}
-                  >
-                    <div>Cancelar Cita</div>
-                  </div>
+                  {!isLoading && (
+                    <div
+                      className={
+                        a.isActive
+                          ? 'btn btn-accent flex flex-col capitalize w-36'
+                          : 'btn btn-disabled flex flex-col capitalize disabled w-36'
+                      }
+                      onClick={() => handleDeleteAppointment(a._id)}
+                    >
+                      <div>Cancelar Cita</div>
+                    </div>
+                  )}
+                  {isLoading && (
+                    <div
+                      className={
+                        'btn btn-disabled flex flex-col capitalize disabled w-36'
+                      }
+                    >
+                      <div>Cancelar Cita</div>
+                    </div>
+                  )}
                 </section>
               </div>
             </div>
@@ -205,13 +223,13 @@ const AgendaCitasListado = ({
               </div>
             </section>
             <section className="flex flex-col w-full sm:items-start justify-end gap-2 p-2 lg:p-4">
-              <Link href="/team" className="">
-                <div
-                  className="btn btn-accent flex flex-col capitalize w-36"
-                >
-                  agendar cita
-                </div>
-              </Link>
+              {!isLoading && (
+                <Link href="/team" className="">
+                  <div className="btn btn-accent flex flex-col capitalize w-36">
+                    agendar cita
+                  </div>
+                </Link>
+              )}
             </section>
           </div>
         </div>
