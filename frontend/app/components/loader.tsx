@@ -9,7 +9,7 @@ export const Loader = ({ isLoading }: Props) => {
     <>
       {isLoading && (
         <div className="flex justify-center items-center h-10 p-8">
-          <span className="loading loading-spinner loading-lg"></span>
+          <span className="loading loading-spinner loading-lg bg-[#FF5B2E]"></span>
         </div>
       )}
     </>
