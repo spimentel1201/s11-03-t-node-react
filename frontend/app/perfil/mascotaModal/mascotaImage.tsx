@@ -12,7 +12,7 @@ export default function MascotaImage() {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const updateMutations = useUpdateMutations((state) => state.updateMutations)
   const setImageMascota = useImageMascota((state) => state.setImageMascota);
-  const setImageId = useImageMascota((state) => state.setImageId);
+  
 
   const handleFileChange = async (event: ChangeEvent<HTMLInputElement>) => {
     const selectFile = event.target.files && event.target.files[0];

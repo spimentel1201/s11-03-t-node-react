@@ -28,13 +28,10 @@ export default function MisMascostas() {
   };
   return (
     <section
-      className=" flex justify-between pl-[119px] 
-    md:pl-[611px] pr-[19px] md:pr-[81px] mt-[26px] md:mt-[79px]"
+      className="relative mt-[26px] md:mt-[73px] mr-4"
     >
-      <div className="flex justify-center ">
-        <h1 className="md:text-[32px] text-xl">Mis Mascostas</h1>
-      </div>
-      <div className="flex justify-end gap-x-[7px] items-center ">
+      <h1 className="md:text-[32px] text-center text-xl">Mis Mascostas</h1>
+      <div className="absolute top-0 right-0 md:right-16 flex gap-x-[7px] ">
         <button onClick={handleClickAddMascota} className="cursor-pointer">
           <AddIcon />
         </button>

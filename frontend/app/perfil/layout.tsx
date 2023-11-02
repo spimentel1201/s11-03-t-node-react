@@ -1,14 +1,13 @@
 import { Metadata } from "next/types";
 import MisMascostas from "./MisMascotas";
 import MiPerfil from "./miPerfil"
-import Page from "./[id]/page";
 import MascotaModal from "./mascotaModal/page";
 import CardContent from "./[id]/CardContent";
 import DeleteMascota from "./[id]/deleteMascota/page";
-import MascotaCreada from "./mascotaModal/mascotaCreada/page";
 import EditarPerfilPage from "./editarPerfil/page";
 import { Suspense } from "react";
 import Loading from "./loading";
+import { Toaster } from "react-hot-toast";
 
 export const metadata: Metadata = {
   title: "Mi perfil",
@@ -23,11 +22,11 @@ export default function PerfilLayout({
     <div> 
       <Suspense fallback= {<Loading />} >
       {children}
+      <Toaster />
       <MiPerfil />
       <MisMascostas />
       <MascotaModal /> 
       <CardContent />
-      {/* <MascotaCreada /> */}
       <DeleteMascota/>
       <EditarPerfilPage />
       </Suspense>
