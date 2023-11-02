@@ -20,7 +20,7 @@ export default async function Historial({
 
   return (
     <div className="relative flex flex-col">
-      <div className="left-16 top-12 absolute hidden md:block">
+      <div className="left-16 top-12 absolute hidden md:block z-10">
         <Image
           src="/icons/arrow-left-square.svg"
           width={30}

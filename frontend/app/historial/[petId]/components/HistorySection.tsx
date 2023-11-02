@@ -16,7 +16,6 @@ interface Props {
 export default function HistorySection({ petData, petAppointments }: Props) {
   const { data } = UseToken();
   const router = useRouter();
-  const [loading, setLoading] = useState<Boolean>(true);
   const {isLoading, openLoader} = useLoader();
 
   useEffect(() => {

@@ -16,7 +16,7 @@ export default function NavBar() {
 
   return (
     <>
-    <div className="relative flex items-center gap-6 md:gap-8 w-screen pl-6 md:pl-20 py-2 bg-[#2F2D53] text-[#D9D9D9] font-500 text-[12px] md:text-[18px] font-medium">
+    <div className="relative flex items-center gap-6 md:gap-8 pl-6 md:pl-20 py-2 bg-[#2F2D53] text-[#D9D9D9] font-500 text-[12px] md:text-[18px] font-medium">
       <span className='flex gap-2 items-center'>
         <Location />
         Urquiza 1234, CABA
