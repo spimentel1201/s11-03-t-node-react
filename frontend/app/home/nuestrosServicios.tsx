@@ -71,7 +71,7 @@ export default function NuestrosServicios() {
                 {item.description}
               </p>
               <Link
-                href="#"
+                href="/servicios"
                 className="text-slate-600 text-sm font-medium font-inter leading-normal flex flex-row items-center gap-x-2"
               >
                 Ver detalles <span>{item.detalles && <item.detalles />}</span>
