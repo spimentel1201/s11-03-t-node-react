@@ -125,27 +125,31 @@ export const getClientById = tryCatch(async (req, res) => {
 // Actualizar un cliente por ID
 export const updateClient = tryCatch(async (req, res) => {
   const { clientId } = req.params;
-  const { ...updateFields } = req.body;
+  const { fullname, phone, address, photo_url } = req.body;
 
+  // Busca el cliente por ID
   const client = await Client.findById(clientId);
 
   // Verifica si el cliente existe
-
   if (!client) {
-    const error = ErrorApp(`Cliente no encontrado`, 404);
+    // Si el cliente no se encuentra, genera un error 404
+    const error = new ErrorApp('Cliente no encontrado', 404);
     throw error;
   }
-
   // Verifica si el cliente está activo antes de permitir la actualización
+
   if (!client.isActive) {
-    const error = ErrorApp('No se puede actualizar un cliente inactivo', 404);
+    const error = new ErrorApp('No se puede actualizar un cliente inactivo', 404);
     throw error;
   }
 
-  // Actualiza los campos si el cliente está activo
+  // Define los campos a actualizar
+  const updateFields = { fullname, phone, address, photo_url };
+
+  // Realiza la actualización del cliente
   const updatedClient = await Client.findByIdAndUpdate(clientId, { $set: updateFields }, { new: true });
 
-  // Devuelve una respuesta RESTful desde utils
+  // Responde con el cliente actualizado y un mensaje de éxito
   sendResponse(res, 200, 'Cliente actualizado con éxito', updatedClient);
 });
 
