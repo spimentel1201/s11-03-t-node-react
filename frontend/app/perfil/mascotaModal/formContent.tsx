@@ -22,6 +22,7 @@ export default function FormContent() {
   };
   const [state, setState] = useState(initialState);
   const imageMascota = useImageMascota((state) => state.imageMascota)
+  const setImageMascota = useImageMascota((state) => state.setImageMascota)
  const route = useRouter();
   const setUpdateMutations = useUpdateMutations((state) => state.setUpdateMutations)
   const handleFormContent = async (event: FormEvent<HTMLFormElement>) => {
@@ -56,6 +57,7 @@ export default function FormContent() {
         setUpdateMutations(true);
         form.reset();
         setState(initialState);
+        setImageMascota(null)
         const modal = document.getElementById("my_modal_7") as HTMLDialogElement;
         modal?.showModal();
         route.push("/perfil/mascotaModal/mascotaCreada", { scroll: false });

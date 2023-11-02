@@ -34,6 +34,7 @@ export default function FormContent({ onClick }:{onClick:() => void}){
   const {token} = UseToken()
   const ImageMascota = useImageMascota((state) => state.imageMascota)
   const setUpdateMutations = useUpdateMutations((state) => state.setUpdateMutations)
+  const setImageMascota = useImageMascota((state) => state.setImageMascota)
   const [state, setState] = useState(initiaState);
   
   const handleSubmit = async (e:any) => {
@@ -57,6 +58,7 @@ export default function FormContent({ onClick }:{onClick:() => void}){
    setUpdateMutations(true)
    setState(initiaState)
    onClick()
+   setImageMascota(null)
    }
    
    }catch(error:any){
