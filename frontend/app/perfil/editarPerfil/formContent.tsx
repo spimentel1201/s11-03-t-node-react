@@ -7,13 +7,13 @@ import UseToken from "@/app/hooks/useToken";
 import { useImageMascota } from "@/app/store/mascota/ImageMascota";
 import { useState } from "react";
 import { useUpdateMutations } from "@/app/store/mascota/updateMutation";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 
 
 export async function updateDtaUser({ id,token,data}: { id: number | null, token:string|null, data:any }) {
 
   return await axios.put(
-    `https://vetcare-qwzz.onrender.com/api/v1/clients/${id}`,
+    `https://s11-03-react-node-production.up.railway.app/api/v1/clients/${id}`,
     data,
     {
       headers: {
@@ -23,7 +23,7 @@ export async function updateDtaUser({ id,token,data}: { id: number | null, token
   );
 }
 const notifyOk = (msg:string) => toast.success(msg)
-export default function FormContent(){
+export default function FormContent({ onClick }:{onClick:() => void}){
   const initiaState = {
     fullname: "",
     phone: "",
@@ -51,14 +51,14 @@ export default function FormContent(){
       photo_url: ImageMascota
     };
    try { const data = await updateDtaUser({id:userId,token:token, data:formData})
+   if(data?.status) {
    notifyOk("Datos actualizados")
    form.reset()
    setUpdateMutations(true)
-   const closeButton = document.querySelector('#my_modal_9 button') as HTMLButtonElement | null;;
-      if (closeButton) {
-        closeButton.click();
-      }
-  
+   setState(initiaState)
+   onClick()
+   }
+   
    }catch(error:any){
    
     if(error.response.data?.errors) {
@@ -75,7 +75,6 @@ export default function FormContent(){
   }
     return(
       <div className="flex flex-col">
-        <Toaster />
         <form onSubmit={handleSubmit} className="flex flex-col">
       <MascotaImage />
       <label className='text-error'>{state?.photo_url}</label>

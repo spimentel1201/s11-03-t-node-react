@@ -4,7 +4,6 @@ import { Close } from "../../icons";
 import { usePetId } from "@/app/store/mascota/petId";
 import { useUpdateMutations } from "@/app/store/mascota/updateMutation";
 import { useRouter } from "next/navigation";
-import { useImageMascota } from "@/app/store/mascota/ImageMascota";
 
 export default function DeleteMascota() {
   const route = useRouter();
@@ -12,12 +11,11 @@ export default function DeleteMascota() {
     (state) => state.setUpdateMutations
   );
   const petId = usePetId((state) => state.petId);
-  const imageId = useImageMascota((state) => state.imageId);
 
   const handleDeleteMascota = () => {
     axios
       .delete(
-        `https://vetcare-qwzz.onrender.com/api/v1/pets/${petId}`,
+        `https://s11-03-react-node-production.up.railway.app/api/v1/pets/${petId}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
