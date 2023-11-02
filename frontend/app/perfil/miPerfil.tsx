@@ -46,11 +46,11 @@ export default function MiPerfil() {
             data?.data.photo_url ||
             'https://res.cloudinary.com/dxq0pypxu/image/upload/v1696476957/nn12qmebo7v6qhbwbkdf.png'
           }
-          width={90}
-          height={90}
+          width={0}
+          height={0}
           sizes="full"
           priority
-          className="rounded-full bg-primary w-[90px] h-[90px]  md:w-[305px]  md:h-[295px]"
+          className="rounded-full bg-primary w-[90px] h-[90px] md:w-[305px]  md:h-[295px]"
           alt="userImage"
         />
 

@@ -15,11 +15,11 @@ export default function Nosotros() {
       </div>
       <Image
         src="/vetcare-store-image.png"
-        alt="Imagen de perritos"
+        alt="Store Image"
         width={0}
         height={0}
-        sizes="100vw"
-        className="w-[100vw] h-auto"
+        sizes="80vw"
+        className="w-[100vw] md:w-[80vw] h-auto"
         priority
       />
       <div className="flex flex-col gap-8 px-8 md:px-24 pt-16 text-center">
