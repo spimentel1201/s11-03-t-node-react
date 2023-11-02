@@ -12,7 +12,7 @@ export default function SelectOption() {
        defaultValue=""
       >
         <option  disabled value="">Seleccione tipo de mascota</option>
-        <option value="conejo">conejo</option>
+        <option value="Conejo">conejo</option>
         <option value="Cobayo">Cobayo</option>
         <option value="Gato">Gato</option>
         <option value="Hamster">Hamster</option>

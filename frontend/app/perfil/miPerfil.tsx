@@ -48,6 +48,7 @@ export default function MiPerfil() {
           }
           width={90}
           height={90}
+          sizes="full"
           priority
           className="rounded-full bg-primary w-[90px] h-[90px]  md:w-[305px]  md:h-[295px]"
           alt="userImage"

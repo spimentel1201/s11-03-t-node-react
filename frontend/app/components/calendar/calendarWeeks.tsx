@@ -37,8 +37,15 @@ export const Week = ({ desde, hasta, data, setDateFilter }: Props) => {
   const handleSetDay = (day: number) => {
     setDateFilter(day)
     return null
+    
   }
 
+
+
+
+
+
+ 
   return (
     <div className="flex justify-start font-medium text-sm pb-2 mb-5">
       {data?.slice(desde, hasta).map((d, index) => (
@@ -63,7 +70,7 @@ export const Week = ({ desde, hasta, data, setDateFilter }: Props) => {
             )}
         </span>
       ))}
-    </div>
+    </div> 
   )
 }
 

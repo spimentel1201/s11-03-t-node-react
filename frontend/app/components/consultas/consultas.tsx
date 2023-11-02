@@ -59,7 +59,7 @@ export function Consultas() {
       </label>
       <textarea
         className="w-[321px] h-[158px] bg-gray-100 rounded-md border 
-      border-gray-200 md:w-full"
+      border-gray-200 md:w-full px-[23px] py-[21px] "
         name="message"
       />
       <label className="text-error">{state?.message}</label>
