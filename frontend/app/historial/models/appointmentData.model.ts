@@ -1,3 +1,5 @@
+import { VeterinarianData } from "./veterinarianData.model";
+
 export interface AppointmentData {
     _id: string;
     date: string;
@@ -7,7 +9,7 @@ export interface AppointmentData {
     notes: string;
     petId: string;
     clientId: string;
-    veterinarianId: string;
+    veterinarianId: VeterinarianData;
     isActive: boolean;
     __v: number;
   }
