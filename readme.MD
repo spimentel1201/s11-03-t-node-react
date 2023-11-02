@@ -122,6 +122,8 @@ This will start the Node.js server on port 3000.
 -  Wireframes, prototype and UI kit developed in Figma.
 -  Canva as video tool and mockups.
 
+#### Prototype: [Prototype](https://www.figma.com/proto/2oY81GBY08vo9Cee4FItFm/Veterinaria?type=design&node-id=117-4472&t=LLyi7ABzbZC2fce7-1&scaling=scale-down&page-id=1%3A2&starting-point-node-id=117%3A4472&mode=design)
+
 #### Mockup: [Mockup](https://www.figma.com/file/2oY81GBY08vo9Cee4FItFm/Veterinaria?type=design&node-id=1262-1227&mode=design&t=YWJQyhbtY363AAat-0)
 
 #### Designers
