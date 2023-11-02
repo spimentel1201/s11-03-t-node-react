@@ -9,7 +9,7 @@ interface Props {
 
 export default function HistoryCard({ appointment }: Props) {
 
-  const veterinarian = getInfoById(appointment.veterinarianId);
+  const veterinarian = appointment.veterinarianId;
 
   return (
     <div className="flex flex-col md:flex-row w-10/12 py-4 px-8 justify-between gap-6 rounded-[10px] shadow-[1px_1px_8px_0px_rgba(102,102,102,0.1)]">

@@ -1,3 +1,5 @@
+"use client"
+
 import Footer from "@/app/components/footer/footer";
 import HistorySection from "./components/HistorySection";
 import { getPetById } from "../services/getPetById";
@@ -15,7 +17,7 @@ export default async function Historial({
 
   return (
     <div className="relative flex flex-col">
-      <HistorySection pet={response?.data} />
+      <HistorySection petData={response?.data?.pet} petAppointments={response?.data?.appointmentss}/>
       <Footer />
     </div>
   );
