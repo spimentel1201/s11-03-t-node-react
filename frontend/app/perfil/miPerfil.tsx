@@ -5,10 +5,13 @@ import { useRouter } from "next/navigation";
 import UseToken from '@/app/hooks/useToken'
 import UseTokenValidity from '@/app/hooks/useTokenValidity'
 import { useEffect } from 'react'
+import { useLoader } from "../hooks/useLoader";
+import { Loader } from "../components/loader";
 
 export default function MiPerfil() {
   const { data } = UserData();
   const route = useRouter()
+  const { isLoading, closeLoader } = useLoader(true)
   const handleClickGoToEditProfile = () =>{
     const modal = document.getElementById("my_modal_9") as HTMLDialogElement;
         modal?.showModal();
@@ -18,7 +21,10 @@ export default function MiPerfil() {
   UseTokenValidity(token)
   useEffect(() => {
     !token && route.push('/')
-  }, [token])
+    if(data){
+      closeLoader()
+    }
+  }, [token,data])
 
  
 
@@ -26,6 +32,7 @@ export default function MiPerfil() {
 
   return (
     <section className="md:px-[82px] px-[19px]">
+      
       <h1 className="md:mt-[68px] mt-[27px] mb-4 md:text-[32px] text-xl font-normal text-center">
         MI PERFIL
       </h1>
@@ -47,6 +54,7 @@ export default function MiPerfil() {
         />
 
         <div className=" flex flex-col  md:gap-y-[29px] gap-y-[14px]">
+        <Loader isLoading={isLoading} />
           <h2 className="md:text-[32px] text-center md:text-left font-semibold">
             {data?.data.fullname}
           </h2>

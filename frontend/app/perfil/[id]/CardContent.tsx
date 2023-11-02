@@ -3,11 +3,24 @@ import Image from 'next/image'
 import ButtonLogic from './buttonLogic'
 import CardLink from './card'
 import UserData from '@/app/hooks/perfil/userData'
+import { useLoader } from '@/app/hooks/useLoader'
+import { Loader } from '../../components/loader'
+import { useEffect } from 'react'
 
 export default function CardContent() {
+  const { isLoading, closeLoader } = useLoader(true)
   const { data } = UserData()
+
+  useEffect(() => {
+    if(data){
+      closeLoader()
+    }
+  }, [data])
+  
+  
   return (
     <div className="flex md:flex-row flex-col justify-center items-center md:justify-start mt-8 pt-8 pb-[104px] md:px-[104px] gap-x-[66px]">
+      <Loader isLoading={isLoading} />
       {data?.data?.pets?.map((pet: any) => (
         <div key={pet._id} className="">
           <CardLink id={pet._id}>

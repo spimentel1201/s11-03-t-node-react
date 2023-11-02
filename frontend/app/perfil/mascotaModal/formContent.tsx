@@ -8,6 +8,8 @@ import mascotaPost from "@/app/_api/mascota/mascotaPost";
 import { useImageMascota } from "@/app/store/mascota/ImageMascota";
 import { useRouter } from "next/navigation"; 
 import { useUpdateMutations } from "@/app/store/mascota/updateMutation";
+import { useLoader } from "@/app/hooks/useLoader";
+import { Loader } from "@/app/components/loader";
 
 
 
@@ -25,6 +27,7 @@ export default function FormContent() {
   const setImageMascota = useImageMascota((state) => state.setImageMascota)
  const route = useRouter();
   const setUpdateMutations = useUpdateMutations((state) => state.setUpdateMutations)
+  const {isLoading,openLoader,closeLoader} = useLoader()
   const handleFormContent = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const form = event.currentTarget;
@@ -36,6 +39,7 @@ export default function FormContent() {
     
 
     try {
+        openLoader()
       const data = await mascotaPost({
         name: name as string,
         age: age ? +age : null,
@@ -61,8 +65,10 @@ export default function FormContent() {
         const modal = document.getElementById("my_modal_7") as HTMLDialogElement;
         modal?.showModal();
         route.push("/perfil/mascotaModal/mascotaCreada", { scroll: false });
+        closeLoader()
       }
     } catch (error) {
+      closeLoader()
       error
     }
   }
@@ -113,9 +119,14 @@ export default function FormContent() {
        <label className='text-error mt-1'>{state?.age}</label>
       <RadioInput />
       <label className='text-error mt-1'>{state?.sex}</label>
+      <Loader isLoading={isLoading}/>
+      {!isLoading && 
       <SubmitButton text="Agregar Mascotas"/>
+     }
     </form>
+    {!isLoading &&
     <CancelarButton />
+}
     </div>
   );
 }
