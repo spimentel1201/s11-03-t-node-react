@@ -11,6 +11,7 @@ import Contacto from './home/contacto/contacto'
 import GaleriaProductos from './home/galeriaProductos'
 import Footer from './components/footer/footer'
 import Reviews from './home/reviews'
+import Whatsapp from './components/whatsapp/whatsapp'
 import { Metadata } from 'next'
 export const metadata: Metadata = {
   title: 'Home',
@@ -27,6 +28,7 @@ export default function Home() {
       <Reviews />
       <GaleriaProductos />
       <Contacto />
+      <Whatsapp />
       <Footer />
     </main>
   )

@@ -4,6 +4,7 @@ import Contactanos from './contactanos'
 import ContactSection from '../components/ContactInfo/ContactSection'
 import VetcareInformation from './vetcareInformation'
 import Footer from '../components/footer/footer'
+import Whatsapp from './../components/whatsapp/whatsapp'
 export const metadata: Metadata = {
   title: 'Contacto',
 }
@@ -17,6 +18,7 @@ export default function Contacto() {
       </div>
       <ContactSection />
       <Footer />
+      <Whatsapp />
     </main>
   )
 }

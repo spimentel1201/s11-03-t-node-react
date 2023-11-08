@@ -3,6 +3,7 @@ import ServiceCardsContainer from "./components/ServiceCardsContainer";
 import ContactSection from "../components/ContactInfo/ContactSection";
 import Footer from "../components/footer/footer";
 import NuestroTeam from "../home/nuestroTeam";
+import Whatsapp from './../components/whatsapp/whatsapp'
 
 export default function Servicios() {
   return (
@@ -21,6 +22,7 @@ export default function Servicios() {
       </div>
       <NuestroTeam rows={2} />
       <ContactSection />
+      <Whatsapp />
       <Footer />
     </>
   );
